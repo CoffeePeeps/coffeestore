@@ -27,7 +27,8 @@ const init = async () => {
       await db.sync()
     }
     // start listening (and create a 'server' object representing our server)
-    app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
+    // sorry the mixing it up was really bothering me 
+    app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
   } catch (ex) {
     console.log(ex)
   }

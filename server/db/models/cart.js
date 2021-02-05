@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const { STRING, INTEGER, BOOLEAN } = Sequelize;
+const { INTEGER, BOOLEAN } = Sequelize;
 const db = require('../db')
 
 //carts can have a name and description but it does not seem like they need them right away so not using 
@@ -10,14 +10,8 @@ const Cart = db.define('cart', {
         defaultValue: true
     },
     //not sure if the validate is really necessary but why not
-    quantity: {
-        type: INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-        validate: {
-        min: 0
-        }
-    }
+    // so it looks like this will not be here for sequelize to generate a many to many relationship it creates
+    //an intermediary table which will hold the quanitty value
 });
 
 module.exports = Cart
