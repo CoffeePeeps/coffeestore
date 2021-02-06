@@ -1,6 +1,5 @@
-const router = require('express').Router()
-const { models: { User }} = require('../db')
-module.exports = router
+const router = require('express').Router();
+const { User } = require('../db');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -17,7 +16,6 @@ router.get('/', async (req, res, next) => {
 })
 
 // user profile
-// User table: userId, firstName, lastName, email, address, city, country, state, zipCode, phone
 
 // Create user/account
 router.post('/', async (req, res, next) => {
@@ -38,7 +36,7 @@ router.put('/:userId', async(req, res, next) => {
   try {
       const user = await User.findAll({
           where: {
-              userId: req.params.userId
+              id: req.params.userId
           }
       });  
       await user.update(req.body);

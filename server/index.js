@@ -6,13 +6,13 @@
  * keys as environment variables, so that they can still be read by the
  * Node process on process.env
  */
-try {
-  require('../secrets')
-}
-catch(ex){
-  console.log(ex.message);
-  console.log('if you are in your development environment, you can add a secrets.js file where environment variables can be set, if you are in a production environment, make sure to set environment variables');
-}
+// try {
+//   require('../secrets')
+// }
+// catch(ex){
+//   console.log(ex.message);
+//   console.log('if you are in your development environment, you can add a secrets.js file where environment variables can be set, if you are in a production environment, make sure to set environment variables');
+// }
 
 const { db, syncAndSeed } = require('./db')
 const PORT = process.env.PORT || 8080
