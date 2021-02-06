@@ -32,6 +32,10 @@ const Cart_Coffee = db.define('cart_coffee', {
 
 Cart.belongsToMany(Coffee, { through: Cart_Coffee});
 Coffee.belongsToMany(Cart, { through: Cart_Coffee});
+Cart.hasMany(Cart_Coffee);
+Cart_Coffee.belongsTo(Cart);
+Coffee.hasMany(Cart_Coffee);
+Cart_Coffee.belongsTo(Coffee);
 
 // TODO - add a bunch more test data make it more interesting if we want
 const syncAndSeed =  async()=> {
@@ -58,12 +62,14 @@ Coffee.create({name: 'coffee3'})
 Coffee.create({name: 'coffee4'})
 
 //cart test data
-Cart.create({userId: 1})
+Cart.create({userId: 1});
+Cart.create({userId: 2, open: 'false'})
 
 
 //putting things in cart test data
 Cart_Coffee.create({quantity: 10, cartId: 1, coffeeId: 4})
 Cart_Coffee.create({quantity: 7, cartId: 1, coffeeId: 2})
+Cart_Coffee.create({quantity: 5, cartId: 2, coffeeId: 2})
 
 const [cody, murphy] = users;
 const [coffe1, coffee2] = coffees;

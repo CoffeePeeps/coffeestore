@@ -22,3 +22,25 @@ describe('User routes', () => {
     })
   }) // end describe('/api/users')
 }) // end describe('User routes')
+
+// test for future use - making sure deleting product from cart works
+describe('Cart routes', function() {
+  beforeEach(async() => {
+    await syncAndSeed();
+  })
+
+  describe('/api/cart/:userid/:productid', () => {
+
+    it('DELETE /api/cart/:userid/:productid', async () => {
+      const res = await request(app)
+        .delete('/api/cart/1/4')
+        .expect(200)
+
+      expect(res.body).to.be.an('array');
+      expect(res.body.coffeeId).to.equal(4);
+
+    });
+
+  });
+
+});

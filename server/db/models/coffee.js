@@ -29,7 +29,7 @@ const Coffee = db.define('coffee', {
     allowNull: false
   },
   //not sure if the validate is really necessary but why not
-  quantity: {
+  stock: {
     type: INTEGER,
     defaultValue: 0,
     allowNull: false,
@@ -39,5 +39,5 @@ const Coffee = db.define('coffee', {
   }
 })
 
-module.exports = Coffee
+module.exports = Coffee;
 
