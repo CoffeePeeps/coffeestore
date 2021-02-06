@@ -32,6 +32,7 @@ const Cart_Coffee = db.define('cart_coffee', {
 
 Cart.belongsToMany(Coffee, { through: Cart_Coffee});
 Coffee.belongsToMany(Cart, { through: Cart_Coffee});
+// not sure what is happening here
 Cart.hasMany(Cart_Coffee);
 Cart_Coffee.belongsTo(Cart);
 Coffee.hasMany(Cart_Coffee);
@@ -46,30 +47,49 @@ const syncAndSeed =  async()=> {
     User.create({email: 'murphy@email.com', password: '123'})
 ]);
 
-//more test data we will need a lot and we cn be more original just needed to  get it started
-await User.create({email: 'test1@email.com', password: '123'});
-await User.create({email: 'test2@email.com', password: '123'})
+  //more test data we will need a lot and we cn be more original just needed to  get it started
+  await User.create({email: 'test1@email.com', password: '123'});
+  await User.create({email: 'test2@email.com', password: '123'});
+  await User.create({email: 'test3@email.com', password: '123'});
+  await User.create({email: 'test4@email.com', password: '123'});
+  await User.create({email: 'test5@email.com', password: '123'});
+  await User.create({email: 'test6@email.com', password: '123'});
 
-//mimicking the testing user testing ones not actually using this yet 
-const coffees = await Promise.all([
-  Coffee.create({name: 'coffee1'}),
-  Coffee.create({name: 'coffee2'})
-])
+  //mimicking the testing user testing ones not actually using this yet 
+  const coffees = await Promise.all([
+    Coffee.create({name: 'coffee1'}),
+    Coffee.create({name: 'coffee2'})
+  ])
 
-//also more test data, we can also be more original, apperently we do not need an await here, though it might
-//be good practice to put it in..not sure  
-Coffee.create({name: 'coffee3'})
-Coffee.create({name: 'coffee4'})
+  //also more test data, we can also be more original, apperently we do not need an await here, though it might
+  //be good practice to put it in..not sure  
+  await Coffee.create({name: 'coffee3'});
+  await Coffee.create({name: 'coffee4'});
+  await Coffee.create({name: 'coffee5'});
+  await Coffee.create({name: 'coffee6'});
+  await Coffee.create({name: 'coffee7'});
+  await Coffee.create({name: 'coffee8'});
+  await Coffee.create({name: 'coffee9'});
 
 //cart test data
-Cart.create({userId: 1});
-Cart.create({userId: 2, open: 'false'})
+await Cart.create({userId: 1});
+await Cart.create({userId: 2, open: 'false'})
+await Cart.create({userId: 3});
+await Cart.create({userId: 4, open: 'false'})
 
 
 //putting things in cart test data
 Cart_Coffee.create({quantity: 10, cartId: 1, coffeeId: 4})
 Cart_Coffee.create({quantity: 7, cartId: 1, coffeeId: 2})
+
 Cart_Coffee.create({quantity: 5, cartId: 2, coffeeId: 2})
+Cart_Coffee.create({quantity: 5, cartId: 2, coffeeId: 3})
+Cart_Coffee.create({quantity: 5, cartId: 2, coffeeId: 1})  
+
+
+Cart_Coffee.create({quantity: 3, cartId: 3, coffeeId: 6})
+Cart_Coffee.create({quantity: 3, cartId: 3, coffeeId: 7})
+Cart_Coffee.create({quantity: 3, cartId: 3, coffeeId: 8})
 
 const [cody, murphy] = users;
 const [coffe1, coffee2] = coffees;

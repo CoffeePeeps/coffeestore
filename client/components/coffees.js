@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+// this is just stolen from past projects it will probably need to be modified but we are just trting to display all our coffee 
+
 const Coffees = ( {coffees} ) => {
     // console.log(coffees);
     
