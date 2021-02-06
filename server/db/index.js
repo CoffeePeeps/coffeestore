@@ -18,6 +18,7 @@ Cart.belongsTo(User);
 //Sequelize will create a new table that takes the id from each connected table but we also want a quantity 
 //field so we to define the table with the quantity field here will mov it to it's own file but wanted you guys
 // to see it first :) 
+// TODO - Put this in it's own file and import it
 const Cart_Product = db.define('cart_product', {
   quantity: {
     type: Sequelize.INTEGER,
@@ -32,7 +33,7 @@ const Cart_Product = db.define('cart_product', {
 Cart.belongsToMany(Product, { through: Cart_Product});
 Product.belongsToMany(Cart, { through: Cart_Product});
 
-
+// TODO - add a bunch more test data make it more interesting if we want
 const syncAndSeed =  async()=> {
   await db.sync({force: true})
   //so these were made for testing
