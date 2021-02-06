@@ -17,6 +17,15 @@ const User = db.define('user', {
   },
   githubId: {
     type: Sequelize.INTEGER
+  },
+  //not sure if is good to call column type so used way to long typeOfUser
+  // they mention something about an engineer but I feel like that is probably not something 
+  // you log into.. we may need a guest.. not really sure how to handle that and think it can
+  // wait till later.  The admin should be able to see all users and products and modify them
+  // from the webpage
+  typeOfUser: {
+    type: Sequelize.ENUM('CUSTOMER', 'ADMIN'),
+    defaultValue: 'CUSTOMER'
   }
 })
 
