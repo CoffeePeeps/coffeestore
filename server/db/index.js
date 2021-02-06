@@ -6,7 +6,7 @@ const db = require('./db')
 const Sequelize = require('sequelize')
 
 const User = require('./models/user');
-const Product = require('./models/product');
+const Coffee = require('./models/coffee');
 const Cart = require('./models/cart');
 
 //associations could go here!
@@ -19,7 +19,7 @@ Cart.belongsTo(User);
 //field so we to define the table with the quantity field here will mov it to it's own file but wanted you guys
 // to see it first :) 
 // TODO - Put this in it's own file and import it
-const Cart_Product = db.define('cart_product', {
+const Cart_Coffee = db.define('cart_coffee', {
   quantity: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
@@ -30,8 +30,8 @@ const Cart_Product = db.define('cart_product', {
 }
 }, { timestamps: false });
 
-Cart.belongsToMany(Product, { through: Cart_Product});
-Product.belongsToMany(Cart, { through: Cart_Product});
+Cart.belongsToMany(Coffee, { through: Cart_Coffee});
+Coffee.belongsToMany(Cart, { through: Cart_Coffee});
 
 // TODO - add a bunch more test data make it more interesting if we want
 const syncAndSeed =  async()=> {
@@ -47,33 +47,33 @@ await User.create({email: 'test1@email.com', password: '123'});
 await User.create({email: 'test2@email.com', password: '123'})
 
 //mimicking the testing user testing ones not actually using this yet 
-const products = await Promise.all([
-  Product.create({name: 'coffee1'}),
-  Product.create({name: 'coffee2'})
+const coffees = await Promise.all([
+  Coffee.create({name: 'coffee1'}),
+  Coffee.create({name: 'coffee2'})
 ])
 
 //also more test data, we can also be more original, apperently we do not need an await here, though it might
 //be good practice to put it in..not sure  
-Product.create({name: 'coffee3'})
-Product.create({name: 'coffee4'})
+Coffee.create({name: 'coffee3'})
+Coffee.create({name: 'coffee4'})
 
 //cart test data
 Cart.create({userId: 1})
 
 
 //putting things in cart test data
-Cart_Product.create({quantity: 10, cartId: 1, productId: 4})
-Cart_Product.create({quantity: 7, cartId: 1, productId: 2})
+Cart_Coffee.create({quantity: 10, cartId: 1, coffeeId: 4})
+Cart_Coffee.create({quantity: 7, cartId: 1, coffeeId: 2})
 
 const [cody, murphy] = users;
-const [coffe1, coffee2] = products;
+const [coffe1, coffee2] = coffees;
 
   return {
     users: {
       cody,
       murphy
     },
-    products: {
+    coffees: {
       coffe1,
       coffee2
     }
@@ -85,8 +85,8 @@ module.exports = {
   syncAndSeed,
   models: {
     User,
-    Product,
+    Coffee,
     Cart,
-    Cart_Product
+    Cart_Coffee
   }
 }

@@ -5,7 +5,7 @@ const db = require('../db')
 //We can rename the table(model) I don't really care what it is called :)
 //but notice we don't put the id, sequelize takes care of that we can use the fancy thing prof like UUID or something
 // but probably better to start off with the default
-const Product = db.define('product', {
+const Coffee = db.define('coffee', {
   name: {
     type: STRING,
     unique: true,
@@ -39,5 +39,5 @@ const Product = db.define('product', {
   }
 })
 
-module.exports = Product
+module.exports = Coffee
 
