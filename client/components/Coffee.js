@@ -1,60 +1,52 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadProducts } from '../store/product'
 
-// this is just stolen from past projects it will probably need to be modified but we are just trting to display all our coffee 
-
-class Coffees extends Component{
-    constructor(props){
-      super(props)
-      this.state = {}
+const Coffee = ({ coffee }) =>{
+    if(!coffee.id){
+        return '...loading coffee';
     }
-  
-    componentDidMount(){
-      this.props.bootstrap()
-    }
-    render(){
-            // console.log(this.props.product)
-            console.log(this.props)
-            const coffees = this.props.product;
-        return(
-    //    ' hi'
-        <div className = { 'list' }>
-            <ul>
-            {  
-                coffees.map( coffee => { 
-                    return (
-                    <li key={ coffee.id }>
-                        <Link to={`/coffees/${ coffee.id }`}>
-                            { coffee.name } 
-                        </Link>
-                    </li>
-                );
-            })
-            }
-        </ul>
+    return(
+        <div>
+            <header>
+                <h1> COFFEE </h1>
+                <h2>{ coffee.name } </h2>
+                <hr />
+            </header>
+            <main>
+                <h4>Details</h4>
+                {student.email && `email: ${student.email}` }
+                <br />
+                {student.gpa && `gpa: ${student.gpa}` }
+                {/* { student.email } ---- { student.gpa } */}
+                <p>{student.school && 'Attends: ' }
+                {student.school ? <Link to ={`/schools/${student.school.id}`}>{student.school.name}</Link>: 'Not enrolled in a school' }</p>
+                <br />
+                <button onClick={()=>destroy(student)}>Delete Student</button>
+                <br />
+                <p><Link to={`/students/${student.id}/update`}>Update Student</Link></p>
+            </main>
         </div>
-    )
+
+        )
 }
-}
 
-const mapStateToProps = (state)=> {
-    return state;
-};
-
-//call loadStudents here, now need to add a load async
-//nick showed me how to simplfy the logic, don't have time to impliment it but hope to go back to it latter  
-const mapDispatchToProps = (dispatch) => {
-    console.log('in bootstrap');
-    return {
-      bootstrap: ()=> {
-        //may need to change the name   
-        
-        dispatch(loadProducts());
-
-      }
-    };
-  }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Coffees);
+export default connect(
+    (state, otherProps)=> {
+        //console.log(otherProps)
+        const student = state.students.find(student => student.id === otherProps.match.params.id * 1) || {};
+        return {
+            student
+            };
+        },
+        (dispatch, { history })=> {
+            return {
+                destroy: (student)=> {
+                    //console.log(student);
+                    dispatch(destroyStudent(student, history));
+                }
+              
+            };
+        }
+    )(Student);
+    
