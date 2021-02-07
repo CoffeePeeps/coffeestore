@@ -18,6 +18,7 @@ router.get('/:userId', async (req, res, next) => {
 
 
 // Shows list of ordered coffees for a given closed cart (aka order) and given user
+// Also pulls coffee information to provide order details
 router.get('/:userId/:cartId', async (req, res, next) => {
     try{     
         const orderedCoffees = await Cart_Coffee.findAll({
@@ -26,8 +27,11 @@ router.get('/:userId/:cartId', async (req, res, next) => {
                 where: {
                     id: req.params.userId,    
                     open: 'false'
-                }
-            }],
+                },
+                include: [
+                    Coffee
+                ]
+            }]
             
         });
 
