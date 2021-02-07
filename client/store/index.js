@@ -6,9 +6,12 @@ import auth from './auth'
 
 import user from './user'
 
+import product from './product'
+
 const reducer = combineReducers({ 
   auth, 
-  user 
+  user,
+  product
 })
 
 const middleware = composeWithDevTools(
@@ -18,3 +21,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './auth'
+export * from './product'

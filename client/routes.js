@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User} from './components'
+import {Login, Signup, Home, User, Coffee} from './components'
 import {me} from './store'
 
 /**
@@ -17,6 +17,7 @@ class Routes extends Component {
 
     return (
       <div>
+      <div>
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
@@ -31,6 +32,11 @@ class Routes extends Component {
           </Switch>
         )}
       </div>
+          <div>
+            <Coffee />
+          </div>
+
+      </div>    
     )
   }
 }
