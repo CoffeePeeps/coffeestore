@@ -1,44 +1,60 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {cart} from '../store'
 
-const Cart = ({coffeeList}) => {
-  return(
-    <div>
-      <h1>Cart</h1>
+class Cart extends Component{
+  constructor(props){
+    super(props)
+    this.state = {}
+  }
 
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th>QTY</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {coffeeList.map(c => (
-            <tr key={c.id}>
-              <td><button>X</button></td>
-              <td>{c.name}</td>
-              <td>{c.quantity}</td>
-              <td>{c.total}</td>
+  componentDidMount(){
+    this.props.setCart(this.props.auth.id)
+  }
+
+  render(){
+    return(
+      <div>
+        <h1>Cart</h1>
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>QTY</th>
+              <th>Total</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-const mapState = state => {
-  return {
-    coffeeList: [
-      {id: 0, name: "Coffee1", quantity: 1, total: "5.99", currency: "$"},
-      {id: 1, name: "Coffee2", quantity: 10, total: "59.99", currency: "$"},
-      {id: 2, name: "Coffee3", quantity: 4, total: "10.00", currency: "$"},
-      {id: 3, name: "Coffee4", quantity: 3, total: "15.50", currency: "$"}
-    ]
+          </thead>
+          <tbody>
+            {this.props.cartList.map(item => (
+              <tr key={item.coffee.id}>
+                <td><button>X</button></td>
+                <td>{item.coffee.name}</td>
+                <td>{item.quantity}</td>
+                <td>{item.coffee.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
   }
 }
 
-export default connect(mapState)(Cart)
+const mapState = ({auth, cartList}) => {
+  return {
+    auth,
+    cartList
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    setCart(id) {
+      dispatch(cart(id))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(Cart)
