@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loadProducts } from '../store/product'
+import { loadProducts, loadProduct } from '../store/product'
 
 // this is just stolen from past projects it will probably need to be modified but we are just trting to display all our coffee 
 
@@ -9,26 +9,29 @@ class Coffees extends Component{
     constructor(props){
       super(props)
       this.state = {}
+    
+    
     }
   
     componentDidMount(){
       this.props.bootstrap()
     }
     render(){
-            // console.log(this.props.product)
+            console.log('in render in coffees')
             console.log(this.props)
             const coffees = this.props.product;
         return(
-    //    ' hi'
+    //maybe instead of a link it coyuld be a function would I need to send the 
+    // coffee id to the store 
         <div className = { 'list' }>
             <ul>
             {  
                 coffees.map( coffee => { 
                     return (
                     <li key={ coffee.id }>
-                        <Link to={`/coffees/${ coffee.id }`}>
+                        <Link to={`/coffee/${ coffee.id }`}>
                             { coffee.name } 
-                        </Link>
+                        </Link> 
                     </li>
                 );
             })
@@ -38,6 +41,7 @@ class Coffees extends Component{
     )
 }
 }
+
 
 const mapStateToProps = (state)=> {
     return state;
@@ -50,9 +54,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
       bootstrap: ()=> {
         //may need to change the name   
-        
         dispatch(loadProducts());
-
+      },
+      sendCoffeeId: (id)=> {
+        //may need to change the name   
+        console.log(id);
+        dispatch(loadProduct(id));
       }
     };
   }

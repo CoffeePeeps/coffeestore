@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User, Coffees} from './components'
+import {Login, Signup, Home, User, Coffees, Coffee} from './components'
 import {me} from './store'
 
 /**
@@ -16,13 +16,16 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <div>
+
       <div>
         {isLoggedIn ? (
+          <div>
           <Switch>
             <Route path="/home" component={Home} />
+            <Route path="/coffees" component={Coffees}/>
             <Redirect to="/home" />
           </Switch>
+          </div>
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
@@ -32,11 +35,8 @@ class Routes extends Component {
           </Switch>
         )}
       </div>
-          <div>
-            <Coffees />
-          </div>
-
-      </div>    
+         
+ 
     )
   }
 }

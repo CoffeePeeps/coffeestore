@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Coffee = ({ coffee }) =>{
+    console.log("in COFFEE")
     if(!coffee.id){
         return '...loading coffee';
     }
@@ -15,16 +16,10 @@ const Coffee = ({ coffee }) =>{
             </header>
             <main>
                 <h4>Details</h4>
-                {student.email && `email: ${student.email}` }
+                {coffee.description && `description: ${coffee.description}` }
                 <br />
-                {student.gpa && `gpa: ${student.gpa}` }
+                {coffee.price && `price: ${coffee.price}` }
                 {/* { student.email } ---- { student.gpa } */}
-                <p>{student.school && 'Attends: ' }
-                {student.school ? <Link to ={`/schools/${student.school.id}`}>{student.school.name}</Link>: 'Not enrolled in a school' }</p>
-                <br />
-                <button onClick={()=>destroy(student)}>Delete Student</button>
-                <br />
-                <p><Link to={`/students/${student.id}/update`}>Update Student</Link></p>
             </main>
         </div>
 
@@ -33,20 +28,14 @@ const Coffee = ({ coffee }) =>{
 
 export default connect(
     (state, otherProps)=> {
-        //console.log(otherProps)
-        const student = state.students.find(student => student.id === otherProps.match.params.id * 1) || {};
+        console.log('IN COFFEE COMPONENT')
+        console.log(otherProps)
+        const coffee = state.product.find(coffee => coffee.id === otherProps.match.params.id * 1) || {};
+        // const coffee = state.product.find(coffee => coffee.id === 1) || {};
         return {
-            student
+            coffee
             };
-        },
-        (dispatch, { history })=> {
-            return {
-                destroy: (student)=> {
-                    //console.log(student);
-                    dispatch(destroyStudent(student, history));
-                }
-              
-            };
-        }
-    )(Student);
+        },null
+        
+    )(Coffee);
     
