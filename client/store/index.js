@@ -11,11 +11,8 @@ import product from './product'
 const reducer = combineReducers({ 
   auth, 
   user,
-<<<<<<< HEAD
-  cartList: cart
-=======
+  cartList: cart,
   product
->>>>>>> coffee-store-component
 })
 
 const middleware = composeWithDevTools(
@@ -25,8 +22,5 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './auth'
-<<<<<<< HEAD
 export * from "./cart"
-=======
 export * from './product'
->>>>>>> coffee-store-component

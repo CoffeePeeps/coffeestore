@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-require("dotenv").config();
-=======
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -10,7 +7,6 @@ require("dotenv").config();
  * Node process on process.env
  */
 require('dotenv').config();
->>>>>>> coffee-store-component
 
 const { db, syncAndSeed } = require('./db')
 const PORT = process.env.PORT || 8080

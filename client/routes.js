@@ -1,11 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-<<<<<<< HEAD
-import {Login, Signup, Home, Cart, User} from './components'
-=======
 import {Login, Signup, Home, User, Coffees, Coffee} from './components'
->>>>>>> coffee-store-component
 import {me} from './store'
 
 /**

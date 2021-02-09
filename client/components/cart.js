@@ -9,6 +9,7 @@ class Cart extends Component{
   }
 
   componentDidMount(){
+    console.log('-----------CART---------------')
     this.props.setCart(this.props.auth.id)
   }
 
