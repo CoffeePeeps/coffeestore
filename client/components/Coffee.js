@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+// so I can't figure out how to use the hashchange 
+//this will now need to be a component so I can have a function :)
 const Coffee = ({ coffee }) =>{
     console.log("in COFFEE")
     if(!coffee.id){
@@ -20,6 +22,7 @@ const Coffee = ({ coffee }) =>{
                 <br />
                 {coffee.price && `price: ${coffee.price}` }
                 {/* { student.email } ---- { student.gpa } */}
+                <button onClick = {()=> console.log('hi')}>add to cart</button>
             </main>
         </div>
 

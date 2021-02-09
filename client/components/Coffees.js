@@ -22,7 +22,8 @@ class Coffees extends Component{
             const coffees = this.props.product;
         return(
     //maybe instead of a link it coyuld be a function would I need to send the 
-    // coffee id to the store 
+    // coffee id to the store so made a function but then moved this to the navbar
+    //but still not sure how to make it work so will probably need to remake the function
         <div className = { 'list' }>
             <ul>
             {  
@@ -41,7 +42,8 @@ class Coffees extends Component{
     )
 }
 }
-
+//maybe a detailed view can just go here?? or at the end of the return statement with
+//an if statement?? 
 
 const mapStateToProps = (state)=> {
     return state;

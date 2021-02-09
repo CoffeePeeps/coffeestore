@@ -18,9 +18,8 @@ export const Home = props => {
       <h3>Welcome, {email}</h3>
    </div>
    <div>
-     {/* <Coffees /> */}
-     {/* <Route path="/products/:id" component={Coffee} /> */}
-     {/* <Coffee /> */}
+     {/* Putting Coffees in home */}
+     <Coffees />
    </div>
    </div>
   )

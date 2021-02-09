@@ -22,9 +22,15 @@ class Routes extends Component {
           <div>
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/coffees" component={Coffees}/>
-            <Redirect to="/home" />
+            {/* could not use hash router with this */}
+            {/* <Redirect to="/home" /> */}
           </Switch>
+
+          {/* so when you first login or refresh the page you go directly
+          to the home page, it's essentially the refresh but still let's use hastchange */}
+          <Route path="/login" component={Home} />
+          <Route path="/coffees" component={Coffees}/>
+          <Route component={ Coffee } path = '/coffee/:id' exact/>
           </div>
         ) : (
           <Switch>
