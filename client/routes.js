@@ -1,7 +1,11 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+<<<<<<< HEAD
 import {Login, Signup, Home, Cart, User} from './components'
+=======
+import {Login, Signup, Home, User, Coffees, Coffee} from './components'
+>>>>>>> coffee-store-component
 import {me} from './store'
 
 /**
@@ -16,13 +20,22 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
+
       <div>
         {isLoggedIn ? (
+          <div>
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/cart" component={Cart}/>
-            <Redirect to="/home" />
+            {/* could not use hash router with this */}
+            {/* <Redirect to="/home" /> */}
           </Switch>
+
+          {/* so when you first login or refresh the page you go directly
+          to the home page, it's essentially the refresh but still let's use hastchange */}
+          <Route path="/login" component={Home} />
+          <Route path="/coffees" component={Coffees}/>
+          <Route component={ Coffee } path = '/coffee/:id' exact/>
+          </div>
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
@@ -32,6 +45,8 @@ class Routes extends Component {
           </Switch>
         )}
       </div>
+         
+ 
     )
   }
 }

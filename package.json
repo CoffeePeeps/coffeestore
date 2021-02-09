@@ -12,7 +12,11 @@
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "set SEED=true && npm run start:dev",
     "start-server": "set JWT=shh && nodemon server -e html,js,scss --ignore public --ignore client",
+<<<<<<< HEAD
     "test": "set NODE_ENV=test set JWT=a_secret && mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
+=======
+    "test": "NODE_ENV=test JWT=a_secret mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" --require @babel/register --require esm ",
+>>>>>>> coffee-store-component
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route"
