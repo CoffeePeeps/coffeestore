@@ -50,8 +50,6 @@ router.delete('/:userId/:productId', async(req, res, next) => {
     });
 
     await coffeeToRemove.destroy();
-
-    // TODO: PLAN B -- change to .sendstatus(204);
     res.sendStatus(200);
 
     } catch(ex) {

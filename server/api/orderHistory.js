@@ -22,7 +22,7 @@ router.get('/:userId', async (req, res, next) => {
 // Also pulls coffee information to provide order details
 router.get('/:userId/:cartId', async (req, res, next) => {
     try{     
-        let orderedCoffees = await Cart_Coffee.findAll({
+        const orderedCoffees = await Cart_Coffee.findAll({
             include: [{
                 model: Cart,
                 where: {
