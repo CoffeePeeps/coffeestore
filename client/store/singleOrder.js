@@ -14,7 +14,6 @@ const setSingleOrder = (order) => {
 
 // Thunks
 export const fetchSingleOrder = (userId, orderId) => {
-    debugger;
     return async(dispatch) => {
         try {
             const order = (await axios.get(`/api/orderHistory/${userId}/${orderId}`)).data;

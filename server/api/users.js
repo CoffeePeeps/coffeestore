@@ -23,7 +23,6 @@ router.get('/:userId', async(req, res, next) => {
               id: req.params.userId
           }
       });  
-      console.log(user);
       res.json(user)
       
       res.status(201);

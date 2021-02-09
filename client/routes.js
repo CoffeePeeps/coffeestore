@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User} from './components'
-import {SingleOrder} from './components/SingleOrder'
+import {Login, Signup, Home, User, SingleOrder} from './components/index'
+// import SingleOrder from './components/SingleOrder'
 import {me} from './store'
 
 /**

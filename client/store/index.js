@@ -9,8 +9,8 @@ import singleOrder from './singleOrder'
 
 const reducer = combineReducers({ 
   auth, 
-  user,
-  singleOrder,
+  user: user,
+  order: singleOrder,
 })
 
 const middleware = composeWithDevTools(

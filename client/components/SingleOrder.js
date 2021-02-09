@@ -23,27 +23,52 @@ export class SingleOrder extends React.Component {
         super(props);
     }
 
-    componentDidMount() {     
-       this.props.loadSingleOrder(this.props.match.params.userId, this.props.match.params.orderId);
-       debugger;
+    componentDidMount() {   
+       this.props.loadSingleOrder(this.props.match.params.userId, this.props.match.params.orderId);       
     }
 
     render() {
+        let orderArr = this.props.order;
 
-        // TODO Validation checks
-        // Define variables
-        let number;
+        console.log(orderArr)
+
+        // TODO: Convert order time
+
+        if (orderArr.length) {
+            return (
+                <div>
+                    <h1>Order Number: {this.props.match.params.orderId}</h1>
+                    <h2>Order Details</h2>
+                    
+                    <h3>Order Date: { orderArr[0].cart.updatedAt }</h3>
+                    {orderArr.map((elem, index) => {
+                        return (
+                         <p key = {index}> </p>   
+                        )
+                    }
+                        
+                    )}
+    
+    
+                </div>
+            )
+        } else {
+            return (
+                <p>Order Does Not Exist - please contact our customer support!</p>
+            )
+        }
+
+        
+
+        // let coffeeName;
+        // let coffeeDescription;
+        // let price;
+        // let quantity;
+        // let total;
+
         console.log(this.props);
 
-
-        return (
-            <div>
-                <h1>Order Number {number}</h1>
-                <h2>Order Details</h2>
-
-
-            </div>
-        )
+        
     }
 }
 
@@ -55,8 +80,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    debugger;
-    return {
+    return { 
         loadSingleOrder(userId, orderId) {
             dispatch(fetchSingleOrder(userId, orderId));
         } 
