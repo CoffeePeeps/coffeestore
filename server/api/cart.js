@@ -10,9 +10,9 @@ router.get('/:userId', async (req, res, next) => {
               model: Cart,
               where: {
                 open: 'true',
-                id: req.params.userId, 
-              }  
-            }],
+                id: req.params.userId,
+              }
+            }, Coffee],
         });
         res.status(201).send(cartItems);
     } catch(ex) {
@@ -41,8 +41,8 @@ router.delete('/:userId/:productId', async(req, res, next) => {
           model: Cart,
           where: {
             open: 'true',
-            id: req.params.userId, 
-          },       
+            id: req.params.userId,
+          },
         }],
         where: {
             coffeeId: req.params.productId
@@ -67,11 +67,11 @@ router.put('/:userId', async(req, res, next) => {
               model: Cart,
               on: {
                 open: 'true',
-                id: req.params.userId, 
+                id: req.params.userId,
               }
             }]
         });
-    
+
         await cartItems.update(req.body);
         res.sendStatus(201);
     }
