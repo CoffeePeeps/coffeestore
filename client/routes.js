@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User, Coffees, Coffee} from './components'
+import {Login, Signup, Home, User, Cart, Coffee} from './components'
 import {me} from './store'
 
 /**
@@ -29,7 +29,7 @@ class Routes extends Component {
           {/* so when you first login or refresh the page you go directly
           to the home page, it's essentially the refresh but still let's use hastchange */}
           <Route path="/login" component={Home} />
-          <Route path="/coffees" component={Coffees}/>
+          <Route path="/cart" component={Cart}/>
           <Route component={ Coffee } path = '/coffee/:id' exact/>
           </div>
         ) : (
