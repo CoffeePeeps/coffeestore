@@ -6,8 +6,8 @@ import auth from './auth'
 import cart from './cart'
 import user from './user'
 
-const reducer = combineReducers({ 
-  auth, 
+const reducer = combineReducers({
+  auth,
   user,
   cartList: cart
 })

@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {cart} from '../store'
+import {cart, delItem} from '../store'
 
 class Cart extends Component{
   constructor(props){
     super(props)
-    this.state = {}
   }
 
   componentDidMount(){
@@ -29,7 +28,11 @@ class Cart extends Component{
           <tbody>
             {this.props.cartList.map(item => (
               <tr key={item.coffee.id}>
-                <td><button>X</button></td>
+                <td>
+                  <button onClick={() => this.props.handleDelete(item.coffee, this.props.auth.id)}>
+                  X
+                  </button>
+                </td>
                 <td>{item.coffee.name}</td>
                 <td>{item.quantity}</td>
                 <td>{item.coffee.price}</td>
@@ -51,8 +54,11 @@ const mapState = ({auth, cartList}) => {
 
 const mapDispatch = dispatch => {
   return {
-    setCart(id) {
-      dispatch(cart(id))
+    setCart(uid) {
+      dispatch(cart(uid))
+    },
+    handleDelete(item, uid){
+      dispatch(delItem(item,uid))
     }
   }
 }
