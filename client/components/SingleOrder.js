@@ -41,34 +41,27 @@ export class SingleOrder extends React.Component {
                     <h2>Order Details</h2>
                     
                     <h3>Order Date: { orderArr[0].cart.updatedAt }</h3>
-                    {orderArr.map((elem, index) => {
-                        return (
-                         <p key = {index}> </p>   
-                        )
-                    }
-                        
-                    )}
-    
-    
+                    { 
+                        orderArr.map((elem, index) => {
+                            return (
+                            <div key = {index}>   
+                            <h4>{ elem.coffeeInfo.name }</h4>   
+                            <p> Description: { elem.coffeeInfo.description } </p>
+                            <p> Price: { elem.coffeeInfo.price } </p>
+                            <p> Quantity: { elem.quantity } </p>
+                            </div>
+                            )
+                        })
+                    }   
+                    <h4> Total: { orderArr.total } </h4>
                 </div>
             )
         } else {
             return (
-                <p>Order Does Not Exist - please contact our customer support!</p>
+                <p>Order Does Not Exist: Please contact our customer support!</p>
             )
         }
-
-        
-
-        // let coffeeName;
-        // let coffeeDescription;
-        // let price;
-        // let quantity;
-        // let total;
-
-        console.log(this.props);
-
-        
+      
     }
 }
 

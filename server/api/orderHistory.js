@@ -34,26 +34,7 @@ router.get('/:userId/:cartId', async (req, res, next) => {
                 }],
             }] 
         });
-
-        // for (let i = 0; i < orderedCoffees.length; i++) {
-
-        //     orderedCoffees[i].cart.coffees = ['hihi'];
-
-        //     // for (let j = 0; j < coffeeArr.length; j++) {
-                
-        //     //     if (coffeeArr[j].id === orderedCoffees[i].coffeeId) {
-        //     //         console.log('THIS IS IT!!!!!')
-        //     //         console.log(coffeeArr[j].dataValues);
-        //     //         // orderedCoffees[i].cart.coffees = coffeeArr[j];
-        //     //         // console.log(orderedCoffees[i].singleCoffee)
-        //     //         orderedCoffees[i].singleCoffee = coffeeArr[j].dataValues;
-        //     //         // console.log(orderedCoffees[i].singleCoffee)
-        //     //     }
-
-        //     // }
-        // }
-
-        
+       
         res.status(201).send(orderedCoffees);
     } catch(ex) {
         next(ex);
