@@ -23,10 +23,8 @@ router.get('/:userId', async(req, res, next) => {
               id: req.params.userId
           }
       });  
-      console.log(user);
       res.json(user)
-      
-      res.status(201);
+      res.sendStatus(201);
   }
   catch(ex) {
       next(ex);
@@ -58,7 +56,7 @@ router.put('/:userId', async(req, res, next) => {
           }
       });  
       await user.update(req.body);
-      res.status(201);
+      res.sendStatus(201);
   }
   catch(ex) {
       next(ex);
