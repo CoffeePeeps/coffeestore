@@ -15,9 +15,9 @@ User.hasMany(Cart);
 Cart.belongsTo(User);
 
 //making a many to many relationship with cart and product. so when we make a many to many relationship
-//Sequelize will create a new table that takes the id from each connected table but we also want a quantity 
+//Sequelize will create a new table that takes the id from each connected table but we also want a quantity
 //field so we to define the table with the quantity field here will mov it to it's own file but wanted you guys
-// to see it first :) 
+// to see it first :)
 // TODO - Put this in it's own file and import it
 const Cart_Coffee = db.define('cart_coffee', {
   quantity: {
@@ -59,14 +59,14 @@ const syncAndSeed =  async()=> {
   await User.create({email: 'test10@email.com', password: '123'});
   await User.create({email: 'test11@email.com', password: '123'});
 
-  //mimicking the testing user testing ones not actually using this yet 
+  //mimicking the testing user testing ones not actually using this yet
   const coffees = await Promise.all([
     await Coffee.create({name: 'coffee1'}),
     await Coffee.create({name: 'coffee2'})
   ]);
 
   //also more test data, we can also be more original, apperently we do not need an await here, though it might
-  //be good practice to put it in..not sure  
+  //be good practice to put it in..not sure
   await Coffee.create({name: 'coffee3'});
   await Coffee.create({name: 'coffee4'});
   await Coffee.create({name: 'coffee5'});
@@ -84,21 +84,21 @@ const syncAndSeed =  async()=> {
   await Cart.create({userId: 1});
   await Cart.create({userId: 2, open: 'false'});
   await Cart.create({userId: 3});
-  await Cart.create({userId: 3, open: 'false'});  
+  await Cart.create({userId: 3, open: 'false'});
   await Cart.create({userId: 5});
   await Cart.create({userId: 5, open: 'false'});
 
   await Cart.create({userId: 6});
   await Cart.create({userId: 6, open: 'false'});
   await Cart.create({userId: 7});
-  await Cart.create({userId: 7, open: 'false'});  
+  await Cart.create({userId: 7, open: 'false'});
   await Cart.create({userId: 8});
   await Cart.create({userId: 8, open: 'false'});
 
   //putting things in cart test data
-  await Cart_Coffee.create({quantity: 10, cartId: 1, coffeeId: 4});  
+  await Cart_Coffee.create({quantity: 10, cartId: 1, coffeeId: 4});
   await Cart_Coffee.create({quantity: 7, cartId: 1, coffeeId: 2});
-  
+
   await Cart_Coffee.create({quantity: 5, cartId: 2, coffeeId: 2});
   await Cart_Coffee.create({quantity: 3, cartId: 2, coffeeId: 1});
   await Cart_Coffee.create({quantity: 3, cartId: 2, coffeeId: 3});
@@ -119,9 +119,9 @@ const syncAndSeed =  async()=> {
   await Cart_Coffee.create({quantity: 12, cartId: 6, coffeeId: 3});
   await Cart_Coffee.create({quantity: 11, cartId: 6, coffeeId: 4});
 
-  await Cart_Coffee.create({quantity: 10, cartId: 7, coffeeId: 11});  
+  await Cart_Coffee.create({quantity: 10, cartId: 7, coffeeId: 11});
   await Cart_Coffee.create({quantity: 7, cartId: 7, coffeeId: 9});
-  
+
   await Cart_Coffee.create({quantity: 1, cartId: 8, coffeeId: 2});
   await Cart_Coffee.create({quantity: 1, cartId: 8, coffeeId: 1});
   await Cart_Coffee.create({quantity: 1, cartId: 8, coffeeId: 3});
