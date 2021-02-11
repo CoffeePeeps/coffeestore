@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadProducts, loadProduct } from "../store/product";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
 
 // this is just stolen from past projects it will probably need to be modified but we are just trting to display all our coffee
 
@@ -24,24 +24,33 @@ class Coffees extends Component {
       // coffee id to the store so made a function but then moved this to the navbar
       //but still not sure how to make it work so will probably need to remake the function
       <div className={"list"}>
-        {coffees.map((coffee) => {
-          return (
-            <Card
-              className="bg-dark text-white"
-              style={{ width: "18rem" }}
-              key={coffee.id}
-            >
-              <Card.Img variant="top" src="holder.js/100px180" />
-              <Card.Body>
-                <Card.Title>
-                  <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
-                </Card.Title>
-                <Card.Text>Place Holder Text Maybe</Card.Text>
-                <Button variant="primary">Add to Cart</Button>
-              </Card.Body>
-            </Card>
-          );
-        })}
+        <Container>
+          <Row>
+            {coffees.map((coffee) => {
+              return (
+                <Col md={4}>
+                  {" "}
+                  <p>
+                    <Card
+                      className="bg-dark text-white"
+                      style={{ width: "18rem" }}
+                      key={coffee.id}
+                    >
+                      <Card.Img variant="top" src="holder.js/100px180" />
+                      <Card.Body>
+                        <Card.Title>
+                          <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
+                        </Card.Title>
+                        <Card.Text>Place Holder Text</Card.Text>
+                        <Button variant="primary">Add to Cart</Button>
+                      </Card.Body>
+                    </Card>
+                  </p>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
       </div>
     );
   }
