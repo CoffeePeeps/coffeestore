@@ -23,7 +23,12 @@ export const cart = (id) => async dispatch => {
   const token = storage().getItem(TOKEN)
   if (token) {
     const res = await axios.get(`/api/cart/${id}`)
-    return dispatch(setCart(res.data))
+    const cartItems = res.data
+    cartItems.total = 0
+    for(let i = 0; i < cartItems.length; i++){
+      cartItems.total += cartItems[i].coffee.price
+    }
+    return dispatch(setCart(cartItems))
   }
 }
 

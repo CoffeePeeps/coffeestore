@@ -40,6 +40,18 @@ class Cart extends Component{
             ))}
           </tbody>
         </table>
+
+        <div>
+          <h1>Total</h1>
+          <div>
+            <p>Subtotal: ${this.props.cartList.total}</p>
+            <p>Shipping: FREE</p>
+            <p>Tax: $0.00</p>
+            <p>Total: ${this.props.cartList.total}</p>
+          </div>
+
+          <button>Checkout</button>
+        </div>
       </div>
     )
   }
