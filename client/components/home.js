@@ -9,8 +9,6 @@ import { Button, Card } from "react-bootstrap";
  * COMPONENT
  */
 export const Home = (props) => {
-  console.log("in home");
-  console.log(props);
   const { email } = props;
 
   return (

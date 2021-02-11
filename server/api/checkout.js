@@ -11,17 +11,26 @@ module.exports = router;
 
 router.put("/:uid/:cartId", async (req, res, next) => {
     try {
-        const cart = await Cart.findOne({
+        let cart = await Cart.findOne({
             where: {userId: req.params.uid, id: req.params.cartId}
         })
 
-        if(req.body.payment === "success"){
-            cart.open = false
-            await Cart.create({userId: req.params.uid})
-            await cart.save()
+        if(cart.open === false){
+            const error = new Error("Cart Alredy Closed")
+            error.status = 400
+            throw error
         }
 
-        res.sendStatus(204)
+        if(req.body.payment === "success"){
+            cart.open = false
+            await cart.save()
+            await Cart.create({userId: req.params.uid})
+            res.sendStatus(204)
+        }else{
+            const error = new Error("Failed Payment")
+            error.status = 402
+            throw error
+        }
     } catch (ex) {
         next(ex)
     }
