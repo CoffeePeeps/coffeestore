@@ -20,11 +20,26 @@ router.get('/:userId', async (req, res, next) => {
     }
 })
 
+//this lets us get the the open cartId for an empty cart 
+router.get('/simple/:userId', async (req, res, next) => {
+  try{
+      const cartId = await Cart.findAll({
+            where: {
+              open: 'true',
+              userId: req.params.userId,
+            }
+          });
+      res.status(201).send(cartId);
+  } catch(ex) {
+      next(ex);
+  }
+})
+
 // Add a new object to cart
 router.post('/', async (req, res, next) => {
     try{
         // TODO: MAKE SURE INFO IN ACTION CREATOR
-        const newCoffee = await Cart.create(req.body);
+        const newCoffee = await Cart_Coffee.create(req.body);
 
         // TODO: ADD IN ATTRIBUTES
         res.status(201).send(newCoffee);

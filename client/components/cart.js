@@ -14,6 +14,7 @@ class Cart extends Component{
   }
 
   render(){
+    console.log('-----------CART---------------')
     return(
       <div>
         <h1>Cart</h1>

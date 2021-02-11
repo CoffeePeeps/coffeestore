@@ -85,6 +85,9 @@ const syncAndSeed =  async()=> {
   await Cart.create({userId: 2, open: 'false'});
   await Cart.create({userId: 3});
   await Cart.create({userId: 3, open: 'false'});
+  
+  await Cart.create({userId: 4});
+  
   await Cart.create({userId: 5});
   await Cart.create({userId: 5, open: 'false'});
 
@@ -94,6 +97,9 @@ const syncAndSeed =  async()=> {
   await Cart.create({userId: 7, open: 'false'});
   await Cart.create({userId: 8});
   await Cart.create({userId: 8, open: 'false'});
+
+  await Cart.create({userId: 9});
+
 
   //putting things in cart test data
   await Cart_Coffee.create({quantity: 10, cartId: 1, coffeeId: 4});
