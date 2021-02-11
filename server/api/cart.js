@@ -48,8 +48,11 @@ router.delete('/:userId/:productId', async(req, res, next) => {
             coffeeId: req.params.productId
           }
     });
-
     await coffeeToRemove.destroy();
+
+
+    // TODO: PLAN B -- change to .sendstatus(204);
+
     res.sendStatus(200);
 
     } catch(ex) {
@@ -60,7 +63,6 @@ router.delete('/:userId/:productId', async(req, res, next) => {
 
 // Update existing object in cart (quantity)
 router.put('/:userId', async(req, res, next) => {
-
     try {
         const cartItems = await Cart_Coffee.findAll({
             include: [{
