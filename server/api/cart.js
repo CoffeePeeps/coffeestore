@@ -50,7 +50,9 @@ router.delete('/:userId/:productId', async(req, res, next) => {
     });
     await coffeeToRemove.destroy();
 
+
     // TODO: PLAN B -- change to .sendstatus(204);
+
     res.sendStatus(200);
 
     } catch(ex) {
@@ -73,7 +75,7 @@ router.put('/:userId', async(req, res, next) => {
         });
 
         await cartItems.update(req.body);
-        res.status(201);
+        res.sendStatus(201);
     }
 
     catch(ex) {
