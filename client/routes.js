@@ -20,19 +20,13 @@ class Routes extends Component {
 
       <div>
         {isLoggedIn ? (
-          <div>
           <Switch>
             <Route path="/home" component={Home} />
-            {/* could not use hash router with this */}
             {/* <Redirect to="/home" /> */}
+            <Route path="/login" component={Home} />
+            <Route path="/cart" component={Cart}/>
+            <Route component={ Coffee } path = '/coffee/:id' exact/>
           </Switch>
-
-          {/* so when you first login or refresh the page you go directly
-          to the home page, it's essentially the refresh but still let's use hastchange */}
-          <Route path="/login" component={Home} />
-          <Route path="/cart" component={Cart}/>
-          <Route component={ Coffee } path = '/coffee/:id' exact/>
-          </div>
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
@@ -45,8 +39,8 @@ class Routes extends Component {
           </Switch>
         )}
       </div>
-         
- 
+
+
     )
   }
 }
