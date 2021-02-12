@@ -24,7 +24,6 @@ router.put("/:uid/:cartId", async (req, res, next) => {
         if(req.body.payment === "success"){
             cart.open = false
             await cart.save()
-            await Cart.create({userId: req.params.uid})
             res.sendStatus(204)
         }else{
             const error = new Error("Failed Payment")
