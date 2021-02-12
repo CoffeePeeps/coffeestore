@@ -21,6 +21,17 @@ export class AdminSingleProductView extends React.Component {
 
     componentDidMount() {
         this.props._loadProduct(this.props.match.params.coffeeId);
+        let coffeeId = this.props.match.params.coffeeId;
+        let coffeeVar = coffeeId-1;
+        if (this.props.product[coffeeVar]) {
+            this.setState({
+                name: this.props.product[coffeeVar].name,
+                description: this.props.product[coffeeVar].description,
+                stock: this.props.product[coffeeVar].stock,
+                price: this.props.product[coffeeVar].price,
+                imageURL: this.props.product[coffeeVar].imageURL,
+            })
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -37,7 +48,6 @@ export class AdminSingleProductView extends React.Component {
     }
 
     handleClick(event) {
-        console.log(event.target)
         this.setState({ [event.target.name]: event.target.value }) 
     }
 
