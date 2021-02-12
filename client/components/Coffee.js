@@ -1,58 +1,92 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import {cart, loadOpenCart} from '../store'
+import {cart, loadOpenCart, createCart, addNewCoffee} from '../store'
 
-// so I can't figure out how to use the hashchange 
 //this will now need to be a component so I can have a function :) probably 
 //need to make refresh better
 
 class Coffee extends Component{
     constructor(props){
       super(props)
-      this.state = {}
+      this.state = {};
     
-    
+        //not enitrely sure if this is needed 
+      this.putInCart = this.putInCart.bind(this);
+      this.doesUserhaveCart = this.doesUserhaveCart.bind(this);
     }
-
-// const Coffee = ({ coffee, state }) =>{
-//     console.log("in COFFEE")
-//     //so from state i can get auth which give me user id so then I need to check for an
-//     // open cart 
-//     console.log(state);
-// should I just load coffee??
     
 componentDidMount(){
-    //this.props.bootstrap()
-    console.log("---------------in COFFEE---------------");
-    console.log(this.props.state);
-    // const coffee = this.props.coffee;
-    // if users has carts this get it
-    //this is am api call to see if the user has an open cart 
-    this.props.setCart(this.props.state.auth.id)
-    this.putInCart = this.putInCart.bind(this);
+    // console.log("---------------in COFFEE---------------");
+    // console.log(this.props.state);
+
+    //will get a cart with things in it, saved as cartList in store 
+    this.props.setCart(this.props.auth.id)
+    // will check for open cart saved as newCart in store, needed in case cart is empty 
+    this.props.checkForCart(this.props.auth.id);
+    console.log(this.props);
   }
 
-  //need a function to find open cart or should I just try and assume we have an open cart
-  //and woukld this be better done in the server 
+  doesUserhaveCart(){
+      
+        // just check to see if there is a cart 
+        let cart = this.props.newCart;
+        if (cart){
+            // create new cart
+             this.props.createNewCart(this.props.auth.id);
+             //is this like a refresh??
+            // this.props.checkForCart(this.props.auth.id);
+        }
+      
+        
+    }
 
   putInCart(coffeeId){
-      
+    
     //need cartId, coffeId, and quantity
-    //have coffeId and Quantity van get cartId from userId   
-    //if there is an open cart
-        console.log(this.props.checkForCart(this.props.state.auth.id)); 
-        //check to see if product is in it 
-            //if it is add to quantity
-            //else make a post request to cart_products with cartId and productId
-    //else create a cart and make a post request to cart_products with cartId and productId 
+        console.log('--------------PutInCart------------------'); 
+ 
+        this.doesUserhaveCart();
 
+        this.props.checkForCart(this.props.auth.id);
+
+        console.log(this.props)
+        const cartList = this.props.cartList;
+        //assume it's not in cart
+        let newCoffee = true;
+        // check to see if it is in the cart
+        for (let i=0; i<cartList.length; i++){
+            console.log(cartList[i].coffeeId);
+            if(cartList[i].coffeeId * 1 === coffeeId * 1){
+                // console.log('you already have it')
+                newCoffee = false;
+            }
+        }
+
+        // the user does not have the coffee so add it, quantity is hard coded for now
+        if (newCoffee){
+            this.props.addNewCoffee(1, this.props.newCart.id, coffeeId);
+            // is this needed??
+            this.props.setCart(this.props.auth.id)
+        }
+        
+        //TO-DO add to an already existing quantity
+
+         
+        console.log(this.props)
 }
 
   render(){
-          console.log('in render in coffee');
-          console.log(this.props.state.cartList);
-          const coffee = this.props.coffee;
+        console.log('in render in coffee');
+    
+        console.log(this.props);
+        const coffee = this.props.coffee;
+ 
+
+        // //if the length is still zero they do not have a cart
+        // if (cart.length === 0){
+        //     //see if the users just has an empty cart 
+        //     console.log('User has no cart');
+        // }
 
     if(!coffee.id){
         return '...loading coffee';
@@ -71,21 +105,26 @@ componentDidMount(){
                 {coffee.price && `price: ${coffee.price}` }
                 <button onClick = {()=> this.putInCart(`${coffee.id}`)}>add to cart</button>
             </main>
+            <a href = '/'>back to main page</a>
         </div>
 
         )
 }
 }
 export default connect(
-    (state, otherProps)=> {
-        console.log('IN COFFEE COMPONENT')
-        console.log(otherProps)
-        const coffee = state.product.find(coffee => coffee.id === otherProps.match.params.id * 1) || {};
+    ( {auth, newCart, cartList, product}, otherProps)=> {
+        // console.log('IN COFFEE COMPONENT')
+        // console.log(otherProps)
+        const coffee = product.find(coffee => coffee.id === otherProps.match.params.id * 1) || {};
         // const coffee = state.product.find(coffee => coffee.id === 1) || {};
         return {
             coffee,
             // so I could get the auth, probably a better way to do it 
-            state
+            // state,
+            auth,
+            newCart,
+            cartList,
+            product
             };
         },(dispatch) => {  
             return {
@@ -95,7 +134,14 @@ export default connect(
             },
             checkForCart(userId){
                 dispatch(loadOpenCart(userId))
+            },
+            createNewCart(userId){
+                dispatch(createCart(userId))
+            },
+            addNewCoffee(quantity, cartId, coffeeId){
+                dispatch(addNewCoffee(quantity, cartId, coffeeId))
             }
+
           }
         }
         

@@ -24,7 +24,7 @@ const _loadProduct = (product) =>{
 //not sure if a try catch is needed here, I don't think it hurts but pretty
 //sure prof did not use them would like to know the differnce
 export const loadProducts = () =>{
-    console.log('in thunk');
+    // console.log('in thunk');
     return async(dispatch)=>{
         const products = (await axios.get('/api/products')).data;
         
@@ -33,7 +33,7 @@ export const loadProducts = () =>{
 };
 
 export const loadProduct = (id) =>{
-    console.log('in thunk');
+    // console.log('in thunk');
     return async(dispatch)=>{
         const product = (await axios.get(`/api/products/${id}`)).data;
         
@@ -44,8 +44,8 @@ export const loadProduct = (id) =>{
 // Reducer
 //state is not an array??
 export default function(state = [], action) {
-    console.log('in reducer');
-    console.log(action)
+    // console.log('in reducer');
+    // console.log(action)
     switch (action.type) {   
         case LOAD_PRODUCTS:
             return action.products;

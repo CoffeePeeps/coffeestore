@@ -1,14 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import Coffees from './Coffees'
-import Coffee from './Coffee'
 
 /**
  * COMPONENT
  */
 export const Home = props => {
-  console.log('in home')
+  // console.log('in home')
   console.log(props)
   const {email} = props
 
@@ -30,8 +28,11 @@ export const Home = props => {
  */
 const mapState = state => {
   return {
-    email: state.auth.email
+    email: state.auth.email,
+    newCart: state.auth.newCart,
   }
 }
+
+
 
 export default connect(mapState)(Home)

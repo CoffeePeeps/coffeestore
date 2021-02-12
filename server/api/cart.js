@@ -10,7 +10,8 @@ router.get('/:userId', async (req, res, next) => {
               model: Cart,
               where: {
                 open: 'true',
-                id: req.params.userId,
+                // changed this from id to userId
+                userId: req.params.userId,
               }
             }, Coffee],
         });
@@ -23,13 +24,26 @@ router.get('/:userId', async (req, res, next) => {
 //this lets us get the the open cartId for an empty cart 
 router.get('/simple/:userId', async (req, res, next) => {
   try{
-      const cartId = await Cart.findAll({
+      const cartId = await Cart.findOne({
             where: {
               open: 'true',
               userId: req.params.userId,
             }
           });
       res.status(201).send(cartId);
+  } catch(ex) {
+      next(ex);
+  }
+})
+
+// Add new cart
+router.post('/newCart', async (req, res, next) => {
+  try{
+      // TODO: MAKE SURE INFO IN ACTION CREATOR
+      const newCart = await Cart.create(req.body);
+
+      // TODO: ADD IN ATTRIBUTES
+      res.status(201).send(newCart);
   } catch(ex) {
       next(ex);
   }
