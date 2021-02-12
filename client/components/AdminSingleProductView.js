@@ -21,8 +21,12 @@ export class AdminSingleProductView extends React.Component {
 
     componentDidMount() {
         this.props._loadProduct(this.props.match.params.coffeeId);
+
+        //variable to track which offee to refernce in the product (all coffees) array
         let coffeeId = this.props.match.params.coffeeId;
         let coffeeVar = coffeeId-1;
+
+        // This sets the state so that coffee info loads when you link to it from the admin all coffees page
         if (this.props.product[coffeeVar]) {
             this.setState({
                 name: this.props.product[coffeeVar].name,
@@ -36,6 +40,7 @@ export class AdminSingleProductView extends React.Component {
 
     componentDidUpdate(prevProps) {
         
+        // This updates the state after an edit is 'Saved' (via the 'Save' button)
         if (this.props.product[0] && !prevProps.product[0]) {
             this.setState({
                 name: this.props.product[0].name,
