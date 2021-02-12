@@ -30,7 +30,7 @@ componentDidMount(){
       
         // just check to see if there is a cart 
         let cart = this.props.newCart;
-        if (cart){
+        if (!cart){
             // create new cart
              this.props.createNewCart(this.props.auth.id);
              //is this like a refresh??
@@ -44,7 +44,8 @@ componentDidMount(){
     
     //need cartId, coffeId, and quantity
         console.log('--------------PutInCart------------------'); 
- 
+
+        //will move this logic into think 
         this.doesUserhaveCart();
 
         this.props.checkForCart(this.props.auth.id);
