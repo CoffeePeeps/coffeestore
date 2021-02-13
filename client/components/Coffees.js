@@ -33,6 +33,7 @@ class Coffees extends Component {
                     {" "}
                     <Card
                       className="bg-dark text-white mt-4"
+                      className="body2 mt-4"
                       style={{ width: "18rem" }}
                       key={coffee.id}
                     >
