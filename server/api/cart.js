@@ -40,6 +40,8 @@ router.get('/simple/:userId', async (req, res, next) => {
 router.post('/newCart', async (req, res, next) => {
   try{
       // TODO: MAKE SURE INFO IN ACTION CREATOR
+      // So right now we don't need an action creator, the cart is created automatically once
+      // the first product is purchased and the store can just use the SET_CART
       const newCart = await Cart.create(req.body);
 
       // TODO: ADD IN ATTRIBUTES

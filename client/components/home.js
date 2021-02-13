@@ -7,7 +7,7 @@ import Coffees from './Coffees'
  */
 export const Home = props => {
   // console.log('in home')
-  console.log(props)
+  // console.log(props)
   const {email} = props
 
   return (
@@ -29,7 +29,6 @@ export const Home = props => {
 const mapState = state => {
   return {
     email: state.auth.email,
-    newCart: state.auth.newCart,
   }
 }
 
