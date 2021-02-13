@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Field, Form } from 'react-final-form'
-
 import { loadProduct, loadUpdatedProduct } from '../store/product'
 
 export class AdminSingleProductView extends React.Component {
