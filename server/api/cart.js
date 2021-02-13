@@ -101,11 +101,11 @@ router.put('/:userId', async(req, res, next) => {
               model: Cart,
               on: {
                 open: 'true',
-                id: req.params.userId,
+                userId: req.params.userId,
               }
             }]
         });
-
+        console.log(cartItems)
         await cartItems.update(req.body);
         res.sendStatus(201);
     }
@@ -115,5 +115,25 @@ router.put('/:userId', async(req, res, next) => {
     }
 
 })
+
+// Update existing object in cart (quantity)
+router.put('/:cartId/:coffeeId', async(req, res, next) => {
+  try {
+      const cartItem = await Cart_Coffee.findOne({
+        where: {cartId: req.params.cartId, coffeeId: req.params.coffeeId}
+      });
+      // console.log(cartItem.quantity);
+      cartItem.quantity += req.body.quantity;
+      // console.log(req.body.quantity)  
+      await cartItem.save();
+      res.sendStatus(201);
+  }
+
+  catch(ex) {
+      next(ex);
+  }
+
+})
+
 
 module.exports = router;
