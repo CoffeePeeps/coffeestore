@@ -1,48 +1,57 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import {
+  Button,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Form,
+  FormControl,
+} from "react-bootstrap";
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>COFFEE COFFE COFFE</h1>
-    <nav>
+const Header = ({ handleClick, isLoggedIn }) => (
+  <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar.Brand href="/home">COFFEE COFFEE COFFEE</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/cart">My Cart</Link>
-        </div>
+        <Nav className="mr-auto">
+          <Nav.Link><Link to="/home">Home</Link></Nav.Link>
+          <Nav.Link href="#" onClick={handleClick}> Logout </Nav.Link>
+          <Nav.Link><Link to="/cart">Cart</Link></Nav.Link>
+        </Nav>
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
+        <Nav className="mr-auto">
+          <Nav.Link><Link to="/home">Home</Link></Nav.Link>
+
+          <NavDropdown title="Login / Sign Up" id="basic-nav-dropdown">
+            <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
+            <NavDropdown.Item ><Link to="/signup">Signup</Link></NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
       )}
-    </nav>
-    <hr />
-  </div>
-)
+      <Form inline></Form>
+    </Navbar.Collapse>
+  </Navbar>
+);
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Header);

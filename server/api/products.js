@@ -49,15 +49,14 @@ router.post('/', async (req, res, next) => {
 
 // Edit product
 router.put('/:productId', async(req, res, next) => {
-
     try {
-        const coffeeToEdit = await Coffee.findAll({
+        const coffeeToEdit = await Coffee.findOne({
             where: {
                 id: req.params.productId
             }
         }); 
         await coffeeToEdit.update(req.body);
-        res.status(201);
+        // res.sendStatus(201);
     } catch(ex) {
         next(ex);
     }
@@ -67,15 +66,13 @@ router.put('/:productId', async(req, res, next) => {
 // Delete product
 router.delete('/:productId', async(req, res, next) => {
     try {
-      const coffeeToRemove = await Coffee.findAll({
+      const coffeeToRemove = await Coffee.findOne({
           where: {
             id: req.params.productId
           }
       });  
       await coffeeToRemove.destroy();
-
-      // TODO: PLAN B -- change to .sendstatus(204);
-      res.status(204);
+      res.sendStatus(204);
 
     } catch(ex) {
         next(ex);

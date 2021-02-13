@@ -67,23 +67,24 @@ router.post('/', async (req, res, next) => {
 // Remove object from cart by joining cart and cart_coffee and pulling coffee table
 router.delete('/:userId/:productId', async(req, res, next) => {
     try {
-      const coffeeToRemove = await Cart_Coffee.findAll({
+      const coffeeToRemove = await Cart_Coffee.findOne({
         include: [{
           model: Cart,
           where: {
             open: 'true',
-            id: req.params.userId,
+            userId: req.params.userId,
           },
         }],
         where: {
             coffeeId: req.params.productId
           }
     });
-
     await coffeeToRemove.destroy();
 
+
     // TODO: PLAN B -- change to .sendstatus(204);
-    res.status(200);
+
+    res.sendStatus(200);
 
     } catch(ex) {
         next(ex);
@@ -93,7 +94,6 @@ router.delete('/:userId/:productId', async(req, res, next) => {
 
 // Update existing object in cart (quantity)
 router.put('/:userId', async(req, res, next) => {
-
     try {
         const cartItems = await Cart_Coffee.findAll({
             include: [{
@@ -106,7 +106,7 @@ router.put('/:userId', async(req, res, next) => {
         });
 
         await cartItems.update(req.body);
-        res.status(201);
+        res.sendStatus(201);
     }
 
     catch(ex) {
