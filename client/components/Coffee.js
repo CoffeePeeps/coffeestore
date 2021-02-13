@@ -21,10 +21,10 @@ class Coffee extends Component{
 
     putInCart(coffeeId){
         
-        //need cartId, coffeId, and quantity
         // console.log('--------------PutInCart------------------'); 
+        // need to be able to change quantity
         this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
-        // console.log(this.props)
+        // should have another function that removes the coffee from the stock 
     }
 
     render(){

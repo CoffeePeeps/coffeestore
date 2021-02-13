@@ -116,7 +116,7 @@ router.put('/:userId', async(req, res, next) => {
 
 })
 
-// Update existing object in cart (quantity)
+// Update existing object in cart (quantity) done slightly differently
 router.put('/:cartId/:coffeeId', async(req, res, next) => {
   try {
       const cartItem = await Cart_Coffee.findOne({
