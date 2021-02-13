@@ -72,6 +72,7 @@ router.delete('/:userId/:productId', async(req, res, next) => {
           model: Cart,
           where: {
             open: 'true',
+            // changed to UserId 
             userId: req.params.userId,
           },
         }],
