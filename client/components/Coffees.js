@@ -16,8 +16,8 @@ class Coffees extends Component {
     this.props.bootstrap();
   }
   render() {
-    console.log("in render in coffees");
-    console.log(this.props);
+    // console.log("in render in coffees");
+    // console.log(this.props);
     const coffees = this.props.product;
     return (
       //maybe instead of a link it coyuld be a function would I need to send the
@@ -69,7 +69,7 @@ const mapStateToProps = (state) => {
 //call loadStudents here, now need to add a load async
 //nick showed me how to simplfy the logic, don't have time to impliment it but hope to go back to it latter
 const mapDispatchToProps = (dispatch) => {
-  console.log("in bootstrap");
+  // console.log("in bootstrap");
   return {
     bootstrap: () => {
       //may need to change the name
@@ -77,7 +77,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendCoffeeId: (id) => {
       //may need to change the name
-      console.log(id);
+      // console.log(id);
       dispatch(loadProduct(id));
     },
   };

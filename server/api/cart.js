@@ -10,7 +10,8 @@ router.get('/:userId', async (req, res, next) => {
               model: Cart,
               where: {
                 open: 'true',
-                id: req.params.userId,
+                // changed this from id to userId
+                userId: req.params.userId,
               }
             }, Coffee],
         });
@@ -20,11 +21,41 @@ router.get('/:userId', async (req, res, next) => {
     }
 })
 
+//this lets us get the the open cartId for an empty cart 
+router.get('/simple/:userId', async (req, res, next) => {
+  try{
+      const cartId = await Cart.findOne({
+            where: {
+              open: 'true',
+              userId: req.params.userId,
+            }
+          });
+      res.status(201).send(cartId);
+  } catch(ex) {
+      next(ex);
+  }
+})
+
+// Add new cart
+router.post('/newCart', async (req, res, next) => {
+  try{
+      // TODO: MAKE SURE INFO IN ACTION CREATOR
+      // So right now we don't need an action creator, the cart is created automatically once
+      // the first product is purchased and the store can just use the SET_CART
+      const newCart = await Cart.create(req.body);
+
+      // TODO: ADD IN ATTRIBUTES
+      res.status(201).send(newCart);
+  } catch(ex) {
+      next(ex);
+  }
+})
+
 // Add a new object to cart
 router.post('/', async (req, res, next) => {
     try{
         // TODO: MAKE SURE INFO IN ACTION CREATOR
-        const newCoffee = await Cart.create(req.body);
+        const newCoffee = await Cart_Coffee.create(req.body);
 
         // TODO: ADD IN ATTRIBUTES
         res.status(201).send(newCoffee);
@@ -41,7 +72,8 @@ router.delete('/:userId/:productId', async(req, res, next) => {
           model: Cart,
           where: {
             open: 'true',
-            id: req.params.userId,
+            // changed to UserId 
+            userId: req.params.userId,
           },
         }],
         where: {
@@ -69,11 +101,11 @@ router.put('/:userId', async(req, res, next) => {
               model: Cart,
               on: {
                 open: 'true',
-                id: req.params.userId,
+                userId: req.params.userId,
               }
             }]
         });
-
+        console.log(cartItems)
         await cartItems.update(req.body);
         res.sendStatus(201);
     }
@@ -83,5 +115,25 @@ router.put('/:userId', async(req, res, next) => {
     }
 
 })
+
+// Update existing object in cart (quantity) done slightly differently
+router.put('/:cartId/:coffeeId', async(req, res, next) => {
+  try {
+      const cartItem = await Cart_Coffee.findOne({
+        where: {cartId: req.params.cartId, coffeeId: req.params.coffeeId}
+      });
+      // console.log(cartItem.quantity);
+      cartItem.quantity += req.body.quantity;
+      // console.log(req.body.quantity)  
+      await cartItem.save();
+      res.sendStatus(201);
+  }
+
+  catch(ex) {
+      next(ex);
+  }
+
+})
+
 
 module.exports = router;
