@@ -10,21 +10,24 @@ const Coffee = ({ coffee }) => {
     return "...loading coffee";
   }
   return (
-    <div>
-      <header>
-        <h1> COFFEE </h1>
-        <h2>{coffee.name} </h2>
-        <hr />
-      </header>
-      <main>
-        <h4>Details</h4>
-        {coffee.description && `description: ${coffee.description}`}
-        <br />
-        {coffee.price && `price: ${coffee.price}`}
-        {/* { student.email } ---- { student.gpa } */}
-        <button onClick={() => console.log("hi")}>add to cart</button>
-      </main>
-    </div>
+    <body>
+      <div>
+        <header>
+          <h1 id="prodDescription"> Product Description ☕ </h1>
+          <h2>{coffee.name} </h2>
+
+          <hr />
+        </header>
+        <main>
+          <h4>Details</h4>
+          {coffee.description && `description: ${coffee.description}`}
+          <br />
+          {coffee.price && `price: ${coffee.price}`}
+          {/* { student.email } ---- { student.gpa } */}
+          <button onClick={() => console.log("hi")}>add to cart</button>
+        </main>
+      </div>
+    </body>
   );
 };
 
