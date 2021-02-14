@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {cart, addNewCoffee} from '../store'
@@ -35,27 +36,35 @@ class Coffee extends Component{
         if(!coffee.id){
             return '...loading coffee';
         }
-        return(
+  
+        return (
+          <body>
             <div>
-                <header>
-                    <h1> COFFEE </h1>
-                    <h2>{ coffee.name } </h2>
-                    <hr />
-                </header>
-                <main>
-                    <h4>Details</h4>
-                    {coffee.description && `description: ${coffee.description}` }
-                    <br />
-                    {coffee.price && `price: ${coffee.price}` }
-                    <button onClick = {()=> this.putInCart(`${coffee.id}`)}>add to cart</button>
+              <header>
+                <h1 id="prodDescription"> Product Description ☕ </h1>
+                <h2>{coffee.name} </h2>
+      
+                <hr />
+              </header>
+              <main>
+                <h4>Details</h4>
+                {coffee.description && `description: ${coffee.description}`}
+                <br />
+                {coffee.price && `price: ${coffee.price}`}
+                {/* { student.email } ---- { student.gpa } */}
+                <button onClick = {()=> this.putInCart(`${coffee.id}`)}>add to cart</button>
                 </main>
                 <a href = '/'>back to main page</a>
             </div>
-
-            )
+          </body>
+        );
+      };  
     }
-}
-
+  
+  
+  
+  
+  
 export default connect(
     ( {auth, cartList, product}, otherProps)=> {
         // console.log('IN COFFEE COMPONENT')

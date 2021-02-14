@@ -28,27 +28,27 @@ class Coffees extends Component {
           <Row>
             {coffees.map((coffee) => {
               return (
-                <div>
+                <div key={coffee.id}>
                   <Col md={4} sm={6}>
                     {" "}
-                    <p>
-                      <Card
-                        className="bg-dark text-white"
-                        style={{ width: "18rem" }}
-                        key={coffee.id}
-                      >
-                        <Card.Img variant="top" src="holder.js/100px180" />
-                        <Card.Body>
-                          <Card.Title>
-                            <Link to={`/coffee/${coffee.id}`}>
-                              {coffee.name}
-                            </Link>{" "}
-                          </Card.Title>
-                          <Card.Text>Place Holder Text</Card.Text>
-                          <Button variant="primary">Add to Cart</Button>
-                        </Card.Body>
-                      </Card>
-                    </p>
+                    <Card
+                      className="bg-dark text-white mt-4"
+                      className="body2 mt-4"
+                      style={{ width: "18rem" }}
+                      key={coffee.id}
+                    >
+                      <Card.Img
+                        variant="top"
+                        src={window.location.origin + "/assets/Coffee1.jpg"}
+                      />
+                      <Card.Body>
+                        <Card.Title>
+                          <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
+                        </Card.Title>
+                        <Card.Text>Place Holder Text</Card.Text>
+                        <Button variant="primary">Add to Cart</Button>
+                      </Card.Body>
+                    </Card>
                   </Col>
                 </div>
               );
