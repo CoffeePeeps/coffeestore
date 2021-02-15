@@ -69,16 +69,16 @@ export const destroyProduct = (coffee) => {
 
 // Reducer
 export default function(state = [], action) {
-    switch (action.type) {
+    switch (action.type) {   
         case LOAD_PRODUCTS:
             return action.products;
         case LOAD_PRODUCT:
-            return action.product;
+            return action.product;  
         case UPDATE_PRODUCT:
             return state.map((product) => {
-                action.product.coffeeId === product.coffeeId
-                ? action.product
-                : product
+                action.product.coffeeId === product.coffeeId 
+                ? action.product 
+                : product 
             })
         case DELETE_PRODUCT:
             return state.filter((coffee) => coffee.id !== action.product.id)

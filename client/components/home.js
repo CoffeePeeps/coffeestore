@@ -14,7 +14,7 @@ export const Home = (props) => {
   return (
     <div>
       <div>
-        <h3>Welcome, {email}</h3>
+        <h3 id="welcome">Welcome, {email}</h3>
       </div>
       <div>
         {/* Putting Coffees in home */}

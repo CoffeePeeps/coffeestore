@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User, SingleOrder, Cart, Coffee} from './components/index'
+import {Login, Signup, Home, User, SingleOrder, Cart, Coffee, 
+        AdminSingleProductView, AdminAllProductView} from './components/index'
 import {me} from './store'
 
 /**
@@ -32,6 +33,8 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/user/:userId" component={User} />
             <Route path="/orderHistory/:userId/:orderId" component={SingleOrder} />
+            <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
+            <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
             <Redirect to="/login" />
           </Switch>
         )}
