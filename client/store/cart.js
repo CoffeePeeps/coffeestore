@@ -26,10 +26,7 @@ export const cart = (userId) => async dispatch => {
   if (token) {
     const res = await axios.get(`/api/cart/${userId}`)
     const cartItems = res.data
-    cartItems.total = 0
-    for(let i = 0; i < cartItems.length; i++){
-      cartItems.total += cartItems[i].coffee.price
-    }
+    cartItems.total = subtotal(cartItems)
     return dispatch(setCart(cartItems))
   }
 }
@@ -58,10 +55,21 @@ export default function(state = [], action) {
     case SET_CART:
       return action.cartList
     case DELETE_ITEM:
-      return state.filter((cart) => cart.coffee.id !== action.item.id)
+      const items = state.filter((cart) => cart.coffee.id !== action.item.id)
+      items.total = subtotal(items)
+      return items
     case CHECKOUT_CART:
       return action.cart
     default:
       return state
   }
+}
+
+const subtotal = arr => {
+  let total = 0
+  for(let i = 0; i < arr.length; i++){
+    total += (arr[i].coffee.price * arr[i].quantity)
+  }
+
+  return Math.round(total*100)/100
 }
