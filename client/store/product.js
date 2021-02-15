@@ -15,6 +15,7 @@ const _loadProducts = (products) =>{
     };
 };
 
+// not sure if we are using 
 const _loadProduct = (product) =>{
     return {
         type: LOAD_PRODUCT,
@@ -57,6 +58,24 @@ export const loadUpdatedProduct = (updatedProduct) => {
     return async(dispatch) => {
         const { update } = await axios.put(`/api/products/${updatedProduct.id}`, updatedProduct);
         dispatch(updateProduct(update))
+    }
+}
+
+export const updatedStock = (stock, coffeeId) => {
+//    console.log(stock)
+//    console.log(coffeeId)
+    return async(dispatch) => {
+  
+        await axios.put(`/api/products/stock/${coffeeId}`, { stock })
+        
+        // const coffee = (await axios.get(`/api/products/${coffeeId}`)).data;
+        // // let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
+        // console.log(coffee[0]);
+        // dispatch(updateProduct(coffee[0]))
+        // this reloads all the products it is overkill but can't get the single 
+        // update working 
+        const products = (await axios.get('/api/products')).data;
+        dispatch(_loadProducts(products));
     }
 }
 

@@ -8,7 +8,11 @@ const { models: { Coffee } } = require('../db');
 
 router.get('/', async (req, res, next) => {
     try{
-        const allCoffee = await Coffee.findAll();
+        const allCoffee = await Coffee.findAll({  
+            order: [
+            ['id', 'ASC'] 
+            ]
+        });
         // TODO: ADD IN ATTRIBUTES
         res.status(201).send(allCoffee);
     } catch(ex) {
@@ -61,6 +65,26 @@ router.put('/:productId', async(req, res, next) => {
         next(ex);
     }
 
+})
+
+// slightly different edit
+router.put('/stock/:productId', async(req, res, next) => {
+    try {
+        const coffeeToEdit = await Coffee.findOne({
+            where: {
+                id: req.params.productId
+            }
+        }); 
+        console.log(coffeeToEdit);
+        coffeeToEdit.stock = req.body.stock;
+        // // console.log(req.body.quantity)  
+        await coffeeToEdit.save();
+        res.sendStatus(201);
+    }
+    catch(ex) {
+        next(ex);
+    }
+  
 })
 
 // Delete product
