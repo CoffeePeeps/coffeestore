@@ -75,7 +75,7 @@ router.put('/stock/:productId', async(req, res, next) => {
                 id: req.params.productId
             }
         }); 
-        console.log(coffeeToEdit);
+        // console.log(coffeeToEdit);
         coffeeToEdit.stock = req.body.stock;
         // // console.log(req.body.quantity)  
         await coffeeToEdit.save();

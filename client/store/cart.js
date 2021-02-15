@@ -77,6 +77,7 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
       // console.log(cart_coffee);
     }
     
+    // this might be overkill
     contents = (await axios.get(`/api/cart/${userId}`)).data;
     dispatch(setCart(contents));
   }

@@ -118,7 +118,7 @@ export default connect(
             },    
             updateStock(stock, coffeeId){
               dispatch(updatedStock(stock, coffeeId))
-          },
+            },
 
             
           }
