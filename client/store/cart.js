@@ -59,6 +59,7 @@ export default function(state = [], action) {
       items.total = subtotal(items)
       return items
     case CHECKOUT_CART:
+      action.cart.total = 0.00
       return action.cart
     default:
       return state
@@ -70,6 +71,6 @@ const subtotal = arr => {
   for(let i = 0; i < arr.length; i++){
     total += (arr[i].coffee.price * arr[i].quantity)
   }
-
+  console.log(arr)
   return Math.round(total*100)/100
 }
