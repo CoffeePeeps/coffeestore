@@ -42,7 +42,6 @@ export const delItem = (item, userId) => async dispatch => {
 
 // should probably be seperated out a bit
 export const addNewCoffee = (quantity, userId, coffeeId) =>{
-  // console.log('in thunk for addnewCoffe');
   return async(dispatch)=>{
     //try and find an open cart for user
     let cart = (await axios.get(`/api/cart/simple/${userId}`)).data;
@@ -70,14 +69,14 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
     // they don't have that kind of coffee in their cart so add it 
     if (newCoffee){
         let cart_coffee = (await axios.post('/api/cart/', { quantity, cartId, coffeeId })).data;
-
+        // TODO ADD_ITEM reducer could be called here
     } else {
-      //need to see how many items are in the cart or will they just let me add 1 to quantity
+      //updates the quanity of coffee in cart
       let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
-      // console.log(cart_coffee);
+      // TODO UPDATE_ITEM could be called here 
     }
     
-    // this might be overkill
+    // reloading the entire cart, it is overkill but it works will refine later 
     contents = (await axios.get(`/api/cart/${userId}`)).data;
     dispatch(setCart(contents));
   }

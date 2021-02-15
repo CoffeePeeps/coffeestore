@@ -17,17 +17,17 @@ class Coffees extends Component {
 
   putInCart(coffeeId, coffeeStock){
     
-
     let stock = coffeeStock - 1;
-    // console.log(quantity);
-    if (stock > 0){
+    // should update the stock of coffee we have in the store
+    if (stock >= 0){
       this.props.updateStock(stock, coffeeId)
     }
     // we are out of stock can't put it in the cart
-    if (coffeeStock > 1) {      
+    if (coffeeStock > 0) {      
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
-    } 
-       
+      //ideally a function for a pop up window would be called to tell user they added to cart
+      
+    }   
   }
 
   render() {
@@ -56,7 +56,12 @@ class Coffees extends Component {
                           <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
                         </Card.Title>
                         <Card.Text>Place Holder Text</Card.Text>
-                        <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button>
+                        { coffee.stock > 0 ? (
+                          <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button> 
+                          ) : (
+                            <p>Out of Stock</p>
+                          )}
+
                       </Card.Body>
                     </Card>
                   </Col>
@@ -76,10 +81,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  // console.log("in bootstrap");
   return {
     bootstrap: () => {
-      //may need to change the name
       dispatch(loadProducts());
     },
     addNewCoffee(quantity, userId, coffeeId){

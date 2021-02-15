@@ -67,7 +67,7 @@ router.put('/:productId', async(req, res, next) => {
 
 })
 
-// slightly different edit
+// slightly different edit it helped me update the stock
 router.put('/stock/:productId', async(req, res, next) => {
     try {
         const coffeeToEdit = await Coffee.findOne({

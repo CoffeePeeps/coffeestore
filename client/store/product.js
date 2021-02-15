@@ -38,8 +38,7 @@ const deleteProduct = (product) => {
 }
 
 // Thunk
-//not sure if a try catch is needed here, I don't think it hurts but pretty
-//sure prof did not use them would like to know the differnce
+// is a try catch needed?? Don't think prof used them
 export const loadProducts = () =>{
     return async(dispatch)=>{
         const products = (await axios.get('/api/products')).data;
@@ -65,15 +64,16 @@ export const updatedStock = (stock, coffeeId) => {
 //    console.log(stock)
 //    console.log(coffeeId)
     return async(dispatch) => {
-  
+        
+        // this updates the coffee
         await axios.put(`/api/products/stock/${coffeeId}`, { stock })
         
+
+        // so for this just seems to be brackets in UPDATE_PRODUCT that causes it to fail
         // const coffee = (await axios.get(`/api/products/${coffeeId}`)).data;
-        // // let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
         // console.log(coffee[0]);
         // dispatch(updateProduct(coffee[0]))
-        // this reloads all the products it is overkill but can't get the single 
-        // update working 
+        // just reloading all product for the moment, can change once we discuss UPDATE_PRODUCT 
         const products = (await axios.get('/api/products')).data;
         dispatch(_loadProducts(products));
     }
