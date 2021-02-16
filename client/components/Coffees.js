@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { loadProducts, loadProduct } from "../store/product";
+import { loadProducts } from "../store/product";
 import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
-
-// this is just stolen from past projects it will probably need to be modified but we are just trting to display all our coffee
+import {addNewCoffee, updatedStock} from '../store'
 
 class Coffees extends Component {
   constructor(props) {
@@ -15,40 +14,56 @@ class Coffees extends Component {
   componentDidMount() {
     this.props.bootstrap();
   }
+
+  putInCart(coffeeId, coffeeStock){
+    
+    let stock = coffeeStock - 1;
+    // should update the stock of coffee we have in the store
+    if (stock >= 0){
+      this.props.updateStock(stock, coffeeId)
+    }
+    // we are out of stock can't put it in the cart
+    if (coffeeStock > 0) {      
+      this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
+      //ideally a function for a pop up window would be called to tell user they added to cart
+      
+    }   
+  }
+
   render() {
-    console.log("in render in coffees");
-    console.log(this.props);
     const coffees = this.props.product;
     return (
-      //maybe instead of a link it coyuld be a function would I need to send the
-      // coffee id to the store so made a function but then moved this to the navbar
-      //but still not sure how to make it work so will probably need to remake the function
       <div className={"list"}>
         <Container>
           <Row>
             {coffees.map((coffee) => {
               return (
-                <div>
+                <div key={coffee.id}>
                   <Col md={4} sm={6}>
                     {" "}
-                    <p>
-                      <Card
-                        className="bg-dark text-white"
-                        style={{ width: "18rem" }}
-                        key={coffee.id}
-                      >
-                        <Card.Img variant="top" src="holder.js/100px180" />
-                        <Card.Body>
-                          <Card.Title>
-                            <Link to={`/coffee/${coffee.id}`}>
-                              {coffee.name}
-                            </Link>{" "}
-                          </Card.Title>
-                          <Card.Text>Place Holder Text</Card.Text>
-                          <Button variant="primary">Add to Cart</Button>
-                        </Card.Body>
-                      </Card>
-                    </p>
+                    <Card
+                      className="bg-dark text-white mt-4"
+                      className="body2 mt-4"
+                      style={{ width: "18rem" }}
+                      key={coffee.id}
+                    >
+                      <Card.Img
+                        variant="top"
+                        src={window.location.origin + "/assets/Coffee1.jpg"}
+                      />
+                      <Card.Body>
+                        <Card.Title>
+                          <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
+                        </Card.Title>
+                        <Card.Text>Place Holder Text</Card.Text>
+                        { coffee.stock > 0 ? (
+                          <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button> 
+                          ) : (
+                            <p>Out of Stock</p>
+                          )}
+
+                      </Card.Body>
+                    </Card>
                   </Col>
                 </div>
               );
@@ -59,27 +74,23 @@ class Coffees extends Component {
     );
   }
 }
-//maybe a detailed view can just go here?? or at the end of the return statement with
-//an if statement??
+
 
 const mapStateToProps = (state) => {
   return state;
 };
 
-//call loadStudents here, now need to add a load async
-//nick showed me how to simplfy the logic, don't have time to impliment it but hope to go back to it latter
 const mapDispatchToProps = (dispatch) => {
-  console.log("in bootstrap");
   return {
     bootstrap: () => {
-      //may need to change the name
       dispatch(loadProducts());
     },
-    sendCoffeeId: (id) => {
-      //may need to change the name
-      console.log(id);
-      dispatch(loadProduct(id));
+    addNewCoffee(quantity, userId, coffeeId){
+      dispatch(addNewCoffee(quantity, userId, coffeeId))
     },
+    updateStock(stock, coffeeId){
+      dispatch(updatedStock(stock, coffeeId))
+    },  
   };
 };
 
