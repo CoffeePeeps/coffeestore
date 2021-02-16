@@ -16,7 +16,6 @@ const CHECKOUT_CART = "CHECKOUT_CART"
  */
 const setCart = cartList => ({type: SET_CART, cartList})
 const deleteCart = item => ({type: DELETE_ITEM, item})
-const checkoutCart = cart => ({type: CHECKOUT_CART, cart})
 
 /**
  * THUNK CREATORS
@@ -43,7 +42,7 @@ export const checkoutItem = (cartId, userId , body) => async dispatch => {
   const token = storage().getItem(TOKEN)
   if(token){
     await axios.put(`/api/checkout/${userId}/${cartId}`, body)
-    return dispatch(checkoutCart([]))
+    return dispatch(setCart([]))
   }
 }
 
@@ -105,7 +104,7 @@ export default function(state = initState, action) {
       items.total = subtotal(items)
       return {total: subtotal(items), cart: items}
     case CHECKOUT_CART:
-      action.cart.total = 0.00
+      console.log(action, state)
       return action.cart
     default:
       return state

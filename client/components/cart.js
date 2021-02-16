@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {cart, delItem, checkoutItem, addNewCoffee} from '../store'
 
 const Cart = ({auth, cartList, setCart, handleDelete, checkout, updateCoffee}) => {
-  console.log(cartList)
   // basically componentDidMount but for functional components
   useEffect(() => {
     setCart(auth.id)
@@ -35,7 +34,7 @@ const Cart = ({auth, cartList, setCart, handleDelete, checkout, updateCoffee}) =
                 <button onClick={() => updateCoffee(1, auth.id, item.coffeeId)}>+</button>
                 <button disabled={item.quantity === 1 && true} onClick={() => updateCoffee(-1, auth.id, item.coffeeId)}>-</button>
               </td>
-              <td>{item.coffee.price}</td>
+              <td>{(item.coffee.price * item.quantity)}</td>
             </tr>
           ))}
         </tbody>
@@ -51,7 +50,7 @@ const Cart = ({auth, cartList, setCart, handleDelete, checkout, updateCoffee}) =
         </div>
 
         <button onClick={
-          () => checkout(cartList, auth.id)
+          () => checkout(cartList.cart, auth.id)
         }>Checkout</button>
       </div>
 
