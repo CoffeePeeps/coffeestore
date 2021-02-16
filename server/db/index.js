@@ -51,18 +51,22 @@ const syncAndSeed = async () => {
   ]);
 
   //more test data we will need a lot and we cn be more original just needed to  get it started
-  await User.create({ email: "test1@email.com", password: "123" });
-  await User.create({ email: "test2@email.com", password: "123" });
-  await User.create({ email: "test3@email.com", password: "123" });
-  await User.create({ email: "test4@email.com", password: "123" });
-  await User.create({ email: "test5@email.com", password: "123" });
-  await User.create({ email: "test6@email.com", password: "123" });
-  await User.create({ email: "test7@email.com", password: "123" });
-  await User.create({ email: "test8@email.com", password: "123" });
-  await User.create({ email: "test9@email.com", password: "123" });
-  await User.create({ email: "test10@email.com", password: "123" });
-  await User.create({ email: "test11@email.com", password: "123" });
-
+  await User.create({email: 'test1@email.com', password: '123'});
+  await User.create({email: 'test2@email.com', password: '123'});
+  await User.create({email: 'test3@email.com', password: '123'});
+  await User.create({email: 'test4@email.com', password: '123'});
+  await User.create({email: 'test5@email.com', password: '123'});
+  await User.create({email: 'test6@email.com', password: '123'});
+  await User.create({email: 'test7@email.com', password: '123'});
+  await User.create({email: 'test8@email.com', password: '123'});
+  await User.create({email: 'test9@email.com', password: '123'});
+  await User.create({email: 'test10@email.com', password: '123'});
+  await User.create({email: 'test11@email.com', password: '123'});
+  await User.create({email: 'test12@email.com', password: '123'});
+  await User.create({email: 'test13@email.com', password: '123'});
+  await User.create({email: 'test14@email.com', password: '123'});
+  await User.create({email: 'test15@email.com', password: '123'});
+  
   //mimicking the testing user testing ones not actually using this yet
   const coffees = await Promise.all([
     await Coffee.create({ name: "coffee1" }),
@@ -83,19 +87,25 @@ const syncAndSeed = async () => {
   await Coffee.create({ name: "coffee12" });
 
   //cart test data
-  await Cart.create({ userId: 1 });
-  await Cart.create({ userId: 2, open: "false" });
-  await Cart.create({ userId: 3 });
-  await Cart.create({ userId: 3, open: "false" });
-  await Cart.create({ userId: 5 });
-  await Cart.create({ userId: 5, open: "false" });
+  await Cart.create({userId: 1});
+  await Cart.create({userId: 2, open: 'false'});
+  await Cart.create({userId: 3});
+  await Cart.create({userId: 3, open: 'false'});
+  
+  await Cart.create({userId: 4});
+  
+  await Cart.create({userId: 5});
+  await Cart.create({userId: 5, open: 'false'});
 
-  await Cart.create({ userId: 6 });
-  await Cart.create({ userId: 6, open: "false" });
-  await Cart.create({ userId: 7 });
-  await Cart.create({ userId: 7, open: "false" });
-  await Cart.create({ userId: 8 });
-  await Cart.create({ userId: 8, open: "false" });
+  await Cart.create({userId: 6});
+  await Cart.create({userId: 6, open: 'false'});
+  await Cart.create({userId: 7});
+  await Cart.create({userId: 7, open: 'false'});
+  await Cart.create({userId: 8});
+  await Cart.create({userId: 8, open: 'false'});
+
+  await Cart.create({userId: 9});
+
 
   //putting things in cart test data
   await Cart_Coffee.create({ quantity: 10, cartId: 1, coffeeId: 4 });
