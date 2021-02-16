@@ -15,6 +15,8 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props;
+    console.log('HOME PROPS!!')
+    console.log(this.props);
 
     return (
 
@@ -26,13 +28,16 @@ class Routes extends Component {
             <Route path="/login" component={Home} />
             <Route path="/cart" component={Cart}/>
             <Route component={ Coffee } path = '/coffee/:id' exact/>
+            
           </Switch>
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            
             <Route path="/user/:userId" component={User} />
             <Route path="/orderHistory/:userId/:orderId" component={SingleOrder} />
+            
             <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
             <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
             <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
