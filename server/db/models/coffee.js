@@ -31,7 +31,7 @@ const Coffee = db.define('coffee', {
   //not sure if the validate is really necessary but why not
   stock: {
     type: INTEGER,
-    defaultValue: 0,
+    defaultValue: 100,
     allowNull: false,
     validate: {
       min: 0
