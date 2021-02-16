@@ -19,9 +19,12 @@ export class AdminAllProductView extends React.Component {
         
         if (this.props.product) {
             const coffees = this.props.product;
-            console.log(this.state)
             return (
+                
                 <div className = { 'coffees' }>
+                    <Link to = { '/admin/addNewCoffee' }>
+                        <button>Add New Coffee</button>
+                    </Link>
                     <ul>
                     {  
                         coffees.map( coffee => { 

@@ -15,5 +15,6 @@ export {default as Coffees} from './Coffees'
 export {default as Coffee} from './Coffee'
 export {default as AdminSingleProductView} from './AdminSingleProductView'
 export {default as AdminAllProductView} from './AdminAllProductView'
+export {default as AdminAddNewProduct} from './AdminAddNewProduct'
 
 

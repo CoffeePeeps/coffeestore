@@ -66,6 +66,7 @@ const syncAndSeed = async () => {
   await User.create({email: 'test13@email.com', password: '123'});
   await User.create({email: 'test14@email.com', password: '123'});
   await User.create({email: 'test15@email.com', password: '123'});
+  await User.create({ email: "admin1@email.com", password: "123", typeOfUser: 'ADMIN' });
   
   //mimicking the testing user testing ones not actually using this yet
   const coffees = await Promise.all([

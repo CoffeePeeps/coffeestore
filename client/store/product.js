@@ -5,6 +5,7 @@ const LOAD_PRODUCTS = 'LOAD_PRODUCTS'
 const LOAD_PRODUCT = 'LOAD_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
+const CREATE_PRODUCT = 'CREATE_PRODUCT'
 
 
 // Action Creator
@@ -33,6 +34,13 @@ const updateProduct = (product) => {
 const deleteProduct = (product) => {
     return {
         type: DELETE_PRODUCT,
+        product
+    }
+}
+
+const createProduct = (product) => {
+    return {
+        type: CREATE_PRODUCT,
         product
     }
 }
@@ -86,6 +94,14 @@ export const destroyProduct = (coffee) => {
     }
 }
 
+export const addProduct = (product) => {
+    return async(dispatch) => {
+        const newProduct = (await axios.post('/api/products', product)).data;
+        dispatch(createProduct(newProduct.product));
+    }
+
+}
+
 // Reducer
 export default function(state = [], action) {
     switch (action.type) {   
@@ -101,6 +117,8 @@ export default function(state = [], action) {
             })
         case DELETE_PRODUCT:
             return state.filter((coffee) => coffee.id !== action.product.id)
+        case CREATE_PRODUCT:
+            return [...state, action.product]
         default:
             return state;
     }

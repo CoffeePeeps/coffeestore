@@ -43,7 +43,6 @@ router.post('/', async (req, res, next) => {
     try{
         // TODO: MAKE SURE INFO IN ACTION CREATOR
         const newCoffee = await Coffee.create(req.body);
-
         // TODO: ADD IN ATTRIBUTES
         res.status(201).send(newCoffee);
     } catch(ex) {
