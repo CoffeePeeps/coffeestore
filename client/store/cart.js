@@ -83,9 +83,7 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
       let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
       // TODO UPDATE_ITEM could be called here 
     }
-    
-    // reloading the entire cart, it is overkill but it works will refine later 
-    // the cart component isconstantly relaoding the cart so no work needs to be done here
+    // the cart component is constantly relaoding the cart so no work needs to be done here
     // contents = (await axios.get(`/api/cart/${userId}`)).data;
     // dispatch(setCart(contents));
   }
