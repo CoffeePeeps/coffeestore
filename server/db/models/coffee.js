@@ -37,6 +37,7 @@ const Coffee = db.define('coffee', {
       min: 0
     }
   }
+  // TODO ADD Category ENUM, then let people filter it in the front end
 })
 
 module.exports = Coffee;
