@@ -74,13 +74,15 @@ export const updatedStock = (stock, coffeeId) => {
     return async(dispatch) => {
         
         // this updates the coffee
-        await axios.put(`/api/products/stock/${coffeeId}`, { stock })
-        
+        const update = await axios.put(`/api/products/stock/${coffeeId}`, { stock })
+        // this gives me something odd can always make a slightly different UPDATE_PRODUCT 
+        console.log(update);
 
         // so for this just seems to be brackets in UPDATE_PRODUCT that causes it to fail
         // const coffee = (await axios.get(`/api/products/${coffeeId}`)).data;
         // console.log(coffee[0]);
-        // dispatch(updateProduct(coffee[0]))
+        // gets really mad at this 
+        // dispatch(updateProduct(update)
         // just reloading all product for the moment, can change once we discuss UPDATE_PRODUCT 
         const products = (await axios.get('/api/products')).data;
         dispatch(_loadProducts(products));

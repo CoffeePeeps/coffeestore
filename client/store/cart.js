@@ -18,6 +18,7 @@ const setCart = cartList => ({type: SET_CART, cartList})
 const deleteCart = item => ({type: DELETE_ITEM, item})
 const checkoutCart = cart => ({type: CHECKOUT_CART, cart})
 
+
 /**
  * THUNK CREATORS
  */
@@ -84,8 +85,9 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
     }
     
     // reloading the entire cart, it is overkill but it works will refine later 
-    contents = (await axios.get(`/api/cart/${userId}`)).data;
-    dispatch(setCart(contents));
+    // the cart component isconstantly relaoding the cart so no work needs to be done here
+    // contents = (await axios.get(`/api/cart/${userId}`)).data;
+    // dispatch(setCart(contents));
   }
 };
 
