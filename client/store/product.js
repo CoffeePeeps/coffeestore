@@ -15,7 +15,7 @@ const _loadProducts = (products) =>{
     };
 };
 
-// not sure if we are using 
+// not sure if we are using
 const _loadProduct = (product) =>{
     return {
         type: LOAD_PRODUCT,
@@ -61,19 +61,17 @@ export const loadUpdatedProduct = (updatedProduct) => {
 }
 
 export const updatedStock = (stock, coffeeId) => {
-//    console.log(stock)
-//    console.log(coffeeId)
     return async(dispatch) => {
-        
+
         // this updates the coffee
         await axios.put(`/api/products/stock/${coffeeId}`, { stock })
-        
+
 
         // so for this just seems to be brackets in UPDATE_PRODUCT that causes it to fail
         // const coffee = (await axios.get(`/api/products/${coffeeId}`)).data;
         // console.log(coffee[0]);
         // dispatch(updateProduct(coffee[0]))
-        // just reloading all product for the moment, can change once we discuss UPDATE_PRODUCT 
+        // just reloading all product for the moment, can change once we discuss UPDATE_PRODUCT
         const products = (await axios.get('/api/products')).data;
         dispatch(_loadProducts(products));
     }
@@ -88,16 +86,16 @@ export const destroyProduct = (coffee) => {
 
 // Reducer
 export default function(state = [], action) {
-    switch (action.type) {   
+    switch (action.type) {
         case LOAD_PRODUCTS:
             return action.products;
         case LOAD_PRODUCT:
-            return action.product;  
+            return action.product;
         case UPDATE_PRODUCT:
             return state.map((product) => {
-                action.product.coffeeId === product.coffeeId 
-                ? action.product 
-                : product 
+                action.product.coffeeId === product.coffeeId
+                ? action.product
+                : product
             })
         case DELETE_PRODUCT:
             return state.filter((coffee) => coffee.id !== action.product.id)
