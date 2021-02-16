@@ -14,36 +14,42 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props;
+    const {isLoggedIn, isAdmin} = this.props;
     console.log('HOME PROPS!!')
     console.log(this.props);
 
     return (
 
       <div>
-        {isLoggedIn ? (
+        {isAdmin ? (
+        <Switch>
+            <Route path="/home" component={Home} />
+            <Route path="/cart" component={Cart}/>
+            <Route component={ Coffee } path = '/coffee/:id' exact/>
+            <Route path="/user" component={User} />
+            <Route path="/orderHistory/:orderId" component={SingleOrder} />
+            <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
+            <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
+            <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
+        </Switch>  
+        ) 
+        : 
+        (isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart}/>
             <Route component={ Coffee } path = '/coffee/:id' exact/>
+            <Route path="/user" component={User} />
+            <Route path="/orderHistory/:orderId" component={SingleOrder} />
             <Redirect to="/home" />
-          </Switch>
-
-  
+          </Switch>  
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            
-            <Route path="/user/:userId" component={User} />
-            <Route path="/orderHistory/:userId/:orderId" component={SingleOrder} />
-            
-            <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
-            <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
-            <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
             <Redirect to="/login" />
           </Switch>
-        )}
+        ))}
       </div>
 
 
@@ -55,10 +61,12 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = state => {
+  console.log(state);
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    isAdmin: (state.auth.typeOfUser === 'ADMIN')
   }
 }
 
