@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const { STRING, FLOAT, INTEGER } = Sequelize;
+const { STRING, FLOAT, INTEGER, ENUM } = Sequelize;
 const db = require('../db')
 
 //We can rename the table(model) I don't really care what it is called :)
@@ -36,6 +36,10 @@ const Coffee = db.define('coffee', {
     validate: {
       min: 0
     }
+  },
+  category: {
+    type: ENUM('LIGHT', 'DARK'),
+    defaultValue: 'LIGHT'
   }
   // TODO ADD Category ENUM, then let people filter it in the front end
 })

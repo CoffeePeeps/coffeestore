@@ -76,16 +76,27 @@ const syncAndSeed = async () => {
 
   //also more test data, we can also be more original, apperently we do not need an await here, though it might
   //be good practice to put it in..not sure
-  await Coffee.create({ name: "coffee3" });
-  await Coffee.create({ name: "coffee4" });
-  await Coffee.create({ name: "coffee5" });
-  await Coffee.create({ name: "coffee6" });
-  await Coffee.create({ name: "coffee7" });
-  await Coffee.create({ name: "coffee8" });
-  await Coffee.create({ name: "coffee9" });
-  await Coffee.create({ name: "coffee10" });
-  await Coffee.create({ name: "coffee11" });
-  await Coffee.create({ name: "coffee12" });
+  // await Coffee.create({ name: "coffee3" });
+  // await Coffee.create({ name: "coffee4" });
+  // await Coffee.create({ name: "coffee5" });
+  // await Coffee.create({ name: "coffee6" });
+  // await Coffee.create({ name: "coffee7" });
+  // await Coffee.create({ name: "coffee8" });
+  // await Coffee.create({ name: "coffee9" });
+  // await Coffee.create({ name: "coffee10" });
+  // await Coffee.create({ name: "coffee11" });
+  // await Coffee.create({ name: "coffee12" });
+
+  for (let i = 3; i< 13; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name});
+  }
+
+  for (let i =13; i< 23; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name, category: "DARK" });
+  }
+
 
   //cart test data
   await Cart.create({userId: 1});

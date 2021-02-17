@@ -88,6 +88,8 @@ export const updatedStock = (stock, coffeeId) => {
         // console.log(coffee[0]);
         // I don't know why I could not get the updateProduct to work... just copied and modified it slightly 
         dispatch(_updateProductStock(coffee[0]));
+        // const product = (await axios.get(`/api/products/${id}`)).data;
+        // dispatch(_loadProduct(product));
     }
 }
 
@@ -120,10 +122,9 @@ export default function(state = [], action) {
                 : product 
             });
         case UPDATE_PRODUCT_STOCK:
-            return state.map((product) => 
-                action.product.coffeeId === product.coffeeId 
-                ? action.product 
-                : product 
+            return state.map(product => 
+                action.product.id === product.id 
+                ? action.product : product 
             );
         case DELETE_PRODUCT:
             return state.filter((coffee) => coffee.id !== action.product.id);

@@ -8,7 +8,13 @@ import {addNewCoffee, updatedStock} from '../store'
 class Coffees extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      category: '',
+      page: 1
+    };
+  
+    this.onChange = this.onChange.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   componentDidMount() {
@@ -30,10 +36,56 @@ class Coffees extends Component {
     }   
   }
 
+  nextPage(number){
+    
+    console.log(this.state.page);
+    let num = this.state.page + number;
+    this.setState({page: num});  
+  
+  }
+
+  onChange(ev){
+    const change = {};
+    change[ev.target.name] = ev.target.value;
+    this.setState(change);
+  }
+
   render() {
-    const coffees = this.props.product;
+    const categories = ['LIGHT', 'DARK'];
+    let coffees = this.props.product;
+    console.log(coffees);
+    const { category, page } = this.state;
+    const { onChange } = this;
+    // console.log(category);
+    if (category !== ''){
+      coffees = coffees.filter(coffee=> coffee.category === category )
+    }
+    const lastPage = Math.ceil(coffees.length/12);
+    console.log(lastPage);
+    // maybe just take 12 coffees need some more logic to turn off buttons
+    coffees = coffees.filter((coffee, idx) => { if ((idx) < 13  * page && idx >= 13 * (page-1) ){ return coffee}});
+    console.log(coffees);
     return (
       <div className={"list"}>
+            <select name='category' value={ category } onChange = { onChange }>
+                    <option value = ''>-- all</option>
+                    {
+                        categories.map( (cat) => { 
+                                return (
+                                    <option key={ cat } value = { cat }>
+                                        { cat } 
+                                    </option>
+                                );
+                            })
+                    }
+
+                </select>
+        {/* can turn this off at page 1 */}
+        { page > 1 &&
+        <Button variant="primary" onClick = {()=> this.nextPage(-1)}>Previous Page</Button>}
+        {/* need to caluclate length divide by 12 an stop at that page */}
+        { page < lastPage &&
+        <Button variant="primary" onClick = {()=> this.nextPage(1)}>Next Page</Button>}
         <Container>
           <Row>
             {coffees.map((coffee) => {
@@ -55,7 +107,7 @@ class Coffees extends Component {
                         <Card.Title>
                           <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
                         </Card.Title>
-                        <Card.Text>Place Holder Text</Card.Text>
+                        <Card.Text>{coffee.category}</Card.Text>
                         { coffee.stock > 0 ? (
                           <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button> 
                           ) : (
