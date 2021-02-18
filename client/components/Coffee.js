@@ -104,7 +104,7 @@ class Coffee extends Component {
                           <option>7</option>
                           <option>8</option>
                           <option>9</option>
-                          <option>10</option>v
+                          <option>10</option>
                         </Form.Control>
                       </Form.Group>
                       <input
