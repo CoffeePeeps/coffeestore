@@ -19,8 +19,9 @@ class Routes extends Component {
     console.log(this.props);
 
     return (
-
+      //Comment to update
       <div>
+        
         {isAdmin ? (
         <Switch>
             <Route path="/home" component={Home} />
