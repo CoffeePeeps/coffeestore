@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User, SingleOrder, Cart, Coffee, 
+import {Login, Signup, Home, User, SingleOrder, Cart, Coffee,
         AdminSingleProductView, AdminAllProductView, AdminAddNewProduct} from './components/index'
 import {me} from './store'
 
@@ -14,12 +14,17 @@ class Routes extends Component {
   }
 
   render() {
+
     const {isLoggedIn, isAdmin} = this.props;
 
     return (
-
+      //Comment to update
       <div>
-        {isAdmin ? (
+       
+        
+      
+      
+      {isAdmin ? (
         <Switch>
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart}/>
@@ -59,12 +64,10 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = state => {
-  console.log(state);
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id,
-    isAdmin: (state.auth.typeOfUser === 'ADMIN')
+    isLoggedIn: !!state.auth.id
   }
 }
 
