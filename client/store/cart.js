@@ -81,8 +81,8 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
       // TODO UPDATE_ITEM could be called here
     }
     // the cart component is constantly relaoding the cart so no work needs to be done here
-    // contents = (await axios.get(`/api/cart/${userId}`)).data;
-    // dispatch(setCart(contents));
+    contents = (await axios.get(`/api/cart/${userId}`)).data;
+    dispatch(setCart(contents));
   }
 };
 
