@@ -14,33 +14,45 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props;
-    return (
 
+    const {isLoggedIn, isAdmin} = this.props;
+
+    return (
+      //Comment to update
       <div>
-        {isLoggedIn ? (
+       
+        
+      
+      
+      {isAdmin ? (
+        <Switch>
+            <Route path="/home" component={Home} />
+            <Route path="/cart" component={Cart}/>
+            <Route component={ Coffee } path = '/coffee/:id' exact/>
+            <Route path="/user" component={User} />
+            <Route path="/orderHistory/:orderId" component={SingleOrder} />
+            <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
+            <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
+            <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
+        </Switch>  
+        ) 
+        : 
+        (isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart}/>
             <Route component={ Coffee } path = '/coffee/:id' exact/>
+            <Route path="/user" component={User} />
+            <Route path="/orderHistory/:orderId" component={SingleOrder} />
             <Redirect to="/home" />
-          </Switch>
-
-
+          </Switch>  
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-
-            <Route path="/user/:userId" component={User} />
-            <Route path="/orderHistory/:userId/:orderId" component={SingleOrder} />
-
-            <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
-            <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
-            <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
             <Redirect to="/login" />
           </Switch>
-        )}
+        ))}
       </div>
 
 
