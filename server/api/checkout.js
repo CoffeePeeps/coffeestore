@@ -34,6 +34,7 @@ router.put("/:uid/:cartId", async (req, res, next) => {
 router.post("/session", async (req, res, next) => {
     try {
         const {token, total} = req.body
+
         const customer = await stripe.customers.create({
             email: token.email,
             source: token.id
@@ -54,7 +55,7 @@ router.post("/session", async (req, res, next) => {
                     postal_code: token.card.address_zip,
                     state: token.card.address_state
                 }
-            }
+            },
         })
 
         if(charge){
