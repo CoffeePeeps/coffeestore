@@ -81,8 +81,7 @@ class Coffees extends Component {
 
                 </select>
         {/* can turn this off at page 1 */}
-        { page > 1 &&
-        <Button variant="primary" onClick = {()=> this.nextPage(-1)}>Previous Page</Button>}
+        <Button variant="primary" disabled={page <= 1 } onClick = {()=> this.nextPage(-1)}>Previous Page</Button>
         {/* need to caluclate length divide by 12 an stop at that page */}
         { page < lastPage &&
         <Button variant="primary" onClick = {()=> this.nextPage(1)}>Next Page</Button>}
