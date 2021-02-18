@@ -5,6 +5,10 @@ import { loadProducts } from "../store/product";
 import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
 import {addNewCoffee, updatedStock} from '../store'
 
+
+// so essentially this needs to change if a guest is logged in was trying a whole bunch of things but can probably just use 
+// an empty auth {}
+
 class Coffees extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +23,26 @@ class Coffees extends Component {
 
   componentDidMount() {
     this.props.bootstrap();
+    console.log(this.props);
+     // if nothing was added to the cart before log in only tken should be there
+  const storage = window.localStorage;
+  console.log(storage.length);
+  if(storage.length>1){
+    // we added stuff to the cart already need to get those itmes and put them in the cart
+    let orders = {};
+    let keys = Object.keys(storage);
+    let i = keys.length;
+    while ( i ) {
+              i--;
+              if (keys[i] !== 'token'){
+                this.props.addNewCoffee(1, this.props.auth.id, keys[i]);
+                orders[ keys[i] ] = storage.getItem( keys[i] );
+              storage.removeItem( keys[i] );}
+          }
+          //need to seend orders to cart 
+          console.log(orders)
+  }
+
   }
 
   putInCart(coffeeId, coffeeStock){
@@ -29,11 +53,17 @@ class Coffees extends Component {
       this.props.updateStock(stock, coffeeId)
     }
     // we are out of stock can't put it in the cart
-    if (coffeeStock > 0) {      
+    if (coffeeStock > 0 && this.props.auth.id) {      
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
       //ideally a function for a pop up window would be called to tell user they added to cart
       
-    }   
+    } else if ( coffeeStock > 0 ) {      
+      console.log('you are trying to add coffee to the guest cart')
+      // so this will put an item into local storage
+      localStorage.setItem( coffeeId, 1);
+      // this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
+      //ideally a function for a pop up window would be called to tell user they added to cart  
+    }
   }
 
   nextPage(number){
@@ -56,6 +86,7 @@ class Coffees extends Component {
     // console.log(category);
     if (category !== ''){
       coffees = coffees.filter(coffee=> coffee.category === category );
+      // maybe should be in component did update?? esentially trying to get back to page one when we sort by category 
       // if (page != 1){
       //   this.setState({page: 1});
       // }

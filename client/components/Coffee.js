@@ -41,9 +41,15 @@ class Coffee extends Component{
         
       this.props.updateStock(stock, coffeeId)
       // we are out of stock can't put it in the cart
-      if (quantity > 0) {      
+      if (coffeeStock > 0 && this.props.auth.id)  {      
         this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
-      } 
+      } else if ( coffeeStock > 0 ) {      
+        console.log('you are trying to add coffee to the guest cart')
+        // so this will put an item into local storage
+        localStorage.setItem( coffeeId, quantity);
+        // this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
+        //ideally a function for a pop up window would be called to tell user they added to cart  
+      }
     }
 
     render(){

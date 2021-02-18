@@ -40,12 +40,14 @@ const Header = ({ handleClick, isLoggedIn, isAdmin }) => (
       ) : (
         <Nav className="mr-auto">
           <Nav.Link><Link to="/home">Home</Link></Nav.Link>
-
+          {/* need some sort of function not sure if this is a good place for it */}
+          {/* <Nav.Link><Link to="/home">Guest</Link></Nav.Link> */}
           <NavDropdown title="Login / Sign Up" id="basic-nav-dropdown">
             <NavDropdown.Item><Link to="/login">Login</Link></NavDropdown.Item>
             <NavDropdown.Item ><Link to="/signup">Signup</Link></NavDropdown.Item>
           </NavDropdown>
         </Nav>
+        
       ))}
       <Form inline></Form>
     </Navbar.Collapse>

@@ -88,11 +88,11 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn, isAdmin} = this.props;
-    // console.log('HOME PROPS!!')
-    // console.log(this.props);
+    console.log('HOME PROPS!!')
+    console.log(this.props);
 
     return (
-
+// need to add is guest and possibly put that in store
       <div>
         {isAdmin ? (
         <Switch>
@@ -120,6 +120,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route component={ Coffee } path = '/coffee/:id' exact/>
             <Redirect to="/login" />
           </Switch>
         ))}
