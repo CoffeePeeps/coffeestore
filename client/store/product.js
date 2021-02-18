@@ -115,7 +115,6 @@ export default function(state = [], action) {
             return action.product;
         case UPDATE_PRODUCT:
             return state.map((product) => {
-<<<<<<< HEAD
                 action.product.coffeeId === product.coffeeId 
                 ? action.product 
                 : product 
@@ -125,12 +124,6 @@ export default function(state = [], action) {
                 action.product.id === product.id 
                 ? action.product : product 
             );
-=======
-                action.product.coffeeId === product.coffeeId
-                ? action.product
-                : product
-            })
->>>>>>> main
         case DELETE_PRODUCT:
             return state.filter((coffee) => coffee.id !== action.product.id);
         case CREATE_PRODUCT:

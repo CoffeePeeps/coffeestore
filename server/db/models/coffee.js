@@ -38,7 +38,7 @@ const Coffee = db.define('coffee', {
     }
   },
   category: {
-    type: ENUM('LIGHT', 'DARK'),
+    type: ENUM('LIGHT', 'MEDIUM', 'DARK'),
     defaultValue: 'LIGHT'
   }
   // TODO ADD Category ENUM, then let people filter it in the front end

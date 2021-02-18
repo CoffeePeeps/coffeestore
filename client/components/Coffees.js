@@ -37,11 +37,8 @@ class Coffees extends Component {
   }
 
   nextPage(number){
-    
-    console.log(this.state.page);
     let num = this.state.page + number;
-    this.setState({page: num});  
-  
+    this.setState({page: num});    
   }
 
   onChange(ev){
@@ -51,9 +48,9 @@ class Coffees extends Component {
   }
 
   render() {
-    const categories = ['LIGHT', 'DARK'];
+    const categories = ['LIGHT', 'MEDIUM', 'DARK'];
     let coffees = this.props.product;
-    console.log(coffees);
+    // console.log(coffees);
     const { category, page } = this.state;
     const { onChange } = this;
     // console.log(category);
@@ -61,14 +58,14 @@ class Coffees extends Component {
       coffees = coffees.filter(coffee=> coffee.category === category )
     }
     const lastPage = Math.ceil(coffees.length/12);
-    console.log(lastPage);
+    // console.log(lastPage);
     // maybe just take 12 coffees need some more logic to turn off buttons
     coffees = coffees.filter((coffee, idx) => { if ((idx) < 13  * page && idx >= 13 * (page-1) ){ return coffee}});
-    console.log(coffees);
+    // console.log(coffees);
     return (
       <div className={"list"}>
             <select name='category' value={ category } onChange = { onChange }>
-                    <option value = ''>-- all</option>
+                    <option value = ''>All</option>
                     {
                         categories.map( (cat) => { 
                                 return (
@@ -83,8 +80,7 @@ class Coffees extends Component {
         {/* can turn this off at page 1 */}
         <Button variant="primary" disabled={page <= 1 } onClick = {()=> this.nextPage(-1)}>Previous Page</Button>
         {/* need to caluclate length divide by 12 an stop at that page */}
-        { page < lastPage &&
-        <Button variant="primary" onClick = {()=> this.nextPage(1)}>Next Page</Button>}
+        <Button variant="primary" disabled={page >= lastPage } onClick = {()=> this.nextPage(1)}>Next Page</Button>
         <Container>
           <Row>
             {coffees.map((coffee) => {

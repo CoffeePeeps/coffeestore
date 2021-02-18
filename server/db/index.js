@@ -74,25 +74,18 @@ const syncAndSeed = async () => {
     await Coffee.create({ name: "coffee2" }),
   ]);
 
-  //also more test data, we can also be more original, apperently we do not need an await here, though it might
-  //be good practice to put it in..not sure
-  // await Coffee.create({ name: "coffee3" });
-  // await Coffee.create({ name: "coffee4" });
-  // await Coffee.create({ name: "coffee5" });
-  // await Coffee.create({ name: "coffee6" });
-  // await Coffee.create({ name: "coffee7" });
-  // await Coffee.create({ name: "coffee8" });
-  // await Coffee.create({ name: "coffee9" });
-  // await Coffee.create({ name: "coffee10" });
-  // await Coffee.create({ name: "coffee11" });
-  // await Coffee.create({ name: "coffee12" });
-
-  for (let i = 3; i< 13; i++){
+  //also more test data, we can also be more original
+  for (let i = 3; i< 20; i++){
     let name = "coffee"+i;
     await Coffee.create({ name: name});
   }
 
-  for (let i =13; i< 23; i++){
+  for (let i =21; i< 40; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name, category: "MEDIUM" });
+  }
+
+  for (let i =41; i< 60; i++){
     let name = "coffee"+i;
     await Coffee.create({ name: name, category: "DARK" });
   }
