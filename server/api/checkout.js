@@ -1,13 +1,8 @@
 const router = require('express').Router();
+const stripe = require('stripe')(process.env.STRIPE_TEST_API_KEY);
+
 const { models: { Coffee, User, Cart  }} = require('../db');
 module.exports = router;
-
-// If the user is signed in, check to see if they have a stored address.
-// If they do, get it and auto-populate
-// If they don't, store it
-
-// cart checkout happens on put request, update existing cart open to false
-// assign that user a new empty cart
 
 router.put("/:uid/:cartId", async (req, res, next) => {
     try {
@@ -33,4 +28,9 @@ router.put("/:uid/:cartId", async (req, res, next) => {
     } catch (ex) {
         next(ex)
     }
+})
+
+router.post("/session", async (req, res, next) => {
+    const {cart, user} = req.body
+    console.log(cart, user)
 })

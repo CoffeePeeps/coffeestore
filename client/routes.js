@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User, SingleOrder, Cart, Coffee, 
+import {Login, Signup, Home, User, SingleOrder, Cart, Coffee,
         AdminSingleProductView, AdminAllProductView, AdminAddNewProduct} from './components/index'
 import {me} from './store'
 
@@ -15,8 +15,6 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props;
-    console.log('HOME PROPS!!')
-    console.log(this.props);
 
     return (
 
@@ -29,15 +27,15 @@ class Routes extends Component {
             <Redirect to="/home" />
           </Switch>
 
-  
+
         ) : (
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            
+
             <Route path="/user/:userId" component={User} />
             <Route path="/orderHistory/:userId/:orderId" component={SingleOrder} />
-            
+
             <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
             <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
             <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
