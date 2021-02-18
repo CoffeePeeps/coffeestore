@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import StripeCheckout from "react-stripe-checkout"
 import {cart, delItem, checkoutCart, addNewCoffee} from '../store'
 
 const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
@@ -7,7 +8,6 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
     setCart(auth.id)
   }, [])
 
-  console.log(cart)
   return(
     <div>
       <h1>Cart</h1>
@@ -49,9 +49,16 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
           <p>Total: ${cart.total}</p>
         </div>
 
-        <button onClick={
+        {/* <button onClick={
           () => checkout(cart.items, auth.id)
-        }>Checkout</button>
+        }>Checkout</button> */}
+        <StripeCheckout
+          token={(token, addresses) => checkout(cart.items, auth.id, token, addresses)}
+          stripeKey="pk_test_51ILK1lLfvWrZDmuZMXaRPM2DZJTsiWZCLF0kN6XuqF9jMLq5eYjh59Vaqvr1XshlKGPRbF2Q1PRxFv1G72IZBCpf000VL6GWuC"
+          amount={cart.total*100}
+          billingAddress
+          shippingAddress
+        />
       </div>
 
     </div>
@@ -75,12 +82,9 @@ const mapDispatch = dispatch => {
     handleDelete(item, uid){
       dispatch(delItem(item,uid))
     },
-    checkout(items, uid){
-      // handle payment processing here
-      const body = {
-        payment: "success"
-      }
-      dispatch(checkoutCart(items[0].cartId, uid, body, items))
+    checkout(items, uid, token, addresses){
+      const stripeInfo = {token, addresses}
+      dispatch(checkoutCart(items[0].cartId, uid, stripeInfo, items))
     },
     updateCoffee(qty, uid, coffeeId){
       dispatch(addNewCoffee(qty, uid, coffeeId))

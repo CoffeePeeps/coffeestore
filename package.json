@@ -33,8 +33,9 @@
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
     "react-bootstrap": "^1.4.3",
+    "react-stripe-checkout": "^2.6.3",
     "sequelize": "^6.3.5",
-    "stripe": "^8.136.0"
+    "stripe": "^8.137.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
