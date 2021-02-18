@@ -4,6 +4,9 @@ import axios from 'axios'
 const SET_SINGLE_USER = 'SET_SINGLE_USER';
 const SET_USER_ORDERS = 'SET_USER_ORDERS';
 
+const storage = () => window.localStorage;
+const TOKEN = 'token';
+
 // Action Creators
 const setSingleUser = (user) => {
     return {
@@ -21,24 +24,22 @@ const setUserOrders = (orders) => {
 
 // Thunk
 export const fetchSingleUser = (id) => {
+    const token = storage().getItem(TOKEN);
     return async(dispatch) => {
-        try {
+        if (token) {
             const singleUser = (await axios.get(`/api/users/${id}`)).data;
             dispatch(setSingleUser(singleUser));
-        } catch(ex) {
-            console.log(ex);
         }
     }
 }
 
 // Thunk for fetching orders for a single user
 export const fetchUserOrders = (id) => {
+    const token = storage().getItem(TOKEN);
     return async(dispatch) => {
-        try {
+        if (token) {
             const userOrders = (await axios.get(`/api/orderHistory/${id}`)).data;
             dispatch(setUserOrders(userOrders));
-        } catch(ex) {
-            console.log(ex);
         }
     }
 }

@@ -16,7 +16,6 @@ const CHECKOUT_CART = "CHECKOUT_CART"
  */
 const setCart = cartList => ({type: SET_CART, cartList})
 const deleteCart = item => ({type: DELETE_ITEM, item})
-const checkoutCart = cart => ({type: CHECKOUT_CART, cart})
 
 
 /**
@@ -27,7 +26,6 @@ export const cart = (userId) => async dispatch => {
   if (token) {
     const res = await axios.get(`/api/cart/${userId}`)
     const cartItems = res.data
-    cartItems.total = subtotal(cartItems)
     return dispatch(setCart(cartItems))
   }
 }
@@ -40,11 +38,12 @@ export const delItem = (item, userId) => async dispatch => {
   }
 }
 
-export const checkoutItem = (cartId, userId , body) => async dispatch => {
+export const checkoutCart = (cartId, userId , body, items) => async dispatch => {
   const token = storage().getItem(TOKEN)
   if(token){
     await axios.put(`/api/checkout/${userId}/${cartId}`, body)
-    return dispatch(checkoutCart([]))
+    console.log(items)
+    return dispatch(setCart([]))
   }
 }
 
@@ -57,15 +56,13 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
     if(!cart){
       // user does not have an open cart create one
       cart = (await axios.post('/api/cart/newCart', { userId })).data;
-    }         
-    
-    //check the contents of the cart 
+    }
+
+    //check the contents of the cart
     let contents = (await axios.get(`/api/cart/${userId}`)).data;
-  
-    //console.log(contents); 
     let newCoffee = true;
 
-    //see if they already have the coffee in the cart 
+    //see if they already have the coffee in the cart
     for (let i=0; i<contents.length; i++){
             if(contents[i].coffeeId * 1 === coffeeId * 1){
                 newCoffee = false;
@@ -73,15 +70,15 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
         }
 
     const cartId = cart.id;
-    
-    // they don't have that kind of coffee in their cart so add it 
+
+    // they don't have that kind of coffee in their cart so add it
     if (newCoffee){
         let cart_coffee = (await axios.post('/api/cart/', { quantity, cartId, coffeeId })).data;
         // TODO ADD_ITEM reducer could be called here
     } else {
       //updates the quanity of coffee in cart
       let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
-      // TODO UPDATE_ITEM could be called here 
+      // TODO UPDATE_ITEM could be called here
     }
     // the cart component is constantly relaoding the cart so no work needs to be done here
     // contents = (await axios.get(`/api/cart/${userId}`)).data;
@@ -93,16 +90,21 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
 /**
  * REDUCER
  */
-export default function(state = [], action) {
+const initState = {
+  total: 0.00,
+  items: []
+}
+
+export default function(state = initState, action) {
   switch (action.type) {
     case SET_CART:
-      return action.cartList
+      return {total: subtotal(action.cartList), items: action.cartList}
     case DELETE_ITEM:
-      const items = state.filter((cart) => cart.coffee.id !== action.item.id)
+      const items = state.cart.filter((cart) => cart.coffee.id !== action.item.id)
       items.total = subtotal(items)
-      return items
+      return {total: subtotal(items), items: items}
     case CHECKOUT_CART:
-      action.cart.total = 0.00
+      console.log(action, state)
       return action.cart
     default:
       return state
@@ -114,6 +116,8 @@ const subtotal = arr => {
   for(let i = 0; i < arr.length; i++){
     total += (arr[i].coffee.price * arr[i].quantity)
   }
-  console.log(arr)
-  return Math.round(total*100)/100
+
+  total = Math.round(total*100)/100
+
+  return total.toString()
 }

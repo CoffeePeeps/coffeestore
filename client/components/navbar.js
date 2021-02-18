@@ -11,16 +11,31 @@ import {
   FormControl,
 } from "react-bootstrap";
 
-const Header = ({ handleClick, isLoggedIn }) => (
+const Header = ({ handleClick, isLoggedIn, isAdmin }) => (
   <Navbar bg="dark" variant="dark" expand="lg">
     <Navbar.Brand href="/home">COFFEE COFFEE COFFEE</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
-      {isLoggedIn ? (
+      {isAdmin ? (
+        <Nav className="mr-auto">
+        <Nav.Link><Link to="/home">Home</Link></Nav.Link>
+        <Nav.Link href="#" onClick={handleClick}> Logout </Nav.Link>
+        <Nav.Link><Link to="/cart">Cart</Link></Nav.Link>
+        <Nav.Link><Link to="/user">Account</Link></Nav.Link>
+        <NavDropdown title="Admin" id="admin-nav-dropdown">
+            <NavDropdown.Item><Link to="/admin/allCoffees">All Coffees</Link></NavDropdown.Item>
+            <NavDropdown.Item ><Link to="/admin/singleCoffee/:coffeeId">SingleCoffee</Link></NavDropdown.Item>
+            <NavDropdown.Item ><Link to="/admin/addNewCoffee">Add New Coffee</Link></NavDropdown.Item>
+          </NavDropdown>
+      </Nav>
+      )
+      :
+      (isLoggedIn ? (
         <Nav className="mr-auto">
           <Nav.Link><Link to="/home">Home</Link></Nav.Link>
           <Nav.Link href="#" onClick={handleClick}> Logout </Nav.Link>
           <Nav.Link><Link to="/cart">Cart</Link></Nav.Link>
+          <Nav.Link><Link to="/user">Account</Link></Nav.Link>
         </Nav>
       ) : (
         <Nav className="mr-auto">
@@ -31,7 +46,7 @@ const Header = ({ handleClick, isLoggedIn }) => (
             <NavDropdown.Item ><Link to="/signup">Signup</Link></NavDropdown.Item>
           </NavDropdown>
         </Nav>
-      )}
+      ))}
       <Form inline></Form>
     </Navbar.Collapse>
   </Navbar>
@@ -43,6 +58,7 @@ const Header = ({ handleClick, isLoggedIn }) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
+    isAdmin: (state.auth.typeOfUser === 'ADMIN'),
   };
 };
 

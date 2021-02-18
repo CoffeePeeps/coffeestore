@@ -16,7 +16,7 @@ const _loadProducts = (products) =>{
     };
 };
 
-// not sure if we are using 
+// not sure if we are using
 const _loadProduct = (product) =>{
     return {
         type: LOAD_PRODUCT,
@@ -77,10 +77,8 @@ export const loadUpdatedProduct = (updatedProduct) => {
 }
 
 export const updatedStock = (stock, coffeeId) => {
-//    console.log(stock)
-//    console.log(coffeeId)
     return async(dispatch) => {
-        
+
         // this updates the coffee
         const update = await axios.put(`/api/products/stock/${coffeeId}`, { stock })
         
@@ -110,13 +108,14 @@ export const addProduct = (product) => {
 
 // Reducer
 export default function(state = [], action) {
-    switch (action.type) {   
+    switch (action.type) {
         case LOAD_PRODUCTS:
             return action.products;
         case LOAD_PRODUCT:
-            return action.product;  
+            return action.product;
         case UPDATE_PRODUCT:
             return state.map((product) => {
+<<<<<<< HEAD
                 action.product.coffeeId === product.coffeeId 
                 ? action.product 
                 : product 
@@ -126,6 +125,12 @@ export default function(state = [], action) {
                 action.product.id === product.id 
                 ? action.product : product 
             );
+=======
+                action.product.coffeeId === product.coffeeId
+                ? action.product
+                : product
+            })
+>>>>>>> main
         case DELETE_PRODUCT:
             return state.filter((coffee) => coffee.id !== action.product.id);
         case CREATE_PRODUCT:

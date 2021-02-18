@@ -9,11 +9,11 @@ import singleOrder from './singleOrder'
 
 import product from './product'
 
-const reducer = combineReducers({ 
-  auth, 
+const reducer = combineReducers({
+  auth,
   user: user,
   order: singleOrder,
-  cartList: cart,
+  cart,
   product
 })
 
