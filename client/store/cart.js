@@ -25,7 +25,6 @@ export const cart = (userId) => async dispatch => {
   if (token) {
     const res = await axios.get(`/api/cart/${userId}`)
     const cartItems = res.data
-    cartItems.total = subtotal(cartItems)
     return dispatch(setCart(cartItems))
   }
 }
@@ -38,10 +37,11 @@ export const delItem = (item, userId) => async dispatch => {
   }
 }
 
-export const checkoutItem = (cartId, userId , body) => async dispatch => {
+export const checkoutCart = (cartId, userId , body, items) => async dispatch => {
   const token = storage().getItem(TOKEN)
   if(token){
     await axios.put(`/api/checkout/${userId}/${cartId}`, body)
+    console.log(items)
     return dispatch(setCart([]))
   }
 }
@@ -92,17 +92,17 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
  */
 const initState = {
   total: 0.00,
-  cart: []
+  items: []
 }
 
 export default function(state = initState, action) {
   switch (action.type) {
     case SET_CART:
-      return {total: subtotal(action.cartList), cart: action.cartList}
+      return {total: subtotal(action.cartList), items: action.cartList}
     case DELETE_ITEM:
       const items = state.cart.filter((cart) => cart.coffee.id !== action.item.id)
       items.total = subtotal(items)
-      return {total: subtotal(items), cart: items}
+      return {total: subtotal(items), items: items}
     case CHECKOUT_CART:
       console.log(action, state)
       return action.cart
