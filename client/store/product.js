@@ -65,13 +65,17 @@ export const loadProducts = () =>{
 export const loadProduct = (id) =>{
     return async(dispatch)=>{
         const product = (await axios.get(`/api/products/${id}`)).data;
+        // console.log(product);
         dispatch(_loadProduct(product));
     }
 };
 
 export const loadUpdatedProduct = (updatedProduct) => {
     return async(dispatch) => {
+        // database definitely updated!!
         const { update } = await axios.put(`/api/products/${updatedProduct.id}`, updatedProduct);
+        // can't get console.log to work dispatch might not be working really can't tell
+        console.log({update});
         dispatch(updateProduct(update))
     }
 }

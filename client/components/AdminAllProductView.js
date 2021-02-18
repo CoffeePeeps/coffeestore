@@ -15,6 +15,10 @@ export class AdminAllProductView extends React.Component {
         this.props.getCoffees()
     }
 
+    // componentDidUpdate() {
+    //     this.props.getCoffees()
+    // }
+
     render() {
         
         if (this.props.product) {

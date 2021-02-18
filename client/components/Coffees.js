@@ -55,7 +55,10 @@ class Coffees extends Component {
     const { onChange } = this;
     // console.log(category);
     if (category !== ''){
-      coffees = coffees.filter(coffee=> coffee.category === category )
+      coffees = coffees.filter(coffee=> coffee.category === category );
+      // if (page != 1){
+      //   this.setState({page: 1});
+      // }
     }
     const lastPage = Math.ceil(coffees.length/12);
     // console.log(lastPage);

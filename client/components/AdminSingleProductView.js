@@ -18,10 +18,13 @@ export class AdminSingleProductView extends React.Component {
     }
 
     componentDidMount() {
-        this.props._loadProduct(this.props.match.params.coffeeId);
+        this.props.loadProduct(this.props.match.params.coffeeId);
+
+        console.log(this.props.product)
 
         //variable to track which offee to refernce in the product (all coffees) array
         let coffeeId = this.props.match.params.coffeeId;
+        console.log(coffeeId)
         let coffeeVar = coffeeId-1;
 
         // This sets the state so that coffee info loads when you link to it from the admin all coffees page
@@ -128,7 +131,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        _loadProduct(prodId) {
+        loadProduct(prodId) {
             dispatch(loadProduct(prodId));
         },
         updateProduct(updatedProduct) {
