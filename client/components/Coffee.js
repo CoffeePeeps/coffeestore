@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addNewCoffee, updatedStock } from "../store";
-import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Row,
+  Col,
+  Image,
+  Form,
+} from "react-bootstrap";
 import * as mdb from "mdb-ui-kit"; // lib
 
 class Coffee extends Component {
@@ -83,20 +91,37 @@ class Coffee extends Component {
                   <div>
                     {coffee.stock && `stock: ${coffee.stock}`}
                     <br />
-                    <input
-                      name="quantity"
-                      value={quantity}
-                      onChange={onChange}
-                    />
+                    <Form>
+                      <Form.Group controlId="exampleForm.ControlSelect1">
+                        <Form.Label>Select Quanity</Form.Label>
+                        <Form.Control as="select">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                          <option>9</option>
+                          <option>10</option>v
+                        </Form.Control>
+                      </Form.Group>
+                      <input
+                        name="quantity"
+                        value={quantity}
+                        onChange={onChange}
+                      />
 
-                    <button
-                      variant="primary"
-                      onClick={() =>
-                        this.putInCart(`${coffee.id}`, `${coffee.stock}`)
-                      }
-                    >
-                      Add to Cart
-                    </button>
+                      <button
+                        variant="primary"
+                        onClick={() =>
+                          this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                        }
+                      >
+                        Add to Cart
+                      </button>
+                    </Form>
                   </div>
                 ) : (
                   <p>
