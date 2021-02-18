@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { addNewCoffee, updatedStock } from "../store";
+import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
 import * as mdb from "mdb-ui-kit"; // lib
 
 class Coffee extends Component {
@@ -89,6 +90,7 @@ class Coffee extends Component {
                     />
 
                     <button
+                      variant="primary"
                       onClick={() =>
                         this.putInCart(`${coffee.id}`, `${coffee.stock}`)
                       }
