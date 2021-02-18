@@ -30,6 +30,8 @@
     "final-form": "^4.20.1",
     "history": "^4.9.0",
     "jsonwebtoken": "^8.5.1",
+    "mdb-ui-kit": "^3.2.0",
+    "mdbootstrap": "^4.19.2",
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
     "react-bootstrap": "^1.4.3",
