@@ -23,7 +23,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart}/>
             <Route component={ Coffee } path = '/coffee/:id' exact/>
-            <Redirect to="/home" />
+            {/* <Redirect to="/home" /> */}
           </Switch>
 
 
@@ -38,7 +38,7 @@ class Routes extends Component {
             <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
             <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
             <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
-            <Redirect to="/login" />
+            {/* <Redirect to="/login" /> */}
           </Switch>
         )}
       </div>
