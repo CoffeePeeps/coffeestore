@@ -63,6 +63,7 @@ class Coffee extends Component {
     }
     return (
       <main className="mt-5 pt-4">
+        {" "}
         <div className="container dark-grey-text mt-5">
           <div className="row wow fadeIn">
             <div className="col-md-6 mb-4">
@@ -100,11 +101,6 @@ class Coffee extends Component {
                           <option>3</option>
                           <option>4</option>
                           <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
                         </Form.Control>
                       </Form.Group>
                       <input

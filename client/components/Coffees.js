@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadProducts } from "../store/product";
 import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
-import {addNewCoffee, updatedStock} from '../store'
+import { addNewCoffee, updatedStock } from "../store";
 
 class Coffees extends Component {
   constructor(props) {
@@ -15,19 +15,17 @@ class Coffees extends Component {
     this.props.bootstrap();
   }
 
-  putInCart(coffeeId, coffeeStock){
-    
+  putInCart(coffeeId, coffeeStock) {
     let stock = coffeeStock - 1;
     // should update the stock of coffee we have in the store
-    if (stock >= 0){
-      this.props.updateStock(stock, coffeeId)
+    if (stock >= 0) {
+      this.props.updateStock(stock, coffeeId);
     }
     // we are out of stock can't put it in the cart
-    if (coffeeStock > 0) {      
+    if (coffeeStock > 0) {
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
       //ideally a function for a pop up window would be called to tell user they added to cart
-      
-    }   
+    }
   }
 
   render() {
@@ -56,12 +54,18 @@ class Coffees extends Component {
                           <Link to={`/coffee/${coffee.id}`}>{coffee.name}</Link>{" "}
                         </Card.Title>
                         <Card.Text>Place Holder Text</Card.Text>
-                        { coffee.stock > 0 ? (
-                          <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button> 
-                          ) : (
-                            <p>Out of Stock</p>
-                          )}
-
+                        {coffee.stock > 0 ? (
+                          <Button
+                            className="Add-To-Cart-Button"
+                            onClick={() =>
+                              this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                            }
+                          >
+                            Add to Cart
+                          </Button>
+                        ) : (
+                          <p>Out of Stock</p>
+                        )}
                       </Card.Body>
                     </Card>
                   </Col>
@@ -75,7 +79,6 @@ class Coffees extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return state;
 };
@@ -85,12 +88,12 @@ const mapDispatchToProps = (dispatch) => {
     bootstrap: () => {
       dispatch(loadProducts());
     },
-    addNewCoffee(quantity, userId, coffeeId){
-      dispatch(addNewCoffee(quantity, userId, coffeeId))
+    addNewCoffee(quantity, userId, coffeeId) {
+      dispatch(addNewCoffee(quantity, userId, coffeeId));
     },
-    updateStock(stock, coffeeId){
-      dispatch(updatedStock(stock, coffeeId))
-    },  
+    updateStock(stock, coffeeId) {
+      dispatch(updatedStock(stock, coffeeId));
+    },
   };
 };
 
