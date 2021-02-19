@@ -32,14 +32,19 @@ class Coffees extends Component {
     let orders = {};
     let keys = Object.keys(storage);
     let i = keys.length;
+    //afterit add one the rest might need to be in a thunk or such 
+    // this almost works but going to need to put 
     while ( i ) {
               i--;
               if (keys[i] !== 'token'){
-                this.props.addNewCoffee(1, this.props.auth.id, keys[i]);
+                // send orders 
+                // this.props.addNewCoffee(1, this.props.auth.id, keys[i]);
+                // could use this for quantity??
                 orders[ keys[i] ] = storage.getItem( keys[i] );
-              storage.removeItem( keys[i] );}
+                // need to remove them from storage
+                storage.removeItem( keys[i] );}
           }
-          //need to seend orders to cart 
+          // need to send order to thunk were the async await won't cause it to make multiple carts
           console.log(orders)
   }
 
@@ -56,16 +61,14 @@ class Coffees extends Component {
     if (coffeeStock > 0 && this.props.auth.id) {      
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
       //ideally a function for a pop up window would be called to tell user they added to cart
-      
     } else if ( coffeeStock > 0 ) {      
-      console.log('you are trying to add coffee to the guest cart')
-      // so this will put an item into local storage
+      // no auth.id means no user so it's a guest so put an item into local storage
       localStorage.setItem( coffeeId, 1);
-      // this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
       //ideally a function for a pop up window would be called to tell user they added to cart  
     }
   }
 
+  // super simple pagination thing
   nextPage(number){
     let num = this.state.page + number;
     this.setState({page: num});    
@@ -78,6 +81,7 @@ class Coffees extends Component {
   }
 
   render() {
+    // super simple sort by category thing
     const categories = ['LIGHT', 'MEDIUM', 'DARK'];
     let coffees = this.props.product;
     // console.log(coffees);
@@ -94,7 +98,7 @@ class Coffees extends Component {
     const lastPage = Math.ceil(coffees.length/12);
     // console.log(lastPage);
     // maybe just take 12 coffees need some more logic to turn off buttons
-    coffees = coffees.filter((coffee, idx) => { if ((idx) < 13  * page && idx >= 13 * (page-1) ){ return coffee}});
+    coffees = coffees.filter((coffee, idx) => { if ((idx) < 12  * page && idx >= 12 * (page-1) ){ return coffee}});
     // console.log(coffees);
     return (
       <div className={"list"}>

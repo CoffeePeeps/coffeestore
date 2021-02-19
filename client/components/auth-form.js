@@ -21,9 +21,7 @@ class AuthForm extends Component{
     // just toggling between true and false to either show or not show products not sure if this is the
     // way to handle it but it's a way  
     this.setState({guest: !this.state.guest})
-    //now need to update the store so it knows we are a guest hmmm.. setState does not seem to have taken effect yet
-    this.props.guestLogin(this.state.guest);
-
+   
   }
 
 
@@ -103,10 +101,6 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(authenticate(email, password, formName))
-    },
-    guestLogin(guest) {
-      console.log(guest)
-      dispatch(guestUser(guest));
     }
   }
 }

@@ -15,6 +15,7 @@ export class AdminAllProductView extends React.Component {
         this.props.getCoffees()
     }
 
+    // something strange is happening when c 
     // componentDidUpdate() {
     //     this.props.getCoffees()
     // }
