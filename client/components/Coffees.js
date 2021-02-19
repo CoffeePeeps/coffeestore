@@ -56,7 +56,8 @@ class Coffees extends Component {
                         <Card.Text>Place Holder Text</Card.Text>
                         {coffee.stock > 0 ? (
                           <Button
-                            className="Add-To-Cart-Button"
+                            variant="primary"
+                            // className="Add-To-Cart-Button"
                             onClick={() =>
                               this.putInCart(`${coffee.id}`, `${coffee.stock}`)
                             }
