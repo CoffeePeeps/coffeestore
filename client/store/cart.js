@@ -97,9 +97,7 @@ export const putInGuestCart = (obj) =>{
 
   return async(dispatch)=>{
     for (const property in obj) {
-      // console.log(`${property}: ${obj[property]}`);
       if (property !== 'auth'){
-        // console.log(`${property}  ${obj['auth']}  ${obj[property]}`)
         await dispatch(addNewCoffee(obj[property]*1, obj['auth'], property*1))
       }
     }
