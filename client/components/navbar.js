@@ -18,15 +18,15 @@ const Header = ({ handleClick, isLoggedIn, isAdmin }) => (
     <Navbar.Collapse id="basic-navbar-nav">
       {isAdmin ? (
         <Nav className="ml-auto">
-        <Nav.Link><Link to="/home">Home</Link></Nav.Link>
+        <Link to="/home">Home</Link>
 
-        <Nav.Link><Link to="/cart">Cart</Link></Nav.Link>
-        <Nav.Link><Link to="/user">Account</Link></Nav.Link>
+        <Link to="/cart">Cart</Link>
+        <Link to="/user">Account</Link>
         <NavDropdown title="Admin" id="admin-nav-dropdown">
           <NavDropdown.Item><Link to="/admin/allCoffees">All Coffees (for editing)</Link></NavDropdown.Item>
           <NavDropdown.Item ><Link to="/admin/addNewCoffee">Add New Coffee</Link></NavDropdown.Item>
         </NavDropdown>
-        <Nav.Link onClick={handleClick}> Logout </Nav.Link>
+        <Link to="/home" onClick={handleClick}> Logout </Link>
       </Nav>
       )
       :
@@ -35,7 +35,7 @@ const Header = ({ handleClick, isLoggedIn, isAdmin }) => (
           <Link to="/home">Home</Link>
           <Link to="/cart">Cart</Link>
           <Link to="/user">Account</Link>
-          <Link onClick={handleClick}> Logout </Link>
+          <Link to="/home" onClick={handleClick}> Logout </Link>
         </Nav>
       ) : (
         <Nav className="ml-auto">

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import StripeCheckout from "react-stripe-checkout"
-import {cart, delItem, checkoutCart, addNewCoffee} from '../store'
+import {cart, delItem, checkoutCart, addNewCoffee, updatedStock} from '../store'
 
 // React Notification
 import { NotificationManager } from 'react-notifications';
@@ -35,8 +35,14 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
               <td>{item.coffee.name}</td>
               <td>
                 {item.quantity}
-                <button onClick={() => updateCoffee(1, auth.id, item.coffeeId)}>+</button>
-                <button disabled={item.quantity === 1 && true} onClick={() => updateCoffee(-1, auth.id, item.coffeeId)}>-</button>
+                <button onClick={() => {
+                  updatedStock(item.coffee.stock + 1 ,item.coffeeId)
+                  updateCoffee(1, auth.id, item.coffeeId)
+                }}>+</button>
+                <button disabled={item.quantity === 1 && true} onClick={() => {
+                  updatedStock(item.coffee.stock - 1 ,item.coffeeId)
+                  updateCoffee(-1, auth.id, item.coffeeId)
+                  }}>-</button>
               </td>
               <td>{(item.coffee.price * item.quantity)}</td>
             </tr>
