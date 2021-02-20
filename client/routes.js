@@ -5,6 +5,9 @@ import {Login, Signup, Home, User, SingleOrder, Cart, Coffee,
         AdminSingleProductView, AdminAllProductView, AdminAddNewProduct} from './components/index'
 import {me} from './store'
 
+// React Notification
+import { NotificationContainer } from 'react-notifications';
+
 /**
  * COMPONENT
  */
@@ -53,6 +56,7 @@ class Routes extends Component {
             <Redirect to="/login" />
           </Switch>
         ))}
+      <NotificationContainer />
       </div>
 
 

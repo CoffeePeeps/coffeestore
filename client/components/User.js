@@ -18,7 +18,7 @@ const User = ({auth, user, loadUserInformation, loadUserOrders}) => {
         <div>
             <h1>Hi!</h1>
             <p>Thank you for being one of our first customers! Customer #{ auth.id }</p>
-            <p>This is the email we have on file for you: { auth.email }</p>
+            <p>This is the email we have on file for you: { auth.email } </p> 
             <p>Here are your past orders:</p>
             <ListofOrders props = { user.orders }/>
         </div>
