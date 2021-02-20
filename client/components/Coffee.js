@@ -12,6 +12,9 @@ import {
 } from "react-bootstrap";
 import * as mdb from "mdb-ui-kit"; // lib
 
+import { NotificationManager } from 'react-notifications';
+// import "~react-notifications/lib/notifications.css";
+
 class Coffee extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +46,7 @@ class Coffee extends Component {
       //can't sell more than we have 
       if (quantity > coffeeStock){
         quantity = coffeeStock * 1;
+        NotificationManager.error('We do not have that much coffee!', 'Oops!', 1000)
       }
 
       let stock = coffeeStock - quantity;
@@ -51,6 +55,7 @@ class Coffee extends Component {
       // we are out of stock can't put it in the cart
       if (coffeeStock > 0 && this.props.auth.id)  {      
         this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
+        NotificationManager.success('You have added a delicious coffee!', 'Success!', 1000)
       } else if ( coffeeStock > 0 ) {      
         console.log('you are trying to add coffee to the guest cart')
         // so this will put an item into local storage
@@ -123,8 +128,7 @@ class Coffee extends Component {
 
                       <button
                         variant="primary"
-                        onClick={() =>
-                          this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                        onClick={() => this.putInCart(`${coffee.id}`, `${coffee.stock}`)
                         }
                       >
                         Add to Cart

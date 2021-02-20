@@ -23,20 +23,21 @@ export class AdminSingleProductView extends React.Component {
         console.log(this.props.product)
 
         //variable to track which offee to refernce in the product (all coffees) array
+        
         let coffeeId = this.props.match.params.coffeeId;
-        console.log(coffeeId)
-        let coffeeVar = coffeeId-1;
+        let coffeeArr = this.props.product.filter((product) =>  {
+            return product.id === Number(coffeeId)
+            }
+        );
 
         // This sets the state so that coffee info loads when you link to it from the admin all coffees page
-        // so once you start deleting the product array index and prod.id become disconnected
-        //you would loop over array of objects to find the product then you can do this
-        if (this.props.product[coffeeVar]) {
+        if (coffeeArr) {
             this.setState({
-                name: this.props.product[coffeeVar].name,
-                description: this.props.product[coffeeVar].description,
-                stock: this.props.product[coffeeVar].stock,
-                price: this.props.product[coffeeVar].price,
-                imageURL: this.props.product[coffeeVar].imageURL,
+                name: coffeeArr[0].name,
+                description: coffeeArr[0].description,
+                stock: coffeeArr[0].stock,
+                price: coffeeArr[0].price,
+                imageURL: coffeeArr[0].imageURL,
             })
         }
     }

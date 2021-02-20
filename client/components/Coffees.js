@@ -9,6 +9,10 @@ import {addNewCoffee, updatedStock, putInGuestCart} from '../store'
 // so essentially this needs to change if a guest is logged in was trying a whole bunch of things but can probably just use 
 // an empty auth {}
 
+import { NotificationManager } from 'react-notifications';
+// import "~react-notifications/lib/notifications.css";
+
+
 class Coffees extends Component {
   constructor(props) {
     super(props);
@@ -54,10 +58,12 @@ class Coffees extends Component {
     // should update the stock of coffee we have in the store
     if (stock >= 0){
       this.props.updateStock(stock, coffeeId)
+      NotificationManager.success('You have added a delicious coffee!', 'Success!', 1000)
     }
     // we are out of stock can't put it in the cart
     if (coffeeStock > 0 && this.props.auth.id) {      
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
+      // NotificationManager.error('We do not have that much coffee!', 'Oops!', 5000)
       //ideally a function for a pop up window would be called to tell user they added to cart
     } else if ( coffeeStock > 0 ) {      
       // no auth.id means no user so it's a guest so put an item into local storage
@@ -136,7 +142,9 @@ class Coffees extends Component {
                         </Card.Title>
                         <Card.Text>{coffee.category}</Card.Text>
                         { coffee.stock > 0 ? (
-                          <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button> 
+                          <Button variant="primary" onClick = { 
+                            ()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                          }>Add to Cart</Button> 
                           ) : (
                             <p>Out of Stock</p>
                           )}

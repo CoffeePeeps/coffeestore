@@ -6,8 +6,6 @@ import history from "./history";
 import store from "./store";
 import App from "./app";
 
-// // Importing the Bootstrap CSS
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <Provider store={store}>
