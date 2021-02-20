@@ -8,21 +8,16 @@ const TOKEN = 'token'
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH';
-// just trying to imitate stuff
-const SET_GUEST = 'SET_GUEST'
 
 
 /**
  * ACTION CREATORS
  */
 const setAuth = auth => ({type: SET_AUTH, auth})
-// just trying to imitate stuff
-const setGuest = auth => ({type: SET_GUEST, auth})
 
 /**
  * THUNK CREATORS
  */
-// what are you
 export const me = () => async dispatch => {
   const token = storage().getItem(TOKEN)
   if (token) {
@@ -46,16 +41,6 @@ export const authenticate = (email, password, method) => async dispatch => {
   }
 }
 
-// probably don't need this becuase can just use is loggin is false 
-export const guestUser = (guest) => async dispatch => {
-  // console.log('in guest User Thunk');
-  // console.log(guest);
-//   return async(dispatch) => {
-    
-//     dispatch(setGuest(guest));
-// }
-  
-}
 
 export const logout = () => {
   storage().removeItem(TOKEN)

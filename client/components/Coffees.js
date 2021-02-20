@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { loadProducts } from "../store/product";
 import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
-import {addNewCoffee, updatedStock} from '../store'
+import {addNewCoffee, updatedStock, putInGuestCart} from '../store'
 
 
 // so essentially this needs to change if a guest is logged in was trying a whole bunch of things but can probably just use 
@@ -23,33 +23,31 @@ class Coffees extends Component {
 
   componentDidMount() {
     this.props.bootstrap();
-    console.log(this.props);
+    // console.log(this.props);
      // if nothing was added to the cart before log in only tken should be there
-  const storage = window.localStorage;
-  console.log(storage.length);
-  if(storage.length>1){
-    // we added stuff to the cart already need to get those itmes and put them in the cart
-    let orders = {};
-    let keys = Object.keys(storage);
-    let i = keys.length;
-    //afterit add one the rest might need to be in a thunk or such 
-    // this almost works but going to need to put 
-    while ( i ) {
-              i--;
-              if (keys[i] !== 'token'){
-                // send orders 
-                // this.props.addNewCoffee(1, this.props.auth.id, keys[i]);
-                // could use this for quantity??
-                orders[ keys[i] ] = storage.getItem( keys[i] );
-                // need to remove them from storage
-                storage.removeItem( keys[i] );}
-          }
-          // need to send order to thunk were the async await won't cause it to make multiple carts
-          console.log(orders)
-  }
+    const storage = window.localStorage;
+    // console.log(storage.length);
+    //if local storage has more than 1 item someone has been putting coffees in it
+    if(storage.length>1){
+      // we added stuff to the cart already need to get those itmes and put them in the cart
+      let orders = {};
+      let keys = Object.keys(storage);
+      let i = keys.length;
+      while ( i ) {
+        i--;
+        // put everything but token in an object and remove them from local storage
+        if (keys[i] !== 'token'){
+          orders[ keys[i] ] = storage.getItem( keys[i] );
+          storage.removeItem( keys[i] );}
+      }
+        // need the userId
+        orders['auth'] = this.props.auth.id;
+        // need to send order to thunk were we can use await to stop it from making multiple carts
+        this.props.putInGuestCart(orders);
+    }
 
   }
-
+  
   putInCart(coffeeId, coffeeStock){
     
     let stock = coffeeStock - 1;
@@ -90,10 +88,6 @@ class Coffees extends Component {
     // console.log(category);
     if (category !== ''){
       coffees = coffees.filter(coffee=> coffee.category === category );
-      // maybe should be in component did update?? esentially trying to get back to page one when we sort by category 
-      // if (page != 1){
-      //   this.setState({page: 1});
-      // }
     }
     const lastPage = Math.ceil(coffees.length/12);
     // console.log(lastPage);
@@ -175,6 +169,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateStock(stock, coffeeId){
       dispatch(updatedStock(stock, coffeeId))
+    },
+    putInGuestCart(obj){
+       dispatch(putInGuestCart(obj))
     },  
   };
 };
