@@ -106,8 +106,13 @@ class Coffees extends Component {
     });
     // console.log(coffees);
     return (
-      <div className={"list"}>
-        <select name="category" value={category} onChange={onChange}>
+      <div>
+        <select
+          className="comobobox-pad"
+          name="category"
+          value={category}
+          onChange={onChange}
+        >
           <option value="">All</option>
           {categories.map((cat) => {
             return (
