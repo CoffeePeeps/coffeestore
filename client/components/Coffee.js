@@ -46,7 +46,7 @@ class Coffee extends Component {
     if (quantity > coffeeStock) {
       quantity = coffeeStock * 1;
       NotificationManager.error('We do not have THAT much coffee though!', 'Oops!', 5000)
-    } 
+    }
 
     let stock = coffeeStock - quantity;
 
@@ -120,7 +120,6 @@ class Coffee extends Component {
                       />
 
                       <button
-                        variant="primary"
                         onClick={() => this.putInCart(`${coffee.id}`, `${coffee.stock}`)
                         }
                       >
@@ -135,7 +134,7 @@ class Coffee extends Component {
                   </p>
                 )}
                 {/* <form className="d-flex justify-content-left">
-              
+
               <input type="number" value="1" aria-label="Search" className="form-control" style="width: 100px">
               <button className="btn btn-primary btn-md my-0 p" type="submit">Add to cart
                 <i className="fas fa-shopping-cart ml-1"></i>
