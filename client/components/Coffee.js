@@ -32,32 +32,38 @@ class Coffee extends Component {
     this.setState(change);
   }
 
-  putInCart(coffeeId, coffeeStock) {
-    //make sure it is type number and a whole number
-    let quantity = Math.ceil(this.state.quantity * 1);
+    putInCart(coffeeId, coffeeStock){
+        
+      //make sure it is type number and a whole number
+      let quantity = Math.ceil(this.state.quantity * 1)
+      
+      // if it's not a positive integer just make it 1
+      // should show a message 
+      if (isNaN(quantity) || quantity < 1 ){
+          quantity = 1;
+      } 
+      
+      //can't sell more than we have 
+      if (quantity > coffeeStock){
+        quantity = coffeeStock * 1;
+        NotificationManager.error('We do not have that much coffee!', 'Oops!', 1000)
+      }
 
-    // if it's not a positive integer just make it 1
-    // should show a message
-    if (isNaN(quantity) || quantity < 1) {
-      quantity = 1;
+      let stock = coffeeStock - quantity;
+        
+      this.props.updateStock(stock, coffeeId)
+      // we are out of stock can't put it in the cart
+      if (coffeeStock > 0 && this.props.auth.id)  {      
+        this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
+        NotificationManager.success('You have added a delicious coffee!', 'Success!', 1000)
+      } else if ( coffeeStock > 0 ) {      
+        console.log('you are trying to add coffee to the guest cart')
+        // so this will put an item into local storage
+        localStorage.setItem( coffeeId, quantity);
+        // this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
+        //ideally a function for a pop up window would be called to tell user they added to cart  
+      }
     }
-
-    //can't sell more than we have
-    if (quantity > coffeeStock) {
-      quantity = coffeeStock * 1;
-      NotificationManager.error('We do not have THAT much coffee though!', 'Oops!', 5000)
-    }
-
-    let stock = coffeeStock - quantity;
-
-    this.props.updateStock(stock, coffeeId);
-    // we are out of stock can't put it in the cart
-    if (quantity > 0) {
-      this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
-      NotificationManager.success('You have added some delicious coffee!', 'Success!', 5000)
-    }
-
-  }
 
   render() {
     const coffee = this.props.coffee;

@@ -7,7 +7,8 @@ const TOKEN = 'token'
 /**
  * ACTION TYPES
  */
-const SET_AUTH = 'SET_AUTH'
+const SET_AUTH = 'SET_AUTH';
+
 
 /**
  * ACTION CREATORS
@@ -39,6 +40,7 @@ export const authenticate = (email, password, method) => async dispatch => {
     return dispatch(setAuth({error: authError}))
   }
 }
+
 
 export const logout = () => {
   storage().removeItem(TOKEN)

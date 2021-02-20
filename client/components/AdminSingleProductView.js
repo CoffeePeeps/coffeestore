@@ -18,7 +18,9 @@ export class AdminSingleProductView extends React.Component {
     }
 
     componentDidMount() {
-        this.props._loadProduct(this.props.match.params.coffeeId);
+        this.props.loadProduct(this.props.match.params.coffeeId);
+
+        console.log(this.props.product)
 
         //variable to track which offee to refernce in the product (all coffees) array
         
@@ -132,7 +134,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        _loadProduct(prodId) {
+        loadProduct(prodId) {
             dispatch(loadProduct(prodId));
         },
         updateProduct(updatedProduct) {

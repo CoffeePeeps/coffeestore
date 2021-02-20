@@ -7,7 +7,9 @@ router.get('/:userId', async (req, res, next) => {
     try{
         const listOfClosedCarts = await Cart.findAll({
             where: {
-                id: req.params.userId,    
+                // id: req.params.userId,
+                // think this is what we want
+                userId: req.params.userId,    
                 open: 'false'
             }
         });

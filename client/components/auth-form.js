@@ -1,39 +1,69 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import Coffees from "./Coffees";
 
 /**
  * COMPONENT
  */
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+class AuthForm extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      guest: false
+    };
+  
+    this.setGuest = this.setGuest.bind(this);
+  }
 
+  setGuest(){
+    // just toggling between true and false to either show or not show products not sure if this is the
+    // way to handle it but it's a way  
+    this.setState({guest: !this.state.guest})  
+  }
+
+
+  render (){
+    
+    const {name, displayName, handleSubmit, error} = this.props;
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <div>
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+            <div>
+              <button type="submit">{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <br/>
+            <button onClick={()=>{this.setGuest()}}>guest</button>
+          {
+            window.githubURL && <a href={window.githubURL}>Login / Register Via Github </a>
+          }
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      {
-        window.githubURL && <a href={window.githubURL}>Login / Register Via Github </a>
-      }
-    </div>
-  )
-}
+        {this.state.guest &&
+        (
+          <div>
+            <Coffees />
+          </div>
+        )
+        } 
+      </div>  
+    )
+  }
+}    
 
 /**
  * CONTAINER

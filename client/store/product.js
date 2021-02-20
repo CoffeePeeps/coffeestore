@@ -6,7 +6,7 @@ const LOAD_PRODUCT = 'LOAD_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const CREATE_PRODUCT = 'CREATE_PRODUCT'
-
+const UPDATE_PRODUCT_STOCK = 'UPDATE_PRODUCT_STOCK'
 
 // Action Creator
 const _loadProducts = (products) =>{
@@ -23,6 +23,14 @@ const _loadProduct = (product) =>{
         product
     };
 };
+
+const _updateProductStock = (product) =>{
+    return {
+        type: UPDATE_PRODUCT_STOCK,
+        product
+    };
+};
+
 
 const updateProduct = (product) => {
     return {
@@ -57,13 +65,17 @@ export const loadProducts = () =>{
 export const loadProduct = (id) =>{
     return async(dispatch)=>{
         const product = (await axios.get(`/api/products/${id}`)).data;
+        // console.log(product);
         dispatch(_loadProduct(product));
     }
 };
 
 export const loadUpdatedProduct = (updatedProduct) => {
     return async(dispatch) => {
+        // database definitely updated!!
         const { update } = await axios.put(`/api/products/${updatedProduct.id}`, updatedProduct);
+        // can't get console.log to work dispatch might not be working really can't tell
+        console.log({update});
         dispatch(updateProduct(update))
     }
 }
@@ -72,16 +84,14 @@ export const updatedStock = (stock, coffeeId) => {
     return async(dispatch) => {
 
         // this updates the coffee
-        await axios.put(`/api/products/stock/${coffeeId}`, { stock })
-
-
-        // so for this just seems to be brackets in UPDATE_PRODUCT that causes it to fail
-        // const coffee = (await axios.get(`/api/products/${coffeeId}`)).data;
+        const update = await axios.put(`/api/products/stock/${coffeeId}`, { stock })
+        
+        const coffee = (await axios.get(`/api/products/${coffeeId}`)).data;
         // console.log(coffee[0]);
-        // dispatch(updateProduct(coffee[0]))
-        // just reloading all product for the moment, can change once we discuss UPDATE_PRODUCT
-        const products = (await axios.get('/api/products')).data;
-        dispatch(_loadProducts(products));
+        // I don't know why I could not get the updateProduct to work... just copied and modified it slightly 
+        dispatch(_updateProductStock(coffee[0]));
+        // const product = (await axios.get(`/api/products/${id}`)).data;
+        // dispatch(_loadProduct(product));
     }
 }
 
@@ -109,14 +119,19 @@ export default function(state = [], action) {
             return action.product;
         case UPDATE_PRODUCT:
             return state.map((product) => {
-                action.product.coffeeId === product.coffeeId
-                ? action.product
-                : product
-            })
+                action.product.coffeeId === product.coffeeId 
+                ? action.product 
+                : product 
+            });
+        case UPDATE_PRODUCT_STOCK:
+            return state.map(product => 
+                action.product.id === product.id 
+                ? action.product : product 
+            );
         case DELETE_PRODUCT:
-            return state.filter((coffee) => coffee.id !== action.product.id)
+            return state.filter((coffee) => coffee.id !== action.product.id);
         case CREATE_PRODUCT:
-            return [...state, action.product]
+            return [...state, action.product];
         default:
             return state;
     }

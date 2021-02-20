@@ -19,6 +19,7 @@ const CHECKOUT_CART = "CHECKOUT_CART"
 const setCart = cartList => ({type: SET_CART, cartList})
 const deleteCart = item => ({type: DELETE_ITEM, item})
 
+
 /**
  * THUNK CREATORS
  */
@@ -84,13 +85,26 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
       let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
       // TODO UPDATE_ITEM could be called here
     }
-
-    // reloading the entire cart, it is overkill but it works will refine later
+    // the cart component is constantly relaoding the cart so no work needs to be done here
     contents = (await axios.get(`/api/cart/${userId}`)).data;
     dispatch(setCart(contents));
   }
 };
 
+
+// used for guest cart
+export const putInGuestCart = (obj) =>{
+ 
+  return async(dispatch)=>{
+    for (const property in obj) {
+      // console.log(`${property}: ${obj[property]}`);
+      if (property !== 'auth'){
+        // console.log(`${property}  ${obj['auth']}  ${obj[property]}`)
+        await dispatch(addNewCoffee(obj[property]*1, obj['auth'], property*1))
+      }
+    }
+  }
+}
 
 /**
  * REDUCER

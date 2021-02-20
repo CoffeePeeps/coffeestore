@@ -68,6 +68,22 @@ const syncAndSeed = async () => {
   await User.create({email: 'test15@email.com', password: '123'});
   await User.create({ email: "admin1@email.com", password: "123", typeOfUser: 'ADMIN' });
 
+  //also more test data, we can also be more original
+  for (let i = 3; i< 20; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name});
+  }
+
+  for (let i =21; i< 40; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name, category: "MEDIUM" });
+  }
+
+  for (let i =41; i< 60; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name, category: "DARK" });
+  }
+
     //mimicking the testing user testing ones not actually using this yet
     const coffees = await Promise.all([
       await Coffee.create({ name: "Caramel Coffee Beans" }),
@@ -86,6 +102,7 @@ const syncAndSeed = async () => {
     await Coffee.create({ name: "Super Strength Coffee Beans" });
     await Coffee.create({ name: "Sleepy Coffee Beans" });
     await Coffee.create({ name: "Coffee Beans Coffee Beans" });
+
 
   //cart test data
   await Cart.create({userId: 1});
