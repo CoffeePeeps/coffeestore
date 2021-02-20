@@ -108,7 +108,7 @@ class Coffees extends Component {
     return (
       <div>
         <select
-          className="comobobox-pad"
+          className="comobobox-pad pagination-dropdown"
           name="category"
           value={category}
           onChange={onChange}
