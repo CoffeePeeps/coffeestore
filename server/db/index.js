@@ -67,34 +67,51 @@ const syncAndSeed = async () => {
   await User.create({email: 'test14@email.com', password: '123'});
   await User.create({email: 'test15@email.com', password: '123'});
   await User.create({ email: "admin1@email.com", password: "123", typeOfUser: 'ADMIN' });
-  
-  //mimicking the testing user testing ones not actually using this yet
-  const coffees = await Promise.all([
-    await Coffee.create({ name: "coffee1" }),
-    await Coffee.create({ name: "coffee2" }),
-  ]);
 
-  //also more test data, we can also be more original, apperently we do not need an await here, though it might
-  //be good practice to put it in..not sure
-  await Coffee.create({ name: "coffee3" });
-  await Coffee.create({ name: "coffee4" });
-  await Coffee.create({ name: "coffee5" });
-  await Coffee.create({ name: "coffee6" });
-  await Coffee.create({ name: "coffee7" });
-  await Coffee.create({ name: "coffee8" });
-  await Coffee.create({ name: "coffee9" });
-  await Coffee.create({ name: "coffee10" });
-  await Coffee.create({ name: "coffee11" });
-  await Coffee.create({ name: "coffee12" });
+  //also more test data, we can also be more original
+  for (let i = 3; i< 20; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name});
+  }
+
+  for (let i =21; i< 40; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name, category: "MEDIUM" });
+  }
+
+  for (let i =41; i< 60; i++){
+    let name = "coffee"+i;
+    await Coffee.create({ name: name, category: "DARK" });
+  }
+
+    //mimicking the testing user testing ones not actually using this yet
+    const coffees = await Promise.all([
+      await Coffee.create({ name: "Caramel Coffee Beans" }),
+      await Coffee.create({ name: "Mocha Coffee Beans" }),
+    ]);
+
+    //also more test data, we can also be more original, apperently we do not need an await here, though it might
+    //be good practice to put it in..not sure
+    await Coffee.create({ name: "Arabic Coffee Beans" });
+    await Coffee.create({ name: "Prof Coffee Beans" });
+    await Coffee.create({ name: "The Best Coffee Beans" });
+    await Coffee.create({ name: "Robusta Coffee Beans" });
+    await Coffee.create({ name: "Liberica Coffee Beans" });
+    await Coffee.create({ name: "Excelsa Coffee Beans" });
+    await Coffee.create({ name: "Fun Coffee Beans" });
+    await Coffee.create({ name: "Super Strength Coffee Beans" });
+    await Coffee.create({ name: "Sleepy Coffee Beans" });
+    await Coffee.create({ name: "Coffee Beans Coffee Beans" });
+
 
   //cart test data
   await Cart.create({userId: 1});
   await Cart.create({userId: 2, open: 'false'});
   await Cart.create({userId: 3});
   await Cart.create({userId: 3, open: 'false'});
-  
+
   await Cart.create({userId: 4});
-  
+
   await Cart.create({userId: 5});
   await Cart.create({userId: 5, open: 'false'});
 

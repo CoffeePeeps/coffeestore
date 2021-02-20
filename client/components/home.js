@@ -8,7 +8,11 @@ import { Button, Card } from "react-bootstrap";
  */
 
 export const Home = props => {
+  // so we have logged in 
   const {email} = props
+
+ 
+
 
   return (
     <div>

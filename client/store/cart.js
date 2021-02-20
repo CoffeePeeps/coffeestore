@@ -1,6 +1,8 @@
 import axios from 'axios'
 import history from '../history'
 
+
+
 const storage = () => window.localStorage
 const TOKEN = 'token'
 
@@ -17,6 +19,7 @@ const CHECKOUT_CART = "CHECKOUT_CART"
 const setCart = cartList => ({type: SET_CART, cartList})
 const deleteCart = item => ({type: DELETE_ITEM, item})
 
+
 /**
  * THUNK CREATORS
  */
@@ -25,7 +28,6 @@ export const cart = (userId) => async dispatch => {
   if (token) {
     const res = await axios.get(`/api/cart/${userId}`)
     const cartItems = res.data
-    cartItems.total = subtotal(cartItems)
     return dispatch(setCart(cartItems))
   }
 }
@@ -38,10 +40,14 @@ export const delItem = (item, userId) => async dispatch => {
   }
 }
 
-export const checkoutItem = (cartId, userId , body) => async dispatch => {
+export const checkoutCart = (cartId, userId, stripeInfo, items) => async dispatch => {
   const token = storage().getItem(TOKEN)
   if(token){
-    await axios.put(`/api/checkout/${userId}/${cartId}`, body)
+    Promise.all([
+      await axios.post("/api/checkout/session", {token: stripeInfo.token, total: subtotal(items)}),
+      await axios.put(`/api/checkout/${userId}/${cartId}`)
+    ])
+
     return dispatch(setCart([]))
   }
 }
@@ -79,32 +85,41 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
       let cart_coffee = (await axios.put(`/api/cart/${cartId}/${coffeeId}`, { quantity })).data;
       // TODO UPDATE_ITEM could be called here
     }
-
-    // reloading the entire cart, it is overkill but it works will refine later
+    // the cart component is constantly relaoding the cart so no work needs to be done here
     contents = (await axios.get(`/api/cart/${userId}`)).data;
     dispatch(setCart(contents));
   }
 };
 
 
+// used for guest cart
+export const putInGuestCart = (obj) =>{
+
+  return async(dispatch)=>{
+    for (const property in obj) {
+      if (property !== 'auth'){
+        await dispatch(addNewCoffee(obj[property]*1, obj['auth'], property*1))
+      }
+    }
+  }
+}
+
 /**
  * REDUCER
  */
 const initState = {
   total: 0.00,
-  cart: []
+  items: []
 }
 
 export default function(state = initState, action) {
   switch (action.type) {
     case SET_CART:
-      return {total: subtotal(action.cartList), cart: action.cartList}
+      return {total: subtotal(action.cartList), items: action.cartList.sort((a,b) => b.coffeeId - a.coffeeId)}
     case DELETE_ITEM:
-      const items = state.cart.filter((cart) => cart.coffee.id !== action.item.id)
-      items.total = subtotal(items)
-      return {total: subtotal(items), cart: items}
+      const items = state.items.filter((item) => item.coffeeId !== action.item.id)
+      return {total: subtotal(items), items: items.sort((a,b) => b.coffeeId < a.coffeeId)}
     case CHECKOUT_CART:
-      console.log(action, state)
       return action.cart
     default:
       return state
@@ -118,6 +133,5 @@ const subtotal = arr => {
   }
 
   total = Math.round(total*100)/100
-
   return total.toString()
 }

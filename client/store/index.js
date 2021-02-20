@@ -9,11 +9,11 @@ import singleOrder from './singleOrder'
 
 import product from './product'
 
-const reducer = combineReducers({ 
-  auth, 
+const reducer = combineReducers({
+  auth,
   user: user,
   order: singleOrder,
-  cartList: cart,
+  cart,
   product
 })
 
@@ -24,5 +24,5 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './auth'
-export * from "./cart"
+export * from './cart'
 export * from './product'
