@@ -12,6 +12,9 @@ import {
 } from "react-bootstrap";
 import * as mdb from "mdb-ui-kit"; // lib
 
+import { NotificationManager } from 'react-notifications';
+// import "~react-notifications/lib/notifications.css";
+
 class Coffee extends Component {
   constructor(props) {
     super(props);
@@ -48,8 +51,13 @@ class Coffee extends Component {
 
     this.props.updateStock(stock, coffeeId);
     // we are out of stock can't put it in the cart
-    if (quantity > 0) {
+    if (quantity > 0 && stock >= 0) {
       this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
+      NotificationManager.success('You have added a delicious coffee!', 'Success!', 5000)
+    }
+
+    if (stock < 0) {
+      NotificationManager.error('We do not have that much coffee!', 'Oops!', 5000)
     }
   }
 
@@ -115,8 +123,7 @@ class Coffee extends Component {
 
                       <button
                         variant="primary"
-                        onClick={() =>
-                          this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                        onClick={() => this.putInCart(`${coffee.id}`, `${coffee.stock}`)
                         }
                       >
                         Add to Cart

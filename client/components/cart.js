@@ -2,6 +2,10 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {cart, delItem, checkoutCart, addNewCoffee} from '../store'
 
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
+
 const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
   useEffect(() => {
     setCart(auth.id)
@@ -76,6 +80,8 @@ const mapDispatch = dispatch => {
       dispatch(delItem(item,uid))
     },
     checkout(items, uid){
+      NotificationManager.success('You have added some delicious coffee to your cart!', 'Success!', 2000);
+
       // handle payment processing here
       const body = {
         payment: "success"
