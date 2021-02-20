@@ -39,11 +39,14 @@ export const delItem = (item, userId) => async dispatch => {
   }
 }
 
-export const checkoutCart = (cartId, userId , body, items) => async dispatch => {
+export const checkoutCart = (cartId, userId, stripeInfo, items) => async dispatch => {
   const token = storage().getItem(TOKEN)
   if(token){
-    await axios.put(`/api/checkout/${userId}/${cartId}`, body)
-    console.log(items)
+    Promise.all([
+      await axios.post("/api/checkout/session", {token: stripeInfo.token, total: subtotal(items)}),
+      await axios.put(`/api/checkout/${userId}/${cartId}`)
+    ])
+
     return dispatch(setCart([]))
   }
 }

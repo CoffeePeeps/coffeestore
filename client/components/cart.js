@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import StripeCheckout from "react-stripe-checkout"
 import {cart, delItem, checkoutCart, addNewCoffee} from '../store'
 
 // React Notification
@@ -11,7 +12,6 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
     setCart(auth.id)
   }, [])
 
-  console.log(cart)
   return(
     <div>
       <h1>Cart</h1>
@@ -53,9 +53,16 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
           <p>Total: ${cart.total}</p>
         </div>
 
-        <button onClick={
+        {/* <button onClick={
           () => checkout(cart.items, auth.id)
-        }>Checkout</button>
+        }>Checkout</button> */}
+        <StripeCheckout
+          token={(token, addresses) => checkout(cart.items, auth.id, token, addresses)}
+          stripeKey={process.env.STRIPE_TEST_API_KEY}
+          amount={cart.total*100}
+          billingAddress
+          shippingAddress
+        />
       </div>
 
     </div>
@@ -79,14 +86,10 @@ const mapDispatch = dispatch => {
     handleDelete(item, uid){
       dispatch(delItem(item,uid))
     },
-    checkout(items, uid){
+    checkout(items, uid, token, addresses){
+      const stripeInfo = {token, addresses}
       NotificationManager.success('Checkout Successful', 'Success!', 2000);
-
-      // handle payment processing here
-      const body = {
-        payment: "success"
-      }
-      dispatch(checkoutCart(items[0].cartId, uid, body, items))
+      dispatch(checkoutCart(items[0].cartId, uid, stripeInfo, items))
     },
     updateCoffee(qty, uid, coffeeId){
       dispatch(addNewCoffee(qty, uid, coffeeId))
