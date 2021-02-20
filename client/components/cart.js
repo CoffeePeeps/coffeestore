@@ -80,7 +80,7 @@ const mapDispatch = dispatch => {
       dispatch(delItem(item,uid))
     },
     checkout(items, uid){
-      NotificationManager.success('You have added some delicious coffee to your cart!', 'Success!', 2000);
+      NotificationManager.success('Checkout Successful', 'Success!', 2000);
 
       // handle payment processing here
       const body = {

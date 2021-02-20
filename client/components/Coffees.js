@@ -25,15 +25,14 @@ class Coffees extends Component {
     // should update the stock of coffee we have in the store
     if (stock >= 0){
       this.props.updateStock(stock, coffeeId)
-      NotificationManager.success('You have added a delicious coffee!', 'Success!', 5000)
     }
     // we are out of stock can't put it in the cart
-    if (coffeeStock < 0) {      
+    if (coffeeStock > 0) {      
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
-      NotificationManager.error('We do not have that much coffee!', 'Oops!', 5000)
       //ideally a function for a pop up window would be called to tell user they added to cart
-      
+      NotificationManager.success('You have added some delicious coffee!', 'Success!', 5000)
     }   
+
   }
 
   render() {

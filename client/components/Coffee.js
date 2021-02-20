@@ -45,20 +45,18 @@ class Coffee extends Component {
     //can't sell more than we have
     if (quantity > coffeeStock) {
       quantity = coffeeStock * 1;
-    }
+      NotificationManager.error('We do not have THAT much coffee though!', 'Oops!', 5000)
+    } 
 
     let stock = coffeeStock - quantity;
 
     this.props.updateStock(stock, coffeeId);
     // we are out of stock can't put it in the cart
-    if (quantity > 0 && stock >= 0) {
+    if (quantity > 0) {
       this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
-      NotificationManager.success('You have added a delicious coffee!', 'Success!', 5000)
+      NotificationManager.success('You have added some delicious coffee!', 'Success!', 5000)
     }
 
-    if (stock < 0) {
-      NotificationManager.error('We do not have that much coffee!', 'Oops!', 5000)
-    }
   }
 
   render() {
