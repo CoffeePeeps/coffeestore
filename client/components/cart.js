@@ -55,7 +55,7 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
 
         <StripeCheckout
           token={(token, addresses) => checkout(cart.items, auth.id, token, addresses)}
-          stripeKey={process.env.STRIPE_TEST_API_KEY}
+          stripeKey="pk_test_51ILK1lLfvWrZDmuZMXaRPM2DZJTsiWZCLF0kN6XuqF9jMLq5eYjh59Vaqvr1XshlKGPRbF2Q1PRxFv1G72IZBCpf000VL6GWuC"
           amount={cart.total*100}
           billingAddress
           shippingAddress
