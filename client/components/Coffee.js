@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import * as mdb from "mdb-ui-kit"; // lib
 
-import { NotificationManager } from 'react-notifications';
+import { NotificationManager } from "react-notifications";
 // import "~react-notifications/lib/notifications.css";
 
 class Coffee extends Component {
@@ -32,38 +32,45 @@ class Coffee extends Component {
     this.setState(change);
   }
 
-    putInCart(coffeeId, coffeeStock){
-        
-      //make sure it is type number and a whole number
-      let quantity = Math.ceil(this.state.quantity * 1)
-      
-      // if it's not a positive integer just make it 1
-      // should show a message 
-      if (isNaN(quantity) || quantity < 1 ){
-          quantity = 1;
-      } 
-      
-      //can't sell more than we have 
-      if (quantity > coffeeStock){
-        quantity = coffeeStock * 1;
-        NotificationManager.error('We do not have that much coffee!', 'Oops!', 1000)
-      }
+  putInCart(coffeeId, coffeeStock) {
+    //make sure it is type number and a whole number
+    let quantity = Math.ceil(this.state.quantity * 1);
 
-      let stock = coffeeStock - quantity;
-        
-      this.props.updateStock(stock, coffeeId)
-      // we are out of stock can't put it in the cart
-      if (coffeeStock > 0 && this.props.auth.id)  {      
-        this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
-        NotificationManager.success('You have added a delicious coffee!', 'Success!', 1000)
-      } else if ( coffeeStock > 0 ) {      
-        console.log('you are trying to add coffee to the guest cart')
-        // so this will put an item into local storage
-        localStorage.setItem( coffeeId, quantity);
-        // this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
-        //ideally a function for a pop up window would be called to tell user they added to cart  
-      }
+    // if it's not a positive integer just make it 1
+    // should show a message
+    if (isNaN(quantity) || quantity < 1) {
+      quantity = 1;
     }
+
+    //can't sell more than we have
+    if (quantity > coffeeStock) {
+      quantity = coffeeStock * 1;
+      NotificationManager.error(
+        "We do not have that much coffee!",
+        "Oops!",
+        1000
+      );
+    }
+
+    let stock = coffeeStock - quantity;
+
+    this.props.updateStock(stock, coffeeId);
+    // we are out of stock can't put it in the cart
+    if (coffeeStock > 0 && this.props.auth.id) {
+      this.props.addNewCoffee(quantity, this.props.auth.id, coffeeId);
+      NotificationManager.success(
+        "You have added a delicious coffee!",
+        "Success!",
+        1000
+      );
+    } else if (coffeeStock > 0) {
+      console.log("you are trying to add coffee to the guest cart");
+      // so this will put an item into local storage
+      localStorage.setItem(coffeeId, quantity);
+      // this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
+      //ideally a function for a pop up window would be called to tell user they added to cart
+    }
+  }
 
   render() {
     const coffee = this.props.coffee;
@@ -103,22 +110,7 @@ class Coffee extends Component {
                   <div>
                     {coffee.stock && `stock: ${coffee.stock}`}
                     <br />
-                    <Form>
-                      <Form.Group controlId="exampleForm.ControlSelect1">
-                        <Form.Label>Select Quanity</Form.Label>
-                        <Form.Control as="select">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
-                        </Form.Control>
-                      </Form.Group>
+                    <div>
                       <input
                         name="quantity"
                         value={quantity}
@@ -126,12 +118,13 @@ class Coffee extends Component {
                       />
 
                       <button
-                        onClick={() => this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                        onClick={() =>
+                          this.putInCart(`${coffee.id}`, `${coffee.stock}`)
                         }
                       >
                         Add to Cart
                       </button>
-                    </Form>
+                    </div>
                   </div>
                 ) : (
                   <p>
