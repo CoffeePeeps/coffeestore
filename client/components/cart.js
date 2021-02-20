@@ -60,13 +60,12 @@ const Cart = ({
                               type="button"
                               className="card-link-secondary small text-uppercase mr-3"
                             >
-                              <i
-                                className="fas fa-trash-alt mr-1"
+                              <button
                                 onClick={() =>
                                   handleDelete(item.coffee, auth.id)
                                 }
-                              ></i>{" "}
-                              Remove item{" "}
+                              >Remove item{" "}</button>
+
                             </a>
                           </div>
                           <div>
@@ -77,24 +76,25 @@ const Cart = ({
                                 className="minus"
                                 disabled={item.quantity === 1 && true}
                                 onClick={() =>
-                                  updateCoffee(-1, auth.id, item.coffeeId)
+                                  updateCoffee(-1, auth.id, item)
                                 }
-                              ></button>
+                              >-</button>
                               <input
                                 className="quantity"
                                 min="0"
                                 name="quantity"
                                 value={item.quantity}
                                 type="number"
+                                disabled
                               />
                               <button
                                 id="basic-example-add"
                                 // onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                                 className="plus"
                                 onClick={() =>
-                                  updateCoffee(1, auth.id, item.coffeeId)
+                                  updateCoffee(1, auth.id, item)
                                 }
-                              ></button>
+                              >+</button>
                               <p className="mb-0">
                                 <span>
                                   <strong>
@@ -185,63 +185,6 @@ const Cart = ({
         </div>
       </div>
     </section>
-
-    // <div>
-    //   <h1>Cart</h1>
-    //   <table>
-    //     <thead>
-    //       <tr>
-    //         <th></th>
-    //         <th></th>
-    //         <th>QTY</th>
-    //         <th>Total</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {cart.items.map(item => (
-    //         <tr key={item.coffee.id}>
-    //           <td>
-    //             <button onClick={() => handleDelete(item.coffee, auth.id)}>
-    //             X
-    //             </button>
-    //           </td>
-    //           <td>{item.coffee.name}</td>
-    //           <td>
-    //             {item.quantity}
-    //             <button onClick={() => {
-    //               updatedStock(item.coffee.stock + 1 ,item.coffeeId)
-    //               updateCoffee(1, auth.id, item.coffeeId)
-    //             }}>+</button>
-    //             <button disabled={item.quantity === 1 && true} onClick={() => {
-    //               updatedStock(item.coffee.stock - 1 ,item.coffeeId)
-    //               updateCoffee(-1, auth.id, item.coffeeId)
-    //               }}>-</button>
-    //           </td>
-    //           <td>{(item.coffee.price * item.quantity)}</td>
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-
-    //   <div>
-    //     <h1>Total</h1>
-    //     <div>
-    //       <p>Subtotal: ${cart.total}</p>
-    //       <p>Shipping: FREE</p>
-    //       <p>Tax: $0.00</p>
-    //       <p>Total: ${cart.total}</p>
-    //     </div>
-
-    //     <StripeCheckout
-    //       token={(token, addresses) => checkout(cart.items, auth.id, token, addresses)}
-    //       stripeKey="pk_test_51ILK1lLfvWrZDmuZMXaRPM2DZJTsiWZCLF0kN6XuqF9jMLq5eYjh59Vaqvr1XshlKGPRbF2Q1PRxFv1G72IZBCpf000VL6GWuC"
-    //       amount={cart.total*100}
-    //       billingAddress
-    //       shippingAddress
-    //     />
-    //   </div>
-
-    // </div>
   );
 };
 
@@ -265,8 +208,9 @@ const mapDispatch = (dispatch) => {
       NotificationManager.success("Checkout Successful", "Success!", 2000);
       dispatch(checkoutCart(items[0].cartId, uid, stripeInfo, items));
     },
-    updateCoffee(qty, uid, coffeeId) {
-      dispatch(addNewCoffee(qty, uid, coffeeId));
+    updateCoffee(qty, uid, item) {
+      dispatch(addNewCoffee(qty, uid, item.coffeeId));
+      dispatch(updatedStock(item.coffee.stock - qty, item.coffeeId))
     },
   };
 };
