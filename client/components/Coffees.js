@@ -5,6 +5,10 @@ import { loadProducts } from "../store/product";
 import { Button, Card, Container, Row, Col, Image } from "react-bootstrap";
 import {addNewCoffee, updatedStock} from '../store'
 
+import { NotificationManager } from 'react-notifications';
+// import "~react-notifications/lib/notifications.css";
+
+
 class Coffees extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +30,9 @@ class Coffees extends Component {
     if (coffeeStock > 0) {      
       this.props.addNewCoffee(1, this.props.auth.id, coffeeId);
       //ideally a function for a pop up window would be called to tell user they added to cart
-      
+      NotificationManager.success('You have added some delicious coffee!', 'Success!', 5000)
     }   
+
   }
 
   render() {
@@ -57,7 +62,9 @@ class Coffees extends Component {
                         </Card.Title>
                         <Card.Text>Place Holder Text</Card.Text>
                         { coffee.stock > 0 ? (
-                          <Button variant="primary" onClick = {()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)}>Add to Cart</Button> 
+                          <Button variant="primary" onClick = { 
+                            ()=> this.putInCart(`${coffee.id}`, `${coffee.stock}`)
+                          }>Add to Cart</Button> 
                           ) : (
                             <p>Out of Stock</p>
                           )}

@@ -3,6 +3,10 @@ import {connect} from 'react-redux'
 import StripeCheckout from "react-stripe-checkout"
 import {cart, delItem, checkoutCart, addNewCoffee} from '../store'
 
+// React Notification
+import { NotificationManager } from 'react-notifications';
+
+
 const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
   useEffect(() => {
     setCart(auth.id)
@@ -84,6 +88,7 @@ const mapDispatch = dispatch => {
     },
     checkout(items, uid, token, addresses){
       const stripeInfo = {token, addresses}
+      NotificationManager.success('Checkout Successful', 'Success!', 2000);
       dispatch(checkoutCart(items[0].cartId, uid, stripeInfo, items))
     },
     updateCoffee(qty, uid, coffeeId){

@@ -5,6 +5,9 @@ import {Login, Signup, Home, User, SingleOrder, Cart, Coffee,
         AdminSingleProductView, AdminAllProductView, AdminAddNewProduct} from './components/index'
 import {me} from './store'
 
+// React Notification
+import { NotificationContainer } from 'react-notifications';
+
 /**
  * COMPONENT
  */
@@ -53,6 +56,7 @@ class Routes extends Component {
             <Redirect to="/login" />
           </Switch>
         ))}
+      <NotificationContainer />
       </div>
 
 
@@ -67,7 +71,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    isAdmin: (state.auth.typeOfUser === 'ADMIN')
   }
 }
 
