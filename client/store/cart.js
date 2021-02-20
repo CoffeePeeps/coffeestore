@@ -105,7 +105,7 @@ export default function(state = initState, action) {
     case SET_CART:
       return {total: subtotal(action.cartList), items: action.cartList}
     case DELETE_ITEM:
-      const items = state.cart.filter((cart) => cart.coffee.id !== action.item.id)
+      const items = state.items.filter((item) => item.coffeeId !== action.item.id)
       items.total = subtotal(items)
       return {total: subtotal(items), items: items}
     case CHECKOUT_CART:
