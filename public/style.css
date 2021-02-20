@@ -10,20 +10,20 @@ label {
   display: block;
 }
 
-nav a {
+/* nav a {
   display: inline-block;
-  margin: 1em;
-}
+  margin: 1rem;
+} */
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
-}
-h1,
+} */
+/* h1,
 h2,
 main {
   margin: 1rem;
-}
+} */
 
 .body2 {
   font-family: sans-serif;

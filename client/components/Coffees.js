@@ -55,7 +55,7 @@ class Coffees extends Component {
                         </Card.Title>
                         <Card.Text>Place Holder Text</Card.Text>
                         {coffee.stock > 0 ? (
-                          <Button
+                          <button
                             variant="primary"
                             // className="Add-To-Cart-Button"
                             onClick={() =>
@@ -63,7 +63,7 @@ class Coffees extends Component {
                             }
                           >
                             Add to Cart
-                          </Button>
+                          </button>
                         ) : (
                           <p>Out of Stock</p>
                         )}

@@ -21,120 +21,91 @@ const Cart = ({
         <div className="col-lg-8">
           <div className="card wish-list mb-3">
             <div className="card-body">
-              <h5 className="mb-4">
-                Cart (<span>2</span> items)
-              </h5>
+              <h5 className="mb-4">{/* Cart (<span>2</span> items) */}</h5>
+              {cart.items.map((item) => (
+                <>
+                  <div className="row mb-4" key={item.coffee.id}>
+                    <div className="col-md-5 col-lg-3 col-xl-3">
+                      <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                        <img
+                          className="img-fluid w-100"
+                          src={window.location.origin + "/assets/Coffee3.jpg"}
+                          alt="Sample"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-7 col-lg-9 col-xl-9">
+                      <div>
+                        <div className="d-flex justify-content-between">
+                          <div>
+                            <h5>{item.coffee.name}</h5>
+                            <p className="mb-3 text-muted text-uppercase small">
+                              ${item.coffee.price} per Unit
+                            </p>
 
-              <div className="row mb-4">
-                <div className="col-md-5 col-lg-3 col-xl-3">
-                  <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                    <img
-                      className="img-fluid w-100"
-                      src={window.location.origin + "/assets/Coffee3.jpg"}
-                      alt="Sample"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-7 col-lg-9 col-xl-9">
-                  <div>
-                    <div className="d-flex justify-content-between">
-                      <div>
-                        <h5>Blue denim shirt</h5>
-                        <p className="mb-3 text-muted text-uppercase small">
-                          Shirt - blue
-                        </p>
-                        <p className="mb-2 text-muted text-uppercase small">
-                          Color: blue
-                        </p>
-                        <p className="mb-3 text-muted text-uppercase small">
-                          Size: M
-                        </p>
-                      </div>
-                      <div>
-                        <div className="def-number-input number-input safari_only mb-0 w-100">
-                          <button
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                            className="minus"
-                          ></button>
-                          <input
-                            className="quantity"
-                            min="0"
-                            name="quantity"
-                            value="1"
-                            type="number"
-                          />
-                          <button
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                            className="plus"
-                          ></button>
-                          <p className="mb-0">
-                            <span>
-                              <strong>$35.99</strong>
-                            </span>
-                          </p>
+                            {/* <p className="mb-3 text-muted text-sentencecase small">
+                              Remove From Cart
+                            </p> */}
+                            <a
+                              href="#!"
+                              type="button"
+                              className="card-link-secondary small text-uppercase mr-3"
+                            >
+                              <i
+                                className="fas fa-trash-alt mr-1"
+                                onClick={() =>
+                                  handleDelete(item.coffee, auth.id)
+                                }
+                              ></i>{" "}
+                              Remove item{" "}
+                            </a>
+                          </div>
+                          <div>
+                            <div className="def-number-input number-input safari_only mb-0 w-100">
+                              <button
+                                id="basic-example-decrease"
+                                // onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                                className="minus"
+                                disabled={item.quantity === 1 && true}
+                                onClick={() =>
+                                  updateCoffee(-1, auth.id, item.coffeeId)
+                                }
+                              ></button>
+                              <input
+                                className="quantity"
+                                min="0"
+                                name="quantity"
+                                value={item.quantity}
+                                type="number"
+                              />
+                              <button
+                                id="basic-example-add"
+                                // onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                                className="plus"
+                                onClick={() =>
+                                  updateCoffee(1, auth.id, item.coffeeId)
+                                }
+                              ></button>
+                              <p className="mb-0">
+                                <span>
+                                  <strong>
+                                    {item.coffee.price * item.quantity}
+                                  </strong>
+                                </span>
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <hr className="mb-4" />
-              <div className="row mb-4">
-                <div className="col-md-5 col-lg-3 col-xl-3">
-                  <div className="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                    <img
-                      className="img-fluid w-100"
-                      src={window.location.origin + "/assets/Coffee3.jpg"}
-                      alt="Sample"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-7 col-lg-9 col-xl-9">
-                  <div>
-                    <div className="d-flex justify-content-between">
-                      <div>
-                        <h5>Red hoodie</h5>
-                        <p className="mb-3 text-muted text-uppercase small">
-                          Shirt - red
-                        </p>
-                        <p className="mb-2 text-muted text-uppercase small">
-                          Color: red
-                        </p>
-                        <p className="mb-3 text-muted text-uppercase small">
-                          Size: M
-                        </p>
-                      </div>
-                      <div>
-                        <div className="def-number-input number-input safari_only mb-0 w-100">
-                          <button
-                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                            className="minus"
-                          ></button>
-                          <input
-                            className="quantity"
-                            min="0"
-                            name="quantity"
-                            value="1"
-                            type="number"
-                          />
-                          <button
-                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                            className="plus"
-                          ></button>
-                          <p className="mb-0">
-                            <span>
-                              <strong>$35.99</strong>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  <hr className="mb-4" />
+                </>
+              ))}
             </div>
           </div>
 
+          {/* Credit Cards that we accept */}
           <div className="card mb-3">
             <div className="card-body">
               <h5 className="mb-4">We accept</h5>
@@ -161,6 +132,7 @@ const Cart = ({
           </div>
         </div>
 
+        {/* Grand total Container */}
         <div className="col-lg-4">
           <div className="card mb-3">
             <div className="card-body">
@@ -168,19 +140,24 @@ const Cart = ({
 
               <ul className="list-group list-group-flush">
                 <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                  Temporary amount
-                  <span>$25.98</span>
+                  Subtotal
+                  <span>${cart.total}</span>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Tax
+                  <span>$0.00</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                   Shipping
                   <span>Free</span>
                 </li>
+
                 <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                   <div>
                     <strong>Total</strong>
                   </div>
                   <span>
-                    <strong>$53.98</strong>
+                    <strong>${cart.total}</strong>
                   </span>
                 </li>
               </ul>
@@ -188,6 +165,7 @@ const Cart = ({
               <button
                 type="button"
                 className="btn btn-primary btn-block waves-effect waves-light"
+                onClick={() => checkout(cart.items, auth.id)}
               >
                 Checkout
               </button>
