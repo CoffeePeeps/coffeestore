@@ -53,9 +53,6 @@ const Cart = ({auth, cart, setCart, handleDelete, checkout, updateCoffee}) => {
           <p>Total: ${cart.total}</p>
         </div>
 
-        {/* <button onClick={
-          () => checkout(cart.items, auth.id)
-        }>Checkout</button> */}
         <StripeCheckout
           token={(token, addresses) => checkout(cart.items, auth.id, token, addresses)}
           stripeKey={process.env.STRIPE_TEST_API_KEY}

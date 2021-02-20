@@ -74,7 +74,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {Login, Signup, Home, User, SingleOrder, Cart, Coffee, 
+import {Login, Signup, Home, User, SingleOrder, Cart, Coffee,
         AdminSingleProductView, AdminAllProductView, AdminAddNewProduct} from './components/index'
 import {me} from './store'
 
@@ -91,8 +91,6 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn, isAdmin} = this.props;
-    console.log('HOME PROPS!!')
-    console.log(this.props);
 
     return (
 // need to add is guest and possibly put that in store
@@ -107,9 +105,9 @@ class Routes extends Component {
             <Route path="/admin/allCoffees" component = {AdminAllProductView}/>
             <Route path="/admin/singleCoffee/:coffeeId" component = {AdminSingleProductView}/>
             <Route path="/admin/addNewCoffee" component = {AdminAddNewProduct}/>
-        </Switch>  
-        ) 
-        : 
+        </Switch>
+        )
+        :
         (isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
@@ -118,7 +116,7 @@ class Routes extends Component {
             <Route path="/user" component={User} />
             <Route path="/orderHistory/:orderId" component={SingleOrder} />
             <Redirect to="/home" />
-          </Switch>  
+          </Switch>
         ) : (
           <Switch>
             <Route path="/login" component={Login} />

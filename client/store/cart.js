@@ -94,7 +94,7 @@ export const addNewCoffee = (quantity, userId, coffeeId) =>{
 
 // used for guest cart
 export const putInGuestCart = (obj) =>{
- 
+
   return async(dispatch)=>{
     for (const property in obj) {
       // console.log(`${property}: ${obj[property]}`);
@@ -117,13 +117,11 @@ const initState = {
 export default function(state = initState, action) {
   switch (action.type) {
     case SET_CART:
-      return {total: subtotal(action.cartList), items: action.cartList}
+      return {total: subtotal(action.cartList), items: action.cartList.sort((a,b) => b.coffeeId - a.coffeeId)}
     case DELETE_ITEM:
       const items = state.items.filter((item) => item.coffeeId !== action.item.id)
-      items.total = subtotal(items)
-      return {total: subtotal(items), items: items}
+      return {total: subtotal(items), items: items.sort((a,b) => b.coffeeId < a.coffeeId)}
     case CHECKOUT_CART:
-      console.log(action, state)
       return action.cart
     default:
       return state
@@ -137,6 +135,5 @@ const subtotal = arr => {
   }
 
   total = Math.round(total*100)/100
-
   return total.toString()
 }
